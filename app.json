@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "travel-app_mobile-only",
+    "slug": "travel-app_mobile-only"
+  }
+}
