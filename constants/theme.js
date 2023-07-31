@@ -26,6 +26,10 @@ const SIZES = {
     xxLarge: 32,
 };
 
+const SHADES = {
+    white04: "rgba(255,255,255,0.4)",
+};
+
 const SHADOWS = {
     small: {
         shadowColor: "#000",
@@ -49,4 +53,4 @@ const SHADOWS = {
     },
 };
 
-export { COLORS, FONT, SIZES, SHADOWS };
+export { COLORS, FONT, SIZES, SHADES, SHADOWS };
