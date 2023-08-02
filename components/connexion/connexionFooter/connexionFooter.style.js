@@ -4,8 +4,15 @@ import { COLORS, FONT, SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
+        backgroundColor: COLORS.white,
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        padding: 8,
+        // height: "100%",
         justifyContent: "center",
+        flexDirection: "row",
+        zIndex: 5,
     },
     questionText: {
         fontSize: SIZES.small,
@@ -13,9 +20,9 @@ const styles = StyleSheet.create({
         fontFamily: FONT.regular,
     },
     linkText: {
+        zIndex: 10,
         fontSize: SIZES.small,
         fontFamily: FONT.bold,
-        color: COLORS.primary,
     },
 });
 

@@ -1,21 +1,31 @@
-// import { useFonts } from "expo-font";
 import LoginLayout from "../components/login/loginLayout/LoginLayout";
-// import { Slot } from "expo-router";
+import {
+    useFonts,
+    Inter_400Regular,
+    Inter_700Bold,
+    Inter_900Black,
+} from "@expo-google-fonts/inter";
+import { Cookie_400Regular } from "@expo-google-fonts/cookie";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
 
-export const unstable_settings = {
-    // Ensure any route can link back to `/`
-    initialRouteName: "index",
-};
+SplashScreen.preventAutoHideAsync();
 
 const Index = () => {
-    // const [fontsLoaded] = useFonts({
-    //     CookieRegular: require("./assets/fonts/Cookie-Regular.ttf"),
-    //     InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
-    //     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
-    //     InterBlack: require("./assets/fonts/Inter-Black.ttf"),
-    // });
-    // if (!fontsLoaded) return <Slot />;
-    return <LoginLayout />;
+    const [fontsLoaded] = useFonts({
+        Inter_400Regular,
+        Inter_700Bold,
+        Inter_900Black,
+        Cookie_400Regular,
+    });
+
+    const onLayoutRootView = useCallback(async () => {
+        if (fontsLoaded) await SplashScreen.hideAsync();
+    }, [fontsLoaded]);
+
+    if (!fontsLoaded) return null;
+
+    return <LoginLayout onLayout={onLayoutRootView} />;
 };
 
 export default Index;

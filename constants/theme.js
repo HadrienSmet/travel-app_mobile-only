@@ -1,6 +1,7 @@
 const COLORS = {
     primary: "#00A7EF",
-    secondary: "#444262",
+    // secondary: "#444262",
+    secondary: "#FF7A00",
     tertiary: "#FF7754",
 
     gray: "rgba(0,0,0,0.5)",
@@ -11,10 +12,10 @@ const COLORS = {
 };
 
 const FONT = {
-    title: "CookieRegular",
-    regular: "InterRegular",
-    bold: "InterBold",
-    black: "InterBlack",
+    title: "Cookie_400Regular",
+    regular: "Inter_400Regular",
+    bold: "Inter_700Bold",
+    black: "Inter_900Black",
 };
 
 const SIZES = {
@@ -28,6 +29,9 @@ const SIZES = {
 
 const SHADES = {
     white04: "rgba(255,255,255,0.4)",
+
+    orange04: "rgba(122,59,0,0.4)",
+    orange065: "rgba(122,59,0,0.65)",
 };
 
 const SHADOWS = {

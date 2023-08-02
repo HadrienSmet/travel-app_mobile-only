@@ -1,17 +1,18 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES, FONT } from "../../../constants";
+import { StyleSheet, Dimensions } from "react-native";
+import { COLORS } from "../../../constants";
+
+const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     headerContainer: { backgroundColor: COLORS.white },
     triangleContainer: {
-        width: "120%",
-        height: 35,
+        width: windowWidth * 2,
+        height: 50,
         backgroundColor: COLORS.white,
         position: "absolute",
-        zIndex: 2,
+        zIndex: 5,
         top: 0,
         left: 0,
-        transform: [{ translateY: -20 }, { rotate: "-5deg" }],
     },
 });
 

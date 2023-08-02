@@ -1,13 +1,19 @@
 import { TextInput } from "react-native";
 import styles from "./connexionInput.style";
 
-const ConnexionInput = ({ inputValue, inputHandler, inputPlaceholder }) => {
+const ConnexionInput = ({
+    inputValue,
+    inputHandler,
+    blurHandler,
+    inputPlaceholder,
+}) => {
     return (
         <TextInput
-            onChange={inputHandler}
+            onChangeText={inputHandler}
             value={inputValue}
             placeholder={inputPlaceholder}
             style={styles.connexionInput}
+            onBlur={blurHandler}
         />
     );
 };
