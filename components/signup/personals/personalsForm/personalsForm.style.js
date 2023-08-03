@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
-import { COLORS, SIZES, FONT } from "../../../constants";
+import { COLORS, SHADES, SIZES } from "../../../../constants";
+// import { COLORS, SIZES, FONT } from "../../../../../constants";
 
 const styles = StyleSheet.create({
     formContainer: {
@@ -8,9 +9,9 @@ const styles = StyleSheet.create({
         width: "100%",
         gap: 55,
     },
-    signupInputsContainer: {
+    personalsInputsContainer: {
         width: "100%",
-        gap: 12,
+        gap: 8,
     },
     iconsContainer: {
         position: "absolute",
@@ -29,19 +30,31 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: SIZES.small,
     },
-    passwordView: {
-        width: "100%",
-        gap: 8,
+    flatListStyle: {
+        height: 48,
+        paddingBottom: 10,
+        paddingTop: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        marginBottom: 16.5,
+        backgroundColor: COLORS.white,
+        borderRadius: 4,
+        borderWidth: 0,
+        alignItems: "center",
     },
-    passwordSecurityBar: {
-        width: "100%",
-        height: 7,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: COLORS.white,
-        overflow: "hidden",
+    dropDownStyle: {
+        backgroundColor: COLORS.white,
+        borderWidth: 0,
+        borderRadius: 4,
     },
-    signupButtonContainer: {
+    labelStyle: {
+        color: SHADES.black04,
+    },
+    itemStyle: {
+        paddingTop: 0,
+        paddingBottom: 0,
+    },
+    personalsButtonContainer: {
         backgroundColor: "transparent",
         justifyContent: "center",
         alignItems: "center",
@@ -51,7 +64,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: COLORS.white,
     },
-    signupButtonText: {
+    personalsButtonText: {
         color: COLORS.white,
         fontWeight: "700",
     },

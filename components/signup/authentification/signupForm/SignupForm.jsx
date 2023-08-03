@@ -1,13 +1,18 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
+
 import styles from "./signupForm.style";
-import ConnexionInput from "../../connexion/connexionInput/ConnexionInput";
+import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+import { useDispatch } from "react-redux";
+import { setSignupData } from "../../../../features/signupData.slice";
+import { useRouter } from "expo-router";
+import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 
 const useSignupEmail = () => {
     const [email, setEmail] = useState("");
     const [isEmailOk, setIsEmailOk] = useState(false);
-    const mailMsgRef = useRef(null);
     const [mailCheckOpacity, setMailCheckOpacity] = useState({ opacity: 0 });
     const [mailTimesOpacity, setMailTimesOpacity] = useState({ opacity: 0 });
     const [mailMessage, setMailMessage] = useState("");
@@ -24,15 +29,11 @@ const useSignupEmail = () => {
         setMailMessage(message);
         setMailCheckOpacity({ opacity: 0 });
         setMailTimesOpacity({ opacity: 1 });
-        console.log(
-            "mailCheckOpacity: " + mailCheckOpacity.opacity,
-            "mailTimesOpacity: " + mailTimesOpacity.opacity
-        );
     };
 
     const handleMail = () => {
         if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-            handleWrongMail("Le mail inséré n'est pas valide");
+            handleWrongMail("invalid mail adress");
         } else {
             // axiosCheckMail(email)
             //     .then((res) => {
@@ -40,7 +41,7 @@ const useSignupEmail = () => {
             //             handleFineMail();
             //         } else {
             //             handleWrongMail(
-            //                 "Le mail existe déjà dans notre base de donnée"
+            //                 "Mail adress already existing"
             //             );
             //         }
             //     })
@@ -80,7 +81,7 @@ const useSignupPassword = () => {
     const handleWrongPassword = () => {
         setIsPasswordOk(false);
         setPasswordMsg(
-            "Minimum de 8 caractères, une majuscule, un chiffre et un caractère spécial"
+            "Need 8 characters minimum including: an uppercase, a lowercase, a digit and a special character"
         );
         setPasswordCheckOpacity({ opacity: 0 });
         setPasswordTimesOpacity({ opacity: 1 });
@@ -92,9 +93,7 @@ const useSignupPassword = () => {
 
     const handleFinePassword = () => {
         setIsPasswordOk(true);
-        setPasswordMsg(
-            "Mot de passe assez fiable. Rajoutez des caractères si vous souhaitez plus de sécurité"
-        );
+        setPasswordMsg("Password strong. Add more characters for more safety");
         setProgressBarBgStyle({
             backgroundColor: "yellow",
             width: "60%",
@@ -105,7 +104,7 @@ const useSignupPassword = () => {
 
     const handleGreatPassword = () => {
         setIsPasswordOk(true);
-        setPasswordMsg("Mot de passe fiable");
+        setPasswordMsg("Strong password");
         setProgressBarBgStyle({
             backgroundColor: "green",
             width: "100%",
@@ -168,35 +167,34 @@ const SignupForm = () => {
         setPassword,
         handlePassword,
     } = useSignupPassword();
+    const dispatch = useDispatch();
+    const router = useRouter();
 
     const handleConfirm = () => {
-        console.log(email, password);
+        if (isEmailOk && isPasswordOk) {
+            const data = {
+                email,
+                password,
+            };
+            dispatch(setSignupData(data));
+            router.push("personals");
+        } else {
+            alert("Those fields are mandatory");
+        }
     };
 
     return (
         <View style={styles.formContainer}>
             <View style={styles.signupInputsContainer}>
-                <View>
-                    <View>
-                        <View style={styles.iconsContainer}>
-                            <FontAwesome
-                                style={[styles.iconStyle, mailCheckOpacity]}
-                                name="check"
-                            />
-                            <FontAwesome
-                                style={[styles.iconStyle, mailTimesOpacity]}
-                                name="times"
-                            />
-                        </View>
-                        <ConnexionInput
-                            inputValue={email}
-                            inputHandler={setEmail}
-                            inputPlaceholder="Email"
-                            blurHandler={handleMail}
-                        />
-                    </View>
-                    <Text style={styles.messageStyle}>{mailMessage}</Text>
-                </View>
+                <ConnexionInputContainer
+                    inputValue={email}
+                    inputHandler={setEmail}
+                    inputPlaceholder="Email"
+                    blurHandler={handleMail}
+                    message={mailMessage}
+                    checkOpacity={mailCheckOpacity}
+                    timesOpacity={mailTimesOpacity}
+                />
                 <View style={styles.passwordView}>
                     <View>
                         <View style={styles.iconsContainer}>

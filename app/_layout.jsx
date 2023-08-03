@@ -1,4 +1,6 @@
 import { Stack } from "expo-router";
+import { Provider } from "react-redux";
+import store from "../store/index";
 
 export const unstable_settings = {
     // Ensure any route can link back to `/`
@@ -7,9 +9,11 @@ export const unstable_settings = {
 
 const Layout = () => {
     return (
-        <Stack>
-            <Stack.Screen name="signup" />
-        </Stack>
+        <Provider store={store}>
+            <Stack>
+                <Stack.Screen name="personals" />
+            </Stack>
+        </Provider>
     );
 };
 

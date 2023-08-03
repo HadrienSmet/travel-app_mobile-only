@@ -1,43 +1,43 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { SIZES, SHADES, FONT, COLORS } from "../../../constants";
+import { COLORS, SHADES, SIZES } from "../../../../constants";
+// import { SIZES, SHADES, FONT, COLORS } from "../../../constants";
 
 const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
-    signupMain: {
+    personalsMain: {
         position: "relative",
         height: "100%",
         width: "100%",
     },
-    signupBackgroundImage: {
+    personalsBackgroundImage: {
         height: "100%",
         width: "100%",
         objectFit: "cover",
         position: "absolute",
     },
-    signupContent: {
+    personalsContent: {
         zIndex: 2,
         position: "absolute",
         height: "100%",
         width: "100%",
-        gap: 75,
+        gap: 35,
         paddingLeft: windowWidth / 8,
         paddingRight: windowWidth / 8,
-        backgroundColor: SHADES.orange04,
+        backgroundColor: SHADES.orange055,
         justifyContent: "center",
         alignItems: "center",
     },
-    signupTitle: {
+    personalsTitle: {
         fontFamily: "Cookie_400Regular",
         fontSize: SIZES.xLarge,
         color: COLORS.white,
         fontWeight: "900",
         textAlign: "center",
     },
-    signupSubTitle: {
-        width: "100%",
+    personalsSubTitle: {
         color: COLORS.white,
-        textAlign: "left",
+        textAlign: "center",
     },
 });
 

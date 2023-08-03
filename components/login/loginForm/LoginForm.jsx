@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
 
     const handlePress = () => {
-        router.push("signup");
+        router.push("personals");
     };
 
     return (

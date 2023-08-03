@@ -9,11 +9,13 @@ const SignupMain = () => {
             <Image
                 blurRadius={3}
                 style={styles.signupBackgroundImage}
-                source={require("../../../assets/images/post-bangladesh.jpg")}
+                source={require("../../../../assets/images/post-bangladesh.jpg")}
             />
             <View style={styles.signupContent}>
                 <View>
-                    <Text style={styles.signupTitle}>Welcome new user!</Text>
+                    <Text style={styles.signupTitle}>
+                        Welcome fellow traveler!
+                    </Text>
                     <Text style={styles.signupSubTitle}>
                         Define your email and password
                     </Text>

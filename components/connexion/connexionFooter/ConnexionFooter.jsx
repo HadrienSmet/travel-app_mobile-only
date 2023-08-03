@@ -12,7 +12,7 @@ const ConnexionFooter = ({ firstWord, link }) => {
     };
 
     const handlePress = () => {
-        const route = link === "Sign Up" ? "/signup" : "/";
+        const route = link === "Sign Up" ? "/authentification" : "/";
         router.push(route);
     };
 

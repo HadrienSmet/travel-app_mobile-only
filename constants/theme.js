@@ -7,6 +7,7 @@ const COLORS = {
     gray: "rgba(0,0,0,0.5)",
     gray2: "#C1C0C8",
 
+    black: "rgb(0,0,0)",
     white: "#F3F4F8",
     lightWhite: "#FAFAFC",
 };
@@ -30,7 +31,10 @@ const SIZES = {
 const SHADES = {
     white04: "rgba(255,255,255,0.4)",
 
+    black04: "rgba(0,0,0,0.4)",
+
     orange04: "rgba(122,59,0,0.4)",
+    orange055: "rgba(122,59,0,0.55)",
     orange065: "rgba(122,59,0,0.65)",
 };
 
