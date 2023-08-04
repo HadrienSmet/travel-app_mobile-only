@@ -1,10 +1,18 @@
 {
-  "expo": {
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
-    },
-    "name": "travel-app_mobile-only",
-    "slug": "travel-app_mobile-only"
-  }
+    "expo": {
+        "scheme": "acme",
+        "web": {
+            "bundler": "metro"
+        },
+        "name": "travel-app_mobile-only",
+        "plugins": [
+            [
+                "expo-image-picker",
+                {
+                    "photosPermission": "The app accesses your photos to let you share them with your friends."
+                }
+            ]
+        ],
+        "slug": "travel-app_mobile-only"
+    }
 }

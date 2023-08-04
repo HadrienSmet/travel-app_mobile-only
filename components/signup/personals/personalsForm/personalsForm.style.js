@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        gap: 55,
+        gap: 25,
     },
     personalsInputsContainer: {
         width: "100%",

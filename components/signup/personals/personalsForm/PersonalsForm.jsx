@@ -10,6 +10,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { useAgeArray } from "../../../../hooks/useAgeArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 import { COLORS, SHADES, nationalitiesArray } from "../../../../constants";
+import { useRouter } from "expo-router";
 
 const usePersonalsFirstname = () => {
     const [firstname, setFirstname] = useState("");
@@ -168,26 +169,28 @@ const PersonalsForm = () => {
     const { country, countriesArray, setCountry } = usePersonalsCountry();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.newSignupData.signupData);
+    const router = useRouter();
 
     const handlePersonals = () => {
-        if (
-            isFirstnameOk &&
-            isLastnameOk &&
-            age !== 0 &&
-            country !== "" &&
-            nationality !== ""
-        ) {
-            const data = {
-                firstname,
-                lastname,
-                age,
-                country,
-                nationality,
-            };
-            dispatch(setSignupData(data));
-        } else {
-            alert("Those fields are required");
-        }
+        router.push("profilePicture");
+        // if (
+        //     isFirstnameOk &&
+        //     isLastnameOk &&
+        //     age !== 0 &&
+        //     country !== "" &&
+        //     nationality !== ""
+        // ) {
+        //     const data = {
+        //         firstname,
+        //         lastname,
+        //         age,
+        //         country,
+        //         nationality,
+        //     };
+        //     dispatch(setSignupData(data));
+        // } else {
+        //     alert("Those fields are required");
+        // }
     };
 
     useEffect(() => {

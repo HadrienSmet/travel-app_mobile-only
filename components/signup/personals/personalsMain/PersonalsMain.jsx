@@ -7,7 +7,7 @@ const PersonalsMain = () => {
     return (
         <View style={styles.personalsMain}>
             <Image
-                blurRadius={3}
+                blurRadius={4}
                 style={styles.personalsBackgroundImage}
                 source={require("../../../../assets/images/post-bangladesh.jpg")}
             />
