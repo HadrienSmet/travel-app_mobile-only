@@ -172,25 +172,25 @@ const PersonalsForm = () => {
     const router = useRouter();
 
     const handlePersonals = () => {
-        router.push("profilePicture");
-        // if (
-        //     isFirstnameOk &&
-        //     isLastnameOk &&
-        //     age !== 0 &&
-        //     country !== "" &&
-        //     nationality !== ""
-        // ) {
-        //     const data = {
-        //         firstname,
-        //         lastname,
-        //         age,
-        //         country,
-        //         nationality,
-        //     };
-        //     dispatch(setSignupData(data));
-        // } else {
-        //     alert("Those fields are required");
-        // }
+        if (
+            isFirstnameOk &&
+            isLastnameOk &&
+            age !== 0 &&
+            country !== "" &&
+            nationality !== ""
+        ) {
+            const data = {
+                firstname,
+                lastname,
+                age,
+                country,
+                nationality,
+            };
+            dispatch(setSignupData(data));
+            router.push("profilePicture");
+        } else {
+            alert("Those fields are required");
+        }
     };
 
     useEffect(() => {

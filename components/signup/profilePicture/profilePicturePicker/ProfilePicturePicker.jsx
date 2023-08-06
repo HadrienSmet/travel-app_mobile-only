@@ -2,24 +2,50 @@ import React, { useState } from "react";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import styles from "./profilePicturePicker.style";
+import { useSelector } from "react-redux";
+import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
+import { setJwtToken } from "../../../../utils/functions/setJwtToken";
+import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
+    const userData = useSelector((state) => state.newSignupData.signupData);
 
     const pickProfilePicture = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [3, 4],
             quality: 1,
         });
 
-        console.log(result);
-
         if (!result.canceled) {
+            console.log(result.assets[0]);
             setProfilePicture(result.assets[0].uri);
         } else {
             alert("Canceled");
+        }
+    };
+
+    const handleConfirm = () => {
+        if (profilePicture) {
+            const formData = new FormData();
+            formData.append("file", {
+                uri: profilePicture,
+                name: `${userData.firstname}_${userData.lastname}_profile.jpg`,
+            });
+            axiosPostUserSignupData(userData)
+                .then((res) => {
+                    setJwtToken(res.data);
+                    axiosPutCoverPicture(res, formData)
+                        .then((res) => {
+                            console.log(res);
+                        })
+                        .catch((err) => console.log(err));
+                })
+                .catch((err) => console.log(err));
+        } else {
+            alert("Are you sure you dont want to set a picture?");
         }
     };
 
@@ -44,7 +70,10 @@ const ProfilePicturePicker = () => {
                 </Text>
             </TouchableOpacity>
             {profilePicture && (
-                <TouchableOpacity style={styles.profilePictureButtonContainer}>
+                <TouchableOpacity
+                    onPress={handleConfirm}
+                    style={styles.profilePictureButtonContainer}
+                >
                     <Text style={styles.profilePictureButtonText}>Confirm</Text>
                 </TouchableOpacity>
             )}
