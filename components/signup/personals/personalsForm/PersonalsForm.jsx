@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { View, TouchableOpacity, Text, FlatList } from "react-native";
+import { useState } from "react";
+import { View, TouchableOpacity, Text } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setSignupData } from "../../../../features/signupData.slice";
@@ -147,10 +147,6 @@ const usePersonalsCountry = () => {
     };
 };
 
-// const usePersonalsNationality = () => {
-
-// }
-
 const PersonalsForm = () => {
     const [nationality, setNationality] = useState("");
     const {
@@ -175,7 +171,6 @@ const PersonalsForm = () => {
     const { age, ageArray, setAge } = usePersonalsAge();
     const { country, countriesArray, setCountry } = usePersonalsCountry();
     const dispatch = useDispatch();
-    const userData = useSelector((state) => state.newSignupData.signupData);
     const router = useRouter();
 
     const handlePersonals = () => {

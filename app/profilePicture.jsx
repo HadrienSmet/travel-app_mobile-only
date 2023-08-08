@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import ConnexionHeader from "../components/connexion/connexionHeader/ConnexionHeader";
 import ConnexionFooter from "../components/connexion/connexionFooter/ConnexionFooter";
 import ProfilePictureMain from "../components/signup/profilePicture/profilePictureMain/ProfilePictureMain";

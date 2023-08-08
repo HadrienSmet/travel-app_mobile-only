@@ -8,6 +8,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useDispatch } from "react-redux";
 import { setSignupData } from "../../../../features/signupData.slice";
 import { useRouter } from "expo-router";
+import { axiosCheckMail } from "../../../../utils/axios/user/axiosCheckMail";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 
 const useSignupEmail = () => {
@@ -35,20 +36,15 @@ const useSignupEmail = () => {
         if (!email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
             handleWrongMail("invalid mail adress");
         } else {
-            // axiosCheckMail(email)
-            //     .then((res) => {
-            //         if (res.data === null) {
-            //             handleFineMail();
-            //         } else {
-            //             handleWrongMail(
-            //                 "Mail adress already existing"
-            //             );
-            //         }
-            //     })
-            //     .catch((err) => {
-            //         handleFineMail();
-            //     });
-            handleFineMail();
+            axiosCheckMail(email)
+                .then((res) => {
+                    if (res.data === null) {
+                        handleFineMail();
+                    } else {
+                        handleWrongMail("Mail adress already existing");
+                    }
+                })
+                .catch(() => handleFineMail());
         }
     };
 

@@ -6,10 +6,12 @@ import { useSelector } from "react-redux";
 import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
 import { saveJwtToken } from "../../../../utils/functions/saveJwtToken";
 import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
+import { useRouter } from "expo-router";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
     const userData = useSelector((state) => state.newSignupData.signupData);
+    const router = useRouter();
 
     const pickProfilePicture = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -41,6 +43,7 @@ const ProfilePicturePicker = () => {
                     axiosPutCoverPicture(res, formData)
                         .then((res) => {
                             console.log(res);
+                            router.push("/home");
                         })
                         .catch((err) => console.log(err));
                 })
@@ -51,6 +54,7 @@ const ProfilePicturePicker = () => {
                 .then((res) => {
                     console.log(res);
                     saveJwtToken(res.data);
+                    router.push("/home");
                 })
                 .catch((err) => console.log(err));
         }

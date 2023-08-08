@@ -21,9 +21,6 @@ const ProfilePictureMain = () => {
                     <Text style={styles.profilePictureTitle}>
                         Define your profile picture!
                     </Text>
-                    {/* <Text style={styles.personalsSubTitle}>
-                        Define your email and password
-                    </Text> */}
                 </View>
                 <ProfilePicturePicker />
             </View>

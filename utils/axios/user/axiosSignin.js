@@ -1,8 +1,8 @@
 import axios from "axios";
+import { API_URL } from "@env";
 
 export const axiosSignIn = async (data) => {
-    const url = import.meta.env.VITE_REACT_APP_API_URL;
-    return await axios.post(`${url}api/auth/login`, data, {
+    return await axios.post(`${API_URL}api/auth/login`, data, {
         "Content-Type": "application/json",
     });
 };

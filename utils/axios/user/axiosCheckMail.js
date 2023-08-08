@@ -1,8 +1,8 @@
 import axios from "axios";
+import { API_URL } from "@env";
 
 export const axiosCheckMail = async (email) => {
-    const url = import.meta.env.VITE_REACT_APP_API_URL;
-    return await axios.get(`${url}api/auth/checkMail/${email}`, {
+    return await axios.get(`${API_URL}api/auth/checkMail/${email}`, {
         "Content-Type": "application/json",
     });
 };

@@ -2,7 +2,6 @@ import { Stack } from "expo-router";
 import { View, Dimensions } from "react-native";
 import { withAnchorPoint } from "react-native-anchor-point";
 
-import LeftButton from "./leftButton/LeftButton";
 import styles from "./connexionHeader.style";
 import TravelAppSvg from "../../common/travelappSvg/TravelappSvg";
 

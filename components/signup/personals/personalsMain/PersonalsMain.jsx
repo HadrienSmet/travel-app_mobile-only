@@ -16,9 +16,6 @@ const PersonalsMain = () => {
                     <Text style={styles.personalsTitle}>
                         Set your personals data
                     </Text>
-                    {/* <Text style={styles.personalsSubTitle}>
-                        Define your email and password
-                    </Text> */}
                 </View>
                 <PersonalsForm />
             </View>
