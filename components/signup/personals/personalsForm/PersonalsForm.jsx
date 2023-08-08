@@ -120,6 +120,12 @@ const usePersonalsLastname = () => {
     };
 };
 
+const usePersonalsGender = () => {
+    const [gender, setGender] = useState("");
+    const genderArray = ["Men", "Women", "Other"];
+    return { genderArray, gender, setGender };
+};
+
 const usePersonalsAge = () => {
     const [age, setAge] = useState(0);
     const { ageArray } = useAgeArray();
@@ -165,6 +171,7 @@ const PersonalsForm = () => {
         setLastname,
         handleLastname,
     } = usePersonalsLastname();
+    const { genderArray, gender, setGender } = usePersonalsGender();
     const { age, ageArray, setAge } = usePersonalsAge();
     const { country, countriesArray, setCountry } = usePersonalsCountry();
     const dispatch = useDispatch();
@@ -175,6 +182,7 @@ const PersonalsForm = () => {
         if (
             isFirstnameOk &&
             isLastnameOk &&
+            gender !== "" &&
             age !== 0 &&
             country !== "" &&
             nationality !== ""
@@ -182,6 +190,7 @@ const PersonalsForm = () => {
             const data = {
                 firstname,
                 lastname,
+                gender,
                 age,
                 country,
                 nationality,
@@ -192,10 +201,6 @@ const PersonalsForm = () => {
             alert("Those fields are required");
         }
     };
-
-    useEffect(() => {
-        console.log(userData);
-    }, [userData]);
 
     return (
         <View style={styles.formContainer}>
@@ -222,17 +227,34 @@ const PersonalsForm = () => {
                     boxStyles={styles.flatListStyle}
                     dropdownStyles={styles.dropDownStyle}
                     inputStyles={
+                        gender === ""
+                            ? { color: SHADES.black04 }
+                            : { color: COLORS.black }
+                    }
+                    data={genderArray}
+                    search={false}
+                    save="value"
+                    setSelected={(val) => setGender(val)}
+                    label="Gender"
+                    placeholder="Gender"
+                />
+                <SelectList
+                    boxStyles={styles.flatListStyle}
+                    dropdownStyles={styles.dropDownStyle}
+                    inputStyles={
                         age === 0
                             ? { color: SHADES.black04 }
                             : { color: COLORS.black }
                     }
                     data={ageArray}
+                    search={false}
                     save="value"
                     setSelected={(val) => setAge(val)}
                     label="Age"
                     placeholder="Age"
                 />
                 <SelectList
+                    search={false}
                     boxStyles={styles.flatListStyle}
                     dropdownStyles={styles.dropDownStyle}
                     inputStyles={
@@ -247,6 +269,7 @@ const PersonalsForm = () => {
                     placeholder="Country of Residence"
                 />
                 <SelectList
+                    search={false}
                     boxStyles={styles.flatListStyle}
                     dropdownStyles={styles.dropDownStyle}
                     inputStyles={

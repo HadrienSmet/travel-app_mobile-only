@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import styles from "./profilePicturePicker.style";
 import { useSelector } from "react-redux";
 import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
-import { setJwtToken } from "../../../../utils/functions/setJwtToken";
+import { saveJwtToken } from "../../../../utils/functions/saveJwtToken";
 import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
 
 const ProfilePicturePicker = () => {
@@ -36,7 +36,8 @@ const ProfilePicturePicker = () => {
             });
             axiosPostUserSignupData(userData)
                 .then((res) => {
-                    setJwtToken(res.data);
+                    console.log(res);
+                    saveJwtToken(res.data);
                     axiosPutCoverPicture(res, formData)
                         .then((res) => {
                             console.log(res);
@@ -46,6 +47,12 @@ const ProfilePicturePicker = () => {
                 .catch((err) => console.log(err));
         } else {
             alert("Are you sure you dont want to set a picture?");
+            axiosPostUserSignupData(userData)
+                .then((res) => {
+                    console.log(res);
+                    saveJwtToken(res.data);
+                })
+                .catch((err) => console.log(err));
         }
     };
 
@@ -69,12 +76,21 @@ const ProfilePicturePicker = () => {
                         : "Choose a profile picture"}
                 </Text>
             </TouchableOpacity>
-            {profilePicture && (
+            {profilePicture ? (
                 <TouchableOpacity
                     onPress={handleConfirm}
                     style={styles.profilePictureButtonContainer}
                 >
                     <Text style={styles.profilePictureButtonText}>Confirm</Text>
+                </TouchableOpacity>
+            ) : (
+                <TouchableOpacity
+                    onPress={handleConfirm}
+                    style={styles.profilePictureButtonContainer}
+                >
+                    <Text style={styles.profilePictureButtonText}>
+                        Continue without picture
+                    </Text>
                 </TouchableOpacity>
             )}
         </View>

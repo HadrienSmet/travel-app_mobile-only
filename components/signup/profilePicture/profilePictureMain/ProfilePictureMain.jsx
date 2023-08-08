@@ -1,8 +1,14 @@
 import { Image, Text, View } from "react-native";
+import { API_URL } from "@env";
 import ProfilePicturePicker from "../profilePicturePicker/ProfilePicturePicker";
 import styles from "./profilePictureMain.style";
+import { useEffect } from "react";
 
 const ProfilePictureMain = () => {
+    useEffect(() => {
+        console.log("api url: " + API_URL);
+    }, []);
+
     return (
         <View style={styles.profilePictureMain}>
             <Image

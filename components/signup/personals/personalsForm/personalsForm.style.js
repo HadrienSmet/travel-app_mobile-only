@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        gap: 25,
+        gap: 8,
     },
     personalsInputsContainer: {
         width: "100%",
-        gap: 8,
+        gap: 4,
     },
     iconsContainer: {
         position: "absolute",
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     dropDownStyle: {
+        position: "absolute",
+        top: 48,
+        zIndex: 10,
+        width: "100%",
         backgroundColor: COLORS.white,
         borderWidth: 0,
         borderRadius: 4,

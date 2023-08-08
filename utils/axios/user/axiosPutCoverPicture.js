@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "@env";
 
 export const axiosPutCoverPicture = async (userId, data, token) => {
-    const url = process.env.VITE_REACT_APP_API_URL;
+    const url = API_URL;
     return await axios({
         url: `${url}api/auth/setCoverPicture/${userId}`,
         method: "put",
