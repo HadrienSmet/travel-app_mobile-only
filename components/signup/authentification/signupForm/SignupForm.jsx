@@ -186,6 +186,7 @@ const SignupForm = () => {
                     inputValue={email}
                     inputHandler={setEmail}
                     inputPlaceholder="Email"
+                    inputMode="email"
                     blurHandler={handleMail}
                     message={mailMessage}
                     checkOpacity={mailCheckOpacity}

@@ -266,7 +266,15 @@ const PersonalsForm = () => {
                 <SelectList
                     search={false}
                     boxStyles={styles.flatListStyle}
-                    dropdownStyles={styles.dropDownStyle}
+                    dropdownStyles={[
+                        styles.dropDownStyle,
+                        {
+                            position: "relative",
+                            top: -10,
+                            zIndex: 20,
+                            marginBottom: 80,
+                        },
+                    ]}
                     inputStyles={
                         nationality === ""
                             ? { color: SHADES.black04 }

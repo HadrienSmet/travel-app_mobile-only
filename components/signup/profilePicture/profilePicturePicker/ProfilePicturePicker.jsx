@@ -7,6 +7,7 @@ import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostU
 import { saveJwtToken } from "../../../../utils/functions/saveJwtToken";
 import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
 import { useRouter } from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
@@ -17,7 +18,7 @@ const ProfilePicturePicker = () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [3, 4],
+            aspect: [1],
             quality: 1,
         });
 
@@ -68,7 +69,9 @@ const ProfilePicturePicker = () => {
                     style={styles.profilePicture}
                 />
             ) : (
-                <View style={styles.defaultArea}></View>
+                <View style={styles.defaultArea}>
+                    <FontAwesome style={styles.iconStyle} name="user" />
+                </View>
             )}
             <TouchableOpacity
                 style={styles.profilePictureButtonContainer}

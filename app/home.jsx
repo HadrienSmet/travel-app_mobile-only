@@ -1,10 +1,12 @@
-import { Text, View } from "react-native";
+import { SafeAreaView, Text } from "react-native";
+import AppHeader from "../components/common/appHeader/AppHeader";
 
 const home = () => {
     return (
-        <View style={{ height: "100%" }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+            <AppHeader />
             <Text>Home Page</Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

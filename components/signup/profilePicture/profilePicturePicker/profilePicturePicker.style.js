@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { COLORS } from "../../../../constants";
+import { COLORS, SHADES } from "../../../../constants";
 
 const windowHeight = Dimensions.get("window").height;
 
@@ -18,14 +18,21 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         height: windowHeight * 0.4,
         borderRadius: 8,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    iconStyle: {
+        fontSize: 116,
+        color: SHADES.black04,
+        zIndex: 10,
     },
     profilePictureButtonContainer: {
         backgroundColor: "transparent",
         borderWidth: 2,
         borderColor: COLORS.white,
         borderRadius: 4,
-        paddingBottom: 10,
-        paddingTop: 10,
+        paddingBottom: 8,
+        paddingTop: 8,
     },
     profilePictureButtonText: {
         color: COLORS.white,

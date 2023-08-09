@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         height: "100%",
         width: "100%",
-        gap: 35,
+        gap: 24,
         paddingLeft: windowWidth / 8,
         paddingRight: windowWidth / 8,
         backgroundColor: SHADES.orange055,

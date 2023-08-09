@@ -35,6 +35,7 @@ const LoginForm = () => {
                     inputHandler={setMail}
                     inputPlaceholder="Email"
                     blurHandler={undefined}
+                    borderColor="blue"
                 />
                 <View style={styles.passwordView}>
                     <ConnexionInput
@@ -42,6 +43,7 @@ const LoginForm = () => {
                         inputHandler={setPassword}
                         inputPlaceholder="Password"
                         blurHandler={undefined}
+                        borderColor="blue"
                     />
                     <Text style={styles.forgetPasswordText}>
                         Forgot password?
