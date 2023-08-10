@@ -10,15 +10,18 @@ const ConnexionInput = ({
     inputPlaceholder,
     blurHandler,
     borderColor,
+    needToSecure,
 }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [focusStyle, setFocusStyle] = useState(null);
+
     const inputBorder =
         borderColor === "blue" ? COLORS.primary : COLORS.secondary;
+    const isPassword = needToSecure === undefined ? false : true;
 
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => {
-        blurHandler();
+        blurHandler !== undefined && blurHandler();
         setIsFocused(false);
     };
 
@@ -39,6 +42,7 @@ const ConnexionInput = ({
             style={[styles.connexionInput, isFocused && focusStyle]}
             onBlur={handleBlur}
             onFocus={handleFocus}
+            secureTextEntry={isPassword}
         />
     );
 };

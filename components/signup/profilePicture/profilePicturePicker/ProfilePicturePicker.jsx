@@ -11,7 +11,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
-    const userData = useSelector((state) => state.newSignupData.signupData);
+    const userData = useSelector((state) => state.newUserData.userData);
     const router = useRouter();
 
     const pickProfilePicture = async () => {

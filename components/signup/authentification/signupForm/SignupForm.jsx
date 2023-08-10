@@ -6,7 +6,7 @@ import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { useDispatch } from "react-redux";
-import { setSignupData } from "../../../../features/signupData.slice";
+import { setUserData } from "../../../../features/userData.slice";
 import { useRouter } from "expo-router";
 import { axiosCheckMail } from "../../../../utils/axios/user/axiosCheckMail";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
@@ -172,7 +172,7 @@ const SignupForm = () => {
                 email,
                 password,
             };
-            dispatch(setSignupData(data));
+            dispatch(setUserData(data));
             router.push("personals");
         } else {
             alert("Those fields are mandatory");
@@ -209,6 +209,7 @@ const SignupForm = () => {
                             inputHandler={setPassword}
                             inputPlaceholder="Password"
                             blurHandler={handlePassword}
+                            needToSecure={true}
                         />
                     </View>
                     <View style={styles.passwordSecurityBar}>

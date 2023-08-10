@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signupDataSlice from "../features/signupData.slice";
+import userDataSlice from "../features/userData.slice";
 
 export default configureStore({
     reducer: {
-        newSignupData: signupDataSlice,
+        newUserData: userDataSlice,
     },
 });

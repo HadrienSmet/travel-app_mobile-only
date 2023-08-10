@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSignupData } from "../../../../features/signupData.slice";
+import { setUserData } from "../../../../features/userData.slice";
 
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 import styles from "./personalsForm.style";
@@ -190,7 +190,7 @@ const PersonalsForm = () => {
                 country,
                 nationality,
             };
-            dispatch(setSignupData(data));
+            dispatch(setUserData(data));
             router.push("profilePicture");
         } else {
             alert("Those fields are required");

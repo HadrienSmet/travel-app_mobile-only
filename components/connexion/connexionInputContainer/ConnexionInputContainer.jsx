@@ -13,6 +13,7 @@ const ConnexionInputContainer = ({
     checkOpacity,
     timesOpacity,
     borderColor,
+    needToSecure,
 }) => {
     return (
         <View>
@@ -34,6 +35,7 @@ const ConnexionInputContainer = ({
                     inputMode={inputMode}
                     blurHandler={blurHandler}
                     borderColor={borderColor}
+                    needToSecure={needToSecure}
                 />
             </View>
             <Text style={styles.messageStyle}>{message}</Text>

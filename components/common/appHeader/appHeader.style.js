@@ -1,5 +1,8 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../../constants";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     headerContainer: { backgroundColor: COLORS.white },
 });
+
+export default styles;

@@ -3,6 +3,7 @@ import { View } from "react-native";
 
 import styles from "./appHeader.style";
 import TravelAppSvg from "../travelappSvg/TravelappSvg";
+import RightButtons from "./rightButtons/RightButtons";
 
 const AppHeader = () => {
     return (
@@ -13,6 +14,7 @@ const AppHeader = () => {
                     headerShadowVisible: false,
                     headerLeft: () => <TravelAppSvg />,
                     headerTitle: "",
+                    headerRight: () => <RightButtons />,
                 }}
             />
         </View>

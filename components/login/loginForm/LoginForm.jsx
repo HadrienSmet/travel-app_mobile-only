@@ -7,9 +7,12 @@ import { saveJwtToken } from "../../../utils/functions/saveJwtToken";
 
 import ConnexionInput from "../../connexion/connexionInput/ConnexionInput";
 import styles from "./loginForm.style";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../../features/userData.slice";
 
 const LoginForm = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const [email, setMail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -19,6 +22,8 @@ const LoginForm = () => {
             axiosSignIn(data)
                 .then((res) => {
                     saveJwtToken(res.data);
+                    // res.data.delete("token");
+                    dispatch(setUserData(res.data));
                     router.push("/home");
                 })
                 .catch((err) => console.log(err));
@@ -44,6 +49,7 @@ const LoginForm = () => {
                         inputPlaceholder="Password"
                         blurHandler={undefined}
                         borderColor="blue"
+                        needToSecure={true}
                     />
                     <Text style={styles.forgetPasswordText}>
                         Forgot password?
