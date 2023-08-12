@@ -1,13 +1,17 @@
-import { SafeAreaView, Text } from "react-native";
+import { useState } from "react";
+import { SafeAreaView } from "react-native";
 import { COLORS } from "../constants";
+import AppFooter from "../components/common/appFooter/AppFooter";
 import AppHeader from "../components/common/appHeader/AppHeader";
 import HomeMain from "../components/home/homeMain/HomeMain";
 
 const home = () => {
+    const [homeState, setHomeState] = useState("profile");
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <AppHeader />
-            <HomeMain />
+            <HomeMain homeState={homeState} />
+            <AppFooter />
         </SafeAreaView>
     );
 };

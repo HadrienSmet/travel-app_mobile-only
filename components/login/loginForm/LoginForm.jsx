@@ -18,11 +18,10 @@ const LoginForm = () => {
 
     const handlePress = () => {
         if (email !== "" && password !== "") {
-            const data = { email, password };
+            const data = { email: email.toLowerCase(), password };
             axiosSignIn(data)
                 .then((res) => {
                     saveJwtToken(res.data);
-                    // res.data.delete("token");
                     dispatch(setUserData(res.data));
                     router.push("/home");
                 })

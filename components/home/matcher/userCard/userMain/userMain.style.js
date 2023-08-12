@@ -4,7 +4,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     userMainStyle: {
-        height: windowHeight - 256,
+        height: windowHeight - 248,
         width: "100%",
         position: "relative",
         alignItems: "center",

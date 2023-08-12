@@ -1,8 +1,10 @@
 const COLORS = {
     primary: "#00A7EF",
-    // secondary: "#444262",
     secondary: "#FF7A00",
-    tertiary: "#FF7754",
+    tertiary: "#FF00A8",
+
+    refusal: "#E20A0A",
+    approval: "#6BBF44",
 
     gray: "rgba(0,0,0,0.5)",
     gray2: "#C1C0C8",
@@ -31,7 +33,9 @@ const SIZES = {
 const SHADES = {
     white04: "rgba(255,255,255,0.4)",
 
+    black02: "rgba(0,0,0,0.2)",
     black04: "rgba(0,0,0,0.4)",
+    black07: "rgba(0,0,0,0.7)",
 
     orange04: "rgba(122,59,0,0.4)",
     orange055: "rgba(122,59,0,0.55)",

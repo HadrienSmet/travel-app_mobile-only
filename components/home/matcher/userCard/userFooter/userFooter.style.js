@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: "100%",
         paddingTop: 12,
-        paddingBottom: 32,
+        paddingBottom: 36,
         paddingLeft: 24,
         paddingRight: 24,
         backgroundColor: SHADES.black04,

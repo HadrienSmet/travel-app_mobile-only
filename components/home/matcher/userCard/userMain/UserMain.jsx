@@ -5,7 +5,6 @@ const UserMain = () => {
     return (
         <View style={styles.userMainStyle}>
             <Image
-                // source={require("../../../../../assets/images/post-bangladesh.jpg")}
                 source={require("../../../../../assets/images/post-bangladesh.jpg")}
                 style={styles.imageStyle}
             />

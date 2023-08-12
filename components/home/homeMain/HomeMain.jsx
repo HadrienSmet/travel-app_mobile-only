@@ -1,14 +1,12 @@
 import { View } from "react-native";
-import UserCard from "../matcher/userCard/UserCard";
-import ButtonsRow from "../matcher/buttonsRow/ButtonsRow";
+import Matcher from "../matcher/Matcher";
+import Profile from "../profile/Profile";
 
-const HomeMain = () => {
+const HomeMain = ({ homeState }) => {
     return (
         <View>
-            <View>
-                <UserCard />
-                <ButtonsRow />
-            </View>
+            {homeState === "matcher" && <Matcher />}
+            {homeState === "profile" && <Profile />}
         </View>
     );
 };

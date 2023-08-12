@@ -169,7 +169,7 @@ const SignupForm = () => {
     const handleConfirm = () => {
         if (isEmailOk && isPasswordOk) {
             const data = {
-                email,
+                email: email.toLowerCase(),
                 password,
             };
             dispatch(setUserData(data));
