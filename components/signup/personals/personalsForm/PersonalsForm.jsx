@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { useRouter } from "expo-router";
+import { View, TouchableOpacity, Text, Platform } from "react-native";
+import { SelectList } from "react-native-dropdown-select-list";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserData } from "../../../../features/userData.slice";
 
-import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
-import styles from "./personalsForm.style";
-import { SelectList } from "react-native-dropdown-select-list";
 import { useAgeArray } from "../../../../hooks/useAgeArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
+import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
+
 import { COLORS, SHADES, nationalitiesArray } from "../../../../constants";
-import { useRouter } from "expo-router";
+import styles from "./personalsForm.style";
+// import DatePicker from "./datePicker/DatePicker";
 
 const usePersonalsFirstname = () => {
     const [firstname, setFirstname] = useState("");
@@ -136,6 +138,28 @@ const usePersonalsAge = () => {
         setAge,
     };
 };
+const usePersonalsDate = () => {
+    const [date, setDate] = useState(undefined);
+    const [dateOfBirth, setDateOfBirth] = useState(undefined);
+    const [showPicker, setShowPicker] = useState(false);
+
+    const togglePicker = () => setShowPicker((state) => !state);
+    const changeDate = ({ type }, selectedDate) => {
+        if (type == "set") {
+            const currentDate = selectedDate;
+            setDate(currentDate);
+
+            if (Platform.OS === "android") {
+                togglePicker();
+                setDateOfBirth(currentDate.toDateString());
+            }
+        } else {
+            togglePicker();
+        }
+    };
+
+    return { date, changeDate };
+};
 const usePersonalsCountry = () => {
     const { countriesArray } = useCountryArray();
     const [country, setCountry] = useState("");
@@ -169,6 +193,7 @@ const PersonalsForm = () => {
     } = usePersonalsLastname();
     const { genderArray, gender, setGender } = usePersonalsGender();
     const { age, ageArray, setAge } = usePersonalsAge();
+    // const { date, changeDate } = usePersonalsDate();
     const { country, countriesArray, setCountry } = usePersonalsCountry();
     const dispatch = useDispatch();
     const router = useRouter();
@@ -248,6 +273,7 @@ const PersonalsForm = () => {
                     label="Age"
                     placeholder="Age"
                 />
+                {/* <DatePicker /> */}
                 <SelectList
                     search={false}
                     boxStyles={styles.flatListStyle}

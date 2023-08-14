@@ -39,7 +39,7 @@ const LoginForm = () => {
                     inputHandler={setMail}
                     inputPlaceholder="Email"
                     blurHandler={undefined}
-                    borderColor="blue"
+                    borderFocusColor="blue"
                 />
                 <View style={styles.passwordView}>
                     <ConnexionInput
@@ -47,7 +47,7 @@ const LoginForm = () => {
                         inputHandler={setPassword}
                         inputPlaceholder="Password"
                         blurHandler={undefined}
-                        borderColor="blue"
+                        borderFocusColor="blue"
                         needToSecure={true}
                     />
                     <Text style={styles.forgetPasswordText}>

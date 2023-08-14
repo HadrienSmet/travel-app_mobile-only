@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ProfileHeader from "./profileHeader/ProfileHeader";
 import ProfileMain from "./profileMain/ProfileMain";
 import { useState } from "react";
+import ProfileForm from "./profileForm/ProfileForm";
 
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -20,14 +21,18 @@ const Profile = () => {
                 onTravel={userData.onTravel}
                 travelerType={userData.travelerType}
             />
-            <ProfileMain
-                description={userData.description}
-                dreamTrips={userData.dreamTrips}
-                previousTrips={userData.previousTrips}
-                albums={userData.albums}
-                friends={userData.friends}
-                handleEdit={handleEdit}
-            />
+            {isEditing ? (
+                <ProfileForm />
+            ) : (
+                <ProfileMain
+                    description={userData.description}
+                    dreamTrips={userData.dreamTrips}
+                    previousTrips={userData.previousTrips}
+                    albums={userData.albums}
+                    friends={userData.friends}
+                    handleEdit={handleEdit}
+                />
+            )}
         </View>
     );
 };

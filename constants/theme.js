@@ -40,6 +40,8 @@ const SHADES = {
     orange04: "rgba(122,59,0,0.4)",
     orange055: "rgba(122,59,0,0.55)",
     orange065: "rgba(122,59,0,0.65)",
+
+    pink04: "rgba(255, 0, 168, 0.4)",
 };
 
 const SHADOWS = {

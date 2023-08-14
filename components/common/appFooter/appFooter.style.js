@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         backgroundColor: SHADES.black02,
     },
     footerElement: {
-        color: SHADES.black04,
         fontSize: 20,
     },
 });

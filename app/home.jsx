@@ -6,12 +6,12 @@ import AppHeader from "../components/common/appHeader/AppHeader";
 import HomeMain from "../components/home/homeMain/HomeMain";
 
 const home = () => {
-    const [homeState, setHomeState] = useState("profile");
+    const [homeState, setHomeState] = useState("matcher");
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <AppHeader />
             <HomeMain homeState={homeState} />
-            <AppFooter />
+            <AppFooter homeState={homeState} setHomeState={setHomeState} />
         </SafeAreaView>
     );
 };

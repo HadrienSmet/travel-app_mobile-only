@@ -1,7 +1,7 @@
 import { TextInput } from "react-native";
 import styles from "./connexionInput.style";
 import { useEffect, useState } from "react";
-import { COLORS } from "../../../constants";
+import { COLORS, SHADES } from "../../../constants";
 
 const ConnexionInput = ({
     inputValue,
@@ -9,14 +9,19 @@ const ConnexionInput = ({
     inputMode,
     inputPlaceholder,
     blurHandler,
-    borderColor,
+    borderFocusColor,
     needToSecure,
+    defaultBorder,
+    isTextArea,
 }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [focusStyle, setFocusStyle] = useState(null);
 
-    const inputBorder =
-        borderColor === "blue" ? COLORS.primary : COLORS.secondary;
+    const textAreaStyle = { height: 96, textAlignVertical: "top" };
+    const inputDefaultBorder =
+        defaultBorder === undefined ? { borderWidth: 0 } : defaultBorder;
+    const inputFocusBorder =
+        borderFocusColor === "blue" ? COLORS.primary : COLORS.secondary;
     const isPassword = needToSecure === undefined ? false : true;
 
     const handleFocus = () => setIsFocused(true);
@@ -27,7 +32,7 @@ const ConnexionInput = ({
 
     useEffect(() => {
         if (isFocused) {
-            setFocusStyle({ borderWidth: 2, borderColor: inputBorder });
+            setFocusStyle({ borderWidth: 2, borderColor: inputFocusBorder });
         } else {
             setFocusStyle(null);
         }
@@ -39,7 +44,12 @@ const ConnexionInput = ({
             onChangeText={inputHandler}
             value={inputValue}
             placeholder={inputPlaceholder}
-            style={[styles.connexionInput, isFocused && focusStyle]}
+            style={[
+                styles.connexionInput,
+                inputDefaultBorder,
+                isFocused && focusStyle,
+                isTextArea !== undefined && textAreaStyle,
+            ]}
             onBlur={handleBlur}
             onFocus={handleFocus}
             secureTextEntry={isPassword}

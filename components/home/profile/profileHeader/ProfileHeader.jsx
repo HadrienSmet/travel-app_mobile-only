@@ -14,7 +14,7 @@ const useProfileHeader = () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [1],
+            aspect: [1, 1],
             quality: 1,
         });
 
@@ -49,7 +49,7 @@ const ProfileHeader = ({
     return (
         <View style={styles.headerContainer}>
             <LinearGradient
-                style={styles.pictureContainer}
+                style={styles.pictureGradient}
                 colors={[COLORS.secondary, COLORS.tertiary]}
             >
                 <View style={styles.pictureWhiteBg}>
@@ -66,6 +66,18 @@ const ProfileHeader = ({
                                     style={styles.fileButtonIcon}
                                     name="file"
                                 />
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    )}
+                    {isEditing && (
+                        <TouchableOpacity style={styles.statusButtonOpacity}>
+                            <LinearGradient
+                                style={styles.statusButtonContainer}
+                                colors={[COLORS.secondary, COLORS.tertiary]}
+                            >
+                                <Text style={styles.statusButtonText}>
+                                    Edit status
+                                </Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     )}
