@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, Modal } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";
 
 import { COLORS } from "../../../../constants";
 import styles from "./profileHeader.style";
+import StatusModal from "./statusModal/StatusModal";
 
 const useProfileHeader = () => {
     const [newProfilePicture, setNewProfilePicture] = useState(undefined);
@@ -38,6 +39,8 @@ const ProfileHeader = ({
     age,
     onTravel,
     travelerType,
+    setOnTravel,
+    setTravelerType,
 }) => {
     const [url, setUrl] = useState(
         profilePicture === undefined
@@ -70,16 +73,12 @@ const ProfileHeader = ({
                         </TouchableOpacity>
                     )}
                     {isEditing && (
-                        <TouchableOpacity style={styles.statusButtonOpacity}>
-                            <LinearGradient
-                                style={styles.statusButtonContainer}
-                                colors={[COLORS.secondary, COLORS.tertiary]}
-                            >
-                                <Text style={styles.statusButtonText}>
-                                    Edit status
-                                </Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
+                        <StatusModal
+                            onTravel={onTravel}
+                            setOnTravel={setOnTravel}
+                            travellerType={travelerType}
+                            setTravellerType={setTravelerType}
+                        />
                     )}
                     {newProfilePicture !== undefined ? (
                         <Image source={newProfilePicture} />
@@ -87,11 +86,22 @@ const ProfileHeader = ({
                         <Image style={styles.pictureStyle} source={url} />
                     )}
                 </View>
-                {travelerType !== undefined && (
-                    <View>
-                        <Text>{onTravel}</Text>
-                        <Text>{travelerType}</Text>
-                    </View>
+                {!isEditing && (
+                    <LinearGradient
+                        style={styles.statusButtonOpacity}
+                        colors={[COLORS.secondary, COLORS.tertiary]}
+                    >
+                        <View style={styles.statusButtonContainer}>
+                            <Text style={styles.statusButtonText}>
+                                {onTravel ? "On travel" : "At home"}
+                            </Text>
+                            {travelerType !== undefined && (
+                                <Text style={styles.statusButtonText}>
+                                    {travelerType}
+                                </Text>
+                            )}
+                        </View>
+                    </LinearGradient>
                 )}
             </LinearGradient>
             <View style={styles.userDetails}>

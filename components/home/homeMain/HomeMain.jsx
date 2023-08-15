@@ -4,7 +4,7 @@ import Profile from "../profile/Profile";
 
 const HomeMain = ({ homeState }) => {
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             {homeState === "matcher" && <Matcher />}
             {homeState === "profile" && <Profile />}
         </View>

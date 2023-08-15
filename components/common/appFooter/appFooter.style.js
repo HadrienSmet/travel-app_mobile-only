@@ -3,17 +3,20 @@ import { SHADES } from "../../../constants";
 
 const styles = StyleSheet.create({
     footerContainer: {
-        position: "absolute",
-        width: "100%",
+        position: "fixed",
+        // width: "100%",
+        height: 60,
+        left: 0,
         bottom: 0,
         flexDirection: "row",
         justifyContent: "space-around",
-        paddingBottom: 16,
+        alignItems: "center",
+        // paddingVertical: 16,
     },
     footerBefore: {
         position: "absolute",
         left: 0,
-        top: -16,
+        top: 0,
         width: "100%",
         height: 1,
         backgroundColor: SHADES.black02,

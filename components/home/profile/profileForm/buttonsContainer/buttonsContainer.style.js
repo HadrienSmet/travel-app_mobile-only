@@ -2,7 +2,12 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SHADES, SIZES } from "../../../../../constants";
 
 const styles = StyleSheet.create({
-    buttonsDivision: { width: "100%", gap: 16 },
+    buttonsDivision: {
+        width: "100%",
+        gap: 16,
+        paddingTop: 12,
+        paddingBottom: 20,
+    },
     basicContainerStyle: {
         borderRadius: 60,
         paddingVertical: 12,

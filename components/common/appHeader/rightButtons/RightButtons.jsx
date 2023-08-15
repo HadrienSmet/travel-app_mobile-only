@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { COLORS } from "../../../../constants";
 
 const styles = {
     iconsContainer: {
@@ -8,6 +9,7 @@ const styles = {
         gap: 24,
     },
     iconsStyle: {
+        color: COLORS.black,
         fontSize: 20,
     },
 };

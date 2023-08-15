@@ -208,8 +208,8 @@ const PersonalsForm = () => {
             nationality !== ""
         ) {
             const data = {
-                firstname,
-                lastname,
+                firstname: firstname.trimEnd(),
+                lastname: lastname.trimEnd(),
                 gender,
                 age,
                 country,
