@@ -11,7 +11,7 @@ import {
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-import { COLORS, SHADOWS, SIZES } from "../../../../../constants";
+import { COLORS, SHADES, SHADOWS, SIZES } from "../../../../../constants";
 
 const travellerTypeArray = [
     "Backpacker",
@@ -24,6 +24,7 @@ const travellerTypeArray = [
     "Spring Break",
     "Tourism",
     "Van life",
+    "Other",
 ];
 
 const windowDimensions = Dimensions.get("window");
@@ -38,9 +39,15 @@ const styles = StyleSheet.create({
         height: windowDimensions.height * 0.6,
         backgroundColor: COLORS.white,
         justifyContent: "center",
-        gap: 8,
+        gap: 24,
         paddingHorizontal: windowDimensions.width / 6,
         ...SHADOWS.medium,
+    },
+    modalForm: {
+        gap: 16,
+    },
+    questionDivision: {
+        gap: 8,
     },
     closeIcon: {
         color: COLORS.black,
@@ -127,54 +134,72 @@ const StatusModal = ({
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <FontAwesome style={styles.closeIcon} name="times" />
+                        <FontAwesome
+                            onPress={handleClose}
+                            style={styles.closeIcon}
+                            name="times"
+                        />
                         <Text style={styles.modalTitle}>
                             Edit your traveler status
                         </Text>
-                        <View>
-                            <Text style={styles.modalQuestionText}>
-                                Are you travelling?
-                            </Text>
-                            <View style={styles.onTravelOptions}>
-                                <TouchableOpacity
-                                    style={styles.onTravelOptionContainer}
-                                >
-                                    <Text
-                                        style={styles.onTravelOptionText}
-                                        onPress={handleOnTravel}
-                                    >
-                                        Yes
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={styles.onTravelOptionContainer}
-                                >
-                                    <Text
-                                        style={styles.onTravelOptionText}
-                                        onPress={handleAtHome}
-                                    >
-                                        No
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        {onTravel && (
-                            <View>
+                        <View style={styles.modalForm}>
+                            <View style={styles.questionDivision}>
                                 <Text style={styles.modalQuestionText}>
-                                    What kind of trip?
+                                    Are you travelling?
                                 </Text>
-                                <SelectList
-                                    data={travellerTypeArray}
-                                    setSelected={(val) => setTravellerType(val)}
-                                    save="value"
-                                    label="Traveller type"
-                                    search={false}
-                                    // boxStyles={styles.listContainer}
-                                    // inputStyles={styles.listElement}
-                                    // dropdownStyles={styles.dropDownStyle}
-                                />
+                                <View style={styles.onTravelOptions}>
+                                    <TouchableOpacity
+                                        style={styles.onTravelOptionContainer}
+                                    >
+                                        <Text
+                                            style={styles.onTravelOptionText}
+                                            onPress={handleOnTravel}
+                                        >
+                                            Yes
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.onTravelOptionContainer}
+                                    >
+                                        <Text
+                                            style={styles.onTravelOptionText}
+                                            onPress={handleAtHome}
+                                        >
+                                            No
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        )}
+                            {onTravel && (
+                                <View style={styles.questionDivision}>
+                                    <Text style={styles.modalQuestionText}>
+                                        What kind of trip?
+                                    </Text>
+                                    <SelectList
+                                        data={travellerTypeArray}
+                                        setSelected={(val) =>
+                                            setTravellerType(val)
+                                        }
+                                        save="value"
+                                        label="Traveller type"
+                                        search={false}
+                                        boxStyles={{
+                                            borderRadius: 0,
+                                            borderWidth: 0,
+                                            borderBottomWidth: 1,
+                                            paddingTop: 0,
+                                        }}
+                                        // boxStyles={styles.listContainer}
+                                        inputStyles={
+                                            travellerType === undefined
+                                                ? { color: SHADES.black04 }
+                                                : { color: COLORS.black }
+                                        }
+                                        // dropdownStyles={styles.dropDownStyle}
+                                    />
+                                </View>
+                            )}
+                        </View>
                         <TouchableOpacity
                             style={styles.modalConfirmButton}
                             onPress={handleClose}

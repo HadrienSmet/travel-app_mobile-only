@@ -10,20 +10,9 @@ import EditListComponent from "./editListComponent/EditListComponent";
 import styles from "./profileForm.style";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 
-const ProfileForm = () => {
-    const userData = useSelector((state) => state.newUserData.userData);
+const useUserLanguages = (userData) => {
     const { languagesArray } = useLanguagesArray();
-    const { countriesArray } = useCountryArray();
-
-    const [userBio, setUserBio] = useState(
-        userData.description === undefined ? "" : userData.description
-    );
-    const [userPurpose, setUserPurpose] = useState(
-        userData.purpose === undefined ? "" : userData.purpose
-    );
     const [userLanguages, setUserLanguages] = useState(userData.languages);
-    const [userDreamTrips, setUserDreamTrips] = useState(userData.dreamTrips);
-
     const handleUserLanguages = (value) => {
         if (userLanguages === undefined) {
             setUserLanguages([value]);
@@ -31,6 +20,17 @@ const ProfileForm = () => {
             setUserLanguages((state) => [...state, value]);
         }
     };
+
+    return {
+        languagesArray,
+        userLanguages,
+        handleUserLanguages,
+    };
+};
+const useUserDreamTrips = (userData) => {
+    const { countriesArray } = useCountryArray();
+    const [userDreamTrips, setUserDreamTrips] = useState(userData.dreamTrips);
+
     const handleUserDreamTrips = (value) => {
         if (userDreamTrips === undefined) {
             setUserDreamTrips([value]);
@@ -38,6 +38,39 @@ const ProfileForm = () => {
             setUserDreamTrips((state) => [...state, value]);
         }
     };
+
+    return {
+        countriesArray,
+        userDreamTrips,
+        handleUserDreamTrips,
+    };
+};
+
+const ProfileForm = ({ travelerType, onTravel }) => {
+    const userData = useSelector((state) => state.newUserData.userData);
+    const { languagesArray, userLanguages, handleUserLanguages } =
+        useUserLanguages(userData);
+    const { countriesArray, userDreamTrips, handleUserDreamTrips } =
+        useUserDreamTrips(userData);
+    const [userBio, setUserBio] = useState(
+        userData.description === undefined ? "" : userData.description
+    );
+    const [userPurpose, setUserPurpose] = useState(
+        userData.purpose === undefined ? "" : userData.purpose
+    );
+
+    const handleConfirm = () => {
+        const data = {
+            onTravel,
+            travelerType,
+            bio: userBio,
+            purpose: userPurpose,
+            languages: userLanguages,
+            dreamTrips: userDreamTrips,
+        };
+        console.log(data);
+    };
+
     return (
         <View style={styles.formContainer}>
             <ConnexionInput
@@ -80,7 +113,7 @@ const ProfileForm = () => {
                 }
                 handleEdit={handleUserDreamTrips}
             />
-            <ButtonsContainer />
+            <ButtonsContainer handleConfirm={handleConfirm} />
         </View>
     );
 };

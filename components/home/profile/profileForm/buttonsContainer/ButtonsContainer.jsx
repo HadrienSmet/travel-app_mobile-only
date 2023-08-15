@@ -1,9 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { COLORS, FONT, SHADES, SIZES } from "../../../../../constants";
 import styles from "./buttonsContainer.style";
 
-const ButtonsContainer = () => {
+const ButtonsContainer = ({ handleConfirm }) => {
     return (
         <View style={styles.buttonsDivision}>
             <View style={styles.buttonsContainer}>
@@ -21,6 +20,7 @@ const ButtonsContainer = () => {
                 </TouchableOpacity>
             </View>
             <TouchableOpacity
+                onPress={handleConfirm}
                 style={[styles.basicContainerStyle, styles.confirmContainer]}
             >
                 <FontAwesome style={styles.confirmElement} name="check" />

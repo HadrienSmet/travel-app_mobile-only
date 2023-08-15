@@ -26,7 +26,7 @@ const Profile = () => {
                 setTravelerType={setTravelerType}
             />
             {isEditing ? (
-                <ProfileForm />
+                <ProfileForm onTravel={onTravel} travelerType={travelerType} />
             ) : (
                 <ProfileMain
                     description={userData.description}
