@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
 
 import { axiosSignIn } from "../../../utils/axios/user/axiosSignin";
-import { saveJwtToken } from "../../../utils/functions/saveJwtToken";
 
 import ConnexionInput from "../../connexion/connexionInput/ConnexionInput";
 import styles from "./loginForm.style";
@@ -21,7 +20,6 @@ const LoginForm = () => {
             const data = { email: email.toLowerCase(), password };
             axiosSignIn(data)
                 .then((res) => {
-                    saveJwtToken(res.data);
                     dispatch(setUserData(res.data));
                     router.push("/home");
                 })

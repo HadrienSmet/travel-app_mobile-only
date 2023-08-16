@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";
 
-import { COLORS } from "../../../../constants";
+import { COLORS, SIZES } from "../../../../constants";
 import styles from "./profileHeader.style";
 import StatusModal from "./statusModal/StatusModal";
 
@@ -76,8 +76,8 @@ const ProfileHeader = ({
                         <StatusModal
                             onTravel={onTravel}
                             setOnTravel={setOnTravel}
-                            travellerType={travelerType}
-                            setTravellerType={setTravelerType}
+                            travelerType={travelerType}
+                            setTravelerType={setTravelerType}
                         />
                     )}
                     {newProfilePicture !== undefined ? (
@@ -95,18 +95,18 @@ const ProfileHeader = ({
                             <Text style={styles.statusButtonText}>
                                 {onTravel ? "On travel" : "At home"}
                             </Text>
-                            {travelerType !== undefined && (
-                                <Text style={styles.statusButtonText}>
-                                    {travelerType}
-                                </Text>
-                            )}
                         </View>
                     </LinearGradient>
                 )}
             </LinearGradient>
-            <View style={styles.userDetails}>
-                <Text style={styles.detailsElement}>{firstname}</Text>
-                <Text style={styles.detailsElement}>{age}</Text>
+            <View style={{ alignItems: "center" }}>
+                <View style={styles.userDetails}>
+                    <Text style={styles.detailsElement}>{firstname}</Text>
+                    <Text style={styles.detailsElement}>{age}</Text>
+                </View>
+                <Text style={{ color: COLORS.black, fontSize: SIZES.small }}>
+                    {travelerType}
+                </Text>
             </View>
         </View>
     );

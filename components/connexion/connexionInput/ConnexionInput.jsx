@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { COLORS, SHADES } from "../../../constants";
 
 const ConnexionInput = ({
+    numberOfLines,
+    multiline,
     inputValue,
     inputHandler,
     inputMode,
@@ -23,6 +25,8 @@ const ConnexionInput = ({
     const inputFocusBorder =
         borderFocusColor === "blue" ? COLORS.primary : COLORS.secondary;
     const isPassword = needToSecure === undefined ? false : true;
+    const isMultiline = multiline ? true : false;
+    const currentNumberOfLines = numberOfLines ? numberOfLines : 1;
 
     const handleFocus = () => setIsFocused(true);
     const handleBlur = () => {
@@ -40,6 +44,8 @@ const ConnexionInput = ({
 
     return (
         <TextInput
+            multiline={isMultiline}
+            numberOfLines={currentNumberOfLines}
             inputMode={inputMode}
             onChangeText={inputHandler}
             value={inputValue}

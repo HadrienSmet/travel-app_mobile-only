@@ -53,13 +53,12 @@ const styles = StyleSheet.create({
     statusButtonOpacity: {
         zIndex: 2,
         position: "absolute",
-        bottom: 0,
-        right: 0,
-        transform: [{ translateX: -8 }, { translateY: 0 }],
+        bottom: -12,
         borderRadius: 120,
+        transform: [{ translateX: 30 }, { translateY: -12 }],
     },
     statusButtonContainer: {
-        paddingHorizontal: 8,
+        width: 72,
         paddingVertical: 4,
         borderRadius: 120,
         alignItems: "center",

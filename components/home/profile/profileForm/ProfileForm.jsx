@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
+import { useCountryArray } from "../../../../hooks/useCountryArray";
 
 import { Text, View } from "react-native";
 import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
@@ -8,7 +9,8 @@ import ButtonsContainer from "./buttonsContainer/ButtonsContainer";
 import EditListComponent from "./editListComponent/EditListComponent";
 
 import styles from "./profileForm.style";
-import { useCountryArray } from "../../../../hooks/useCountryArray";
+import { axiosPatchProfileData } from "../../../../utils/axios/user/axiosPatchProfileData";
+import { setUserData } from "../../../../features/userData.slice";
 
 const useUserLanguages = (userData) => {
     const { languagesArray } = useLanguagesArray();
@@ -46,14 +48,15 @@ const useUserDreamTrips = (userData) => {
     };
 };
 
-const ProfileForm = ({ travelerType, onTravel }) => {
+const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
     const userData = useSelector((state) => state.newUserData.userData);
+    const dispatch = useDispatch();
     const { languagesArray, userLanguages, handleUserLanguages } =
         useUserLanguages(userData);
     const { countriesArray, userDreamTrips, handleUserDreamTrips } =
         useUserDreamTrips(userData);
     const [userBio, setUserBio] = useState(
-        userData.description === undefined ? "" : userData.description
+        userData.bio === undefined ? "" : userData.bio
     );
     const [userPurpose, setUserPurpose] = useState(
         userData.purpose === undefined ? "" : userData.purpose
@@ -68,12 +71,23 @@ const ProfileForm = ({ travelerType, onTravel }) => {
             languages: userLanguages,
             dreamTrips: userDreamTrips,
         };
-        console.log(data);
+        axiosPatchProfileData(userData.userId, data, userData.token)
+            .then((res) => {
+                setIsEditing(false);
+                dispatch(setUserData(res.data));
+                console.log("new userData: " + userData);
+            })
+            .catch((err) => {
+                setIsEditing(false);
+                alert(err);
+            });
     };
 
     return (
         <View style={styles.formContainer}>
             <ConnexionInput
+                numberOfLines={6}
+                mutliline={true}
                 inputValue={userBio}
                 inputHandler={setUserBio}
                 inputPlaceholder={"Bio"}
@@ -83,6 +97,8 @@ const ProfileForm = ({ travelerType, onTravel }) => {
             <View style={styles.fieldDivision}>
                 <Text style={styles.titleContainer}>What I seak</Text>
                 <ConnexionInput
+                    numberOfLines={6}
+                    mutliline={true}
                     inputValue={userPurpose}
                     inputHandler={setUserPurpose}
                     inputPlaceholder="Some greate fellows to bike across Asia"

@@ -2,7 +2,7 @@ import { ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import ProfileHeader from "./profileHeader/ProfileHeader";
 import ProfileMain from "./profileMain/ProfileMain";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileForm from "./profileForm/ProfileForm";
 
 const Profile = () => {
@@ -12,6 +12,11 @@ const Profile = () => {
     const [travelerType, setTravelerType] = useState(userData.travelerType);
 
     const handleEdit = () => setIsEditing((state) => !state);
+
+    useEffect(() => {
+        console.log("next log is userData");
+        console.log(userData);
+    }, [userData]);
 
     return (
         <ScrollView style={{ flex: 1 }}>
@@ -26,7 +31,11 @@ const Profile = () => {
                 setTravelerType={setTravelerType}
             />
             {isEditing ? (
-                <ProfileForm onTravel={onTravel} travelerType={travelerType} />
+                <ProfileForm
+                    setIsEditing={setIsEditing}
+                    onTravel={onTravel}
+                    travelerType={travelerType}
+                />
             ) : (
                 <ProfileMain
                     description={userData.description}

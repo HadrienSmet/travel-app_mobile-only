@@ -16,7 +16,7 @@ const ButtonsContainer = ({ handleConfirm }) => {
                     style={[styles.basicContainerStyle, styles.buttonContainer]}
                 >
                     <FontAwesome style={styles.buttonElement} name="map" />
-                    <Text style={styles.buttonElement}>Edit albums</Text>
+                    <Text style={styles.buttonElement}>Edit trips</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity

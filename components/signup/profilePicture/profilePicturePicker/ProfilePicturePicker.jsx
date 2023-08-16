@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useRouter } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import styles from "./profilePicturePicker.style";
-import { useSelector } from "react-redux";
 import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
-import { saveJwtToken } from "../../../../utils/functions/saveJwtToken";
 import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
-import { useRouter } from "expo-router";
+import { setUserData } from "../../../../features/userData.slice";
+
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import styles from "./profilePicturePicker.style";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
     const userData = useSelector((state) => state.newUserData.userData);
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const pickProfilePicture = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,7 +25,6 @@ const ProfilePicturePicker = () => {
         });
 
         if (!result.canceled) {
-            console.log(result.assets[0]);
             setProfilePicture(result.assets[0].uri);
         } else {
             alert("Canceled");
@@ -39,11 +40,9 @@ const ProfilePicturePicker = () => {
             });
             axiosPostUserSignupData(userData)
                 .then((res) => {
-                    console.log(res);
-                    saveJwtToken(res.data);
                     axiosPutCoverPicture(res, formData)
                         .then((res) => {
-                            console.log(res);
+                            dispatch(setUserData(res.data));
                             router.push("/home");
                         })
                         .catch((err) => console.log(err));
@@ -53,8 +52,7 @@ const ProfilePicturePicker = () => {
             alert("Are you sure you dont want to set a picture?");
             axiosPostUserSignupData(userData)
                 .then((res) => {
-                    console.log(res);
-                    saveJwtToken(res.data);
+                    dispatch(setUserData(res.data));
                     router.push("/home");
                 })
                 .catch((err) => console.log(err));
