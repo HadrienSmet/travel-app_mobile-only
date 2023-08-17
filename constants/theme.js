@@ -35,6 +35,7 @@ const SHADES = {
 
     black02: "rgba(0,0,0,0.2)",
     black04: "rgba(0,0,0,0.4)",
+    black06: "rgba(0,0,0,0.6)",
     black07: "rgba(0,0,0,0.7)",
 
     orange04: "rgba(122,59,0,0.4)",

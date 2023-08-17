@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./buttonsContainer.style";
+import TripModal from "./tripModal/TripModal";
 
 const ButtonsContainer = ({ handleConfirm }) => {
     return (
@@ -12,12 +13,13 @@ const ButtonsContainer = ({ handleConfirm }) => {
                     <FontAwesome style={styles.buttonElement} name="camera" />
                     <Text style={styles.buttonElement}>Edit albums</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={[styles.basicContainerStyle, styles.buttonContainer]}
                 >
                     <FontAwesome style={styles.buttonElement} name="map" />
                     <Text style={styles.buttonElement}>Edit trips</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <TripModal />
             </View>
             <TouchableOpacity
                 onPress={handleConfirm}

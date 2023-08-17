@@ -3,24 +3,10 @@ import { useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { travelerTypeArray } from "../../../../../data/travelerTypeArray";
 
-import { COLORS, SHADES, SIZES } from "../../../../../constants";
+import { COLORS, SHADES } from "../../../../../constants";
 import styles from "./statusModal.style";
-
-const travelerTypeArray = [
-    "Backpacker",
-    "Biker",
-    "Business",
-    "Camper / Nature",
-    "Digital nomad",
-    "Jet-set",
-    "Seasonal worker",
-    "Sports",
-    "Spring Break",
-    "Tourism",
-    "Van life",
-    "Other",
-];
 
 const StatusModal = ({
     onTravel,
