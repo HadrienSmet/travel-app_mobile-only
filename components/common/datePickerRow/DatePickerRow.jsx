@@ -5,67 +5,78 @@ import { useEffect } from "react";
 const DatePickerRow = ({
     rowTitle,
     dateObject,
+    // dayValue,
+    // monthValue,
+    // yearValue,
     handleDay,
     handleMonth,
     handleYear,
+    handleYearBlur,
 }) => {
-    useEffect(() => {
-        console.log("full date: ");
-        console.log(dateObject);
-        console.log("day date: ");
-        console.log(dateObject.day);
-        console.log("month date: ");
-        console.log(dateObject.month);
-        console.log("year date: ");
-        console.log(dateObject.year);
-    }, []);
+    // useEffect(() => {
+    //     console.log("day from useEffect: ");
+    //     console.log(dayValue);
+    //     console.log("month from useEffect: ");
+    //     console.log(monthValue);
+    //     console.log("year from useEffect: ");
+    //     console.log(yearValue);
+    // }, [dayValue, monthValue, yearValue]);
+
+    const checkYear = () => {
+        const currentYear = new Date().getFullYear();
+        const selectedYear = parseInt(dateObject.year);
+        let trueYear;
+        if (selectedYear < 1950) {
+            trueYear = "1950";
+        } else if (selectedYear > currentYear) {
+            trueYear = currentYear.toString();
+        } else {
+            trueYear = dateObject.year;
+        }
+
+        handleYear(trueYear);
+    };
+
     return (
         <View style={styles.rowStyle}>
             <Text style={styles.fadeElement}>{rowTitle} :</Text>
             <View style={styles.inputsContainer}>
                 <TextInput
+                    // value={dayValue}
                     value={dateObject.day}
                     placeholder="dd"
-                    onChange={(val) => {
-                        console.log(val);
-                        handleDay(val);
-                    }}
+                    onChangeText={handleDay}
                     inputMode="numeric"
                     style={[
                         styles.inputStyle,
-                        dateObject.day === "0"
+                        dateObject.day === undefined
                             ? styles.fadeElement
                             : styles.strongElement,
                     ]}
                 />
                 <TextInput
-                    value={
-                        dateObject.month === "0"
-                            ? "mm"
-                            : dateObject.month.toString()
-                    }
+                    // value={monthValue}
+                    value={dateObject.month}
                     placeholder="mm"
-                    inputHandler={handleMonth}
+                    onChangeText={handleMonth}
                     inputMode="numeric"
                     style={[
                         styles.inputStyle,
-                        dateObject.month === "0"
+                        dateObject.month === undefined
                             ? styles.fadeElement
                             : styles.strongElement,
                     ]}
                 />
                 <TextInput
-                    value={
-                        dateObject.year === "0"
-                            ? "yyyy"
-                            : dateObject.year.toString()
-                    }
+                    // value={yearValue}
+                    value={dateObject.year}
                     placeholder="yyyy"
-                    inputHandler={handleYear}
+                    onChangeText={handleYear}
+                    onBlur={handleYearBlur}
                     inputMode="numeric"
                     style={[
                         styles.inputStyle,
-                        dateObject.year === "0"
+                        dateObject.year === undefined
                             ? styles.fadeElement
                             : styles.strongElement,
                     ]}

@@ -1,5 +1,13 @@
-import { useReducer, useState } from "react";
-import { TouchableOpacity, Text, Modal, View } from "react-native";
+import { useEffect, useReducer, useState } from "react";
+import {
+    TouchableOpacity,
+    Text,
+    Modal,
+    View,
+    TextInput,
+    ScrollView,
+} from "react-native";
+import MapView from "react-native-maps";
 
 import { useCountryArray } from "../../../../../../hooks/useCountryArray";
 import { travelerTypeArray } from "../../../../../../data/travelerTypeArray";
@@ -9,6 +17,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SelectList } from "react-native-dropdown-select-list";
 
 import styles from "./tripModal.style";
+import { useTripDuration } from "../../../../../../hooks/useTripDuration";
+import { COLORS, SHADES, SHADOWS } from "../../../../../../constants";
+import TipsDivision from "./tipsDivision/TipsDivision";
 
 const whithWhomArray = [
     "In couple",
@@ -17,104 +28,6 @@ const whithWhomArray = [
     "With my family",
     "With my friends",
 ];
-
-const ActionTypes = {
-    SET_ARRIVAL_DAY: "arrival-day",
-    SET_ARRIVAL_MONTH: "arrival-month",
-    SET_ARRIVAL_YEAR: "arrival-year",
-    SET_DEPARTURE_DAY: "departure-day",
-    SET_DEPARTURE_MONTH: "departure-month",
-    SET_DEPARTURE_YEAR: "departure-year",
-};
-
-const reducer = (state, action) => {
-    switch (action.type) {
-        case ActionTypes.SET_ARRIVAL_DAY:
-            return {
-                ...state,
-                arrival: {
-                    ...state.arrival,
-                    day: action.payload,
-                },
-            };
-        case ActionTypes.SET_ARRIVAL_MONTH:
-            return {
-                ...state,
-                arrival: {
-                    ...state.arrival,
-                    month: action.payload,
-                },
-            };
-        case ActionTypes.SET_ARRIVAL_YEAR:
-            return {
-                ...state,
-                arrival: {
-                    ...state.arrival,
-                    year: action.payload,
-                },
-            };
-        case ActionTypes.SET_DEPARTURE_DAY:
-            return {
-                ...state,
-                departure: {
-                    ...state.departure,
-                    day: action.payload,
-                },
-            };
-        case ActionTypes.SET_DEPARTURE_MONTH:
-            return {
-                ...state,
-                departure: {
-                    ...state.departure,
-                    month: action.payload,
-                },
-            };
-        case ActionTypes.SET_DEPARTURE_YEAR:
-            return {
-                ...state,
-                departure: {
-                    ...state.departure,
-                    year: action.payload,
-                },
-            };
-        default:
-            return state;
-    }
-};
-
-const useTripDuration = () => {
-    const [tripDuration, dispatch] = useReducer(reducer, {
-        arrival: { day: "0", month: "0", year: "0" },
-        departure: { day: "0", month: "0", year: "0" },
-    });
-    const setArrivalDay = (day) =>
-        dispatch({ type: ActionTypes.SET_ARRIVAL_DAY, payload: day });
-
-    const setArrivalMonth = (month) =>
-        dispatch({ type: ActionTypes.SET_ARRIVAL_MONTH, payload: month });
-
-    const setArrivalYear = (year) =>
-        dispatch({ type: ActionTypes.SET_ARRIVAL_YEAR, payload: year });
-
-    const setDepartureDay = (day) =>
-        dispatch({ type: ActionTypes.SET_DEPARTURE_DAY, payload: day });
-
-    const setDepartureMonth = (month) =>
-        dispatch({ type: ActionTypes.SET_DEPARTURE_MONTH, payload: month });
-
-    const setDepartureYear = (year) =>
-        dispatch({ type: ActionTypes.SET_DEPARTURE_YEAR, payload: year });
-
-    return {
-        tripDuration,
-        setArrivalDay,
-        setArrivalMonth,
-        setArrivalYear,
-        setDepartureDay,
-        setDepartureMonth,
-        setDepartureYear,
-    };
-};
 
 const useTripDestination = () => {
     const [tripDestination, setTripDestination] = useState([]);
@@ -133,14 +46,9 @@ const TripModal = () => {
         setDepartureDay,
         setDepartureMonth,
         setDepartureYear,
+        handleArrivalYearBLur,
+        handleDepartureYearBlur,
     } = useTripDuration();
-
-    // const [arrivalDay, setArrivalDay] = useState("0");
-    // const [arrivalMonth, setArrivalMonth] = useState("0");
-    // const [arrivalYear, setArrivalYear] = useState("0");
-    // const [departureDay, setDepartureDay] = useState("0");
-    // const [departureMonth, setDepartureMonth] = useState("0");
-    // const [departureYear, setDepartureYear] = useState("0");
     const { tripDestination, handleDestination } = useTripDestination("0");
     const [isVisible, setIsVisible] = useState(false);
     const [tripType, setTripType] = useState(undefined);
@@ -161,6 +69,10 @@ const TripModal = () => {
         console.log(data);
     };
 
+    useEffect(() => {
+        console.log(tripDestination);
+    }, [tripDestination]);
+
     return (
         <>
             <Modal
@@ -169,7 +81,9 @@ const TripModal = () => {
                 animationType="slide"
                 onRequestClose={() => handleClose()}
             >
-                <View style={styles.modalContentContainer}>
+                <ScrollView
+                    contentContainerStyle={styles.modalContentContainer}
+                >
                     <View style={{ width: "100%", alignItems: "flex-end" }}>
                         <TouchableOpacity onPress={handleClose}>
                             <FontAwesome
@@ -183,22 +97,33 @@ const TripModal = () => {
                         <Text style={styles.modalSecondTitle}>
                             Where did you go?
                         </Text>
-                        <SelectList
-                            boxStyles={styles.modalInputBox}
-                            inputStyles={styles.modalInputElement}
-                            data={countriesArray}
-                            search={false}
-                            save="value"
-                            setSelected={(val) => handleDestination(val)}
-                            label="Destinations"
-                            arrowicon={
-                                <FontAwesome
-                                    style={styles.modalInputElement}
-                                    name="plus"
-                                />
-                            }
-                            placeholder="Select you destination(s)"
-                        />
+                        <View>
+                            <SelectList
+                                boxStyles={styles.modalInputBox}
+                                inputStyles={{ color: COLORS.white }}
+                                data={countriesArray}
+                                search={false}
+                                save="value"
+                                setSelected={(val) => handleDestination(val)}
+                                label="Destinations"
+                                arrowicon={
+                                    <FontAwesome
+                                        style={styles.modalInputElement}
+                                        name="plus"
+                                    />
+                                }
+                                placeholder="Select you destination(s)"
+                            />
+                            <Text
+                                style={{
+                                    position: "absolute",
+                                    bottom: 12,
+                                    color: SHADES.black06,
+                                }}
+                            >
+                                {tripDestination.join(", ")}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.modalBasicDivision}>
                         <Text style={styles.modalSecondTitle}>
@@ -210,6 +135,7 @@ const TripModal = () => {
                             handleDay={setArrivalDay}
                             handleMonth={setArrivalMonth}
                             handleYear={setArrivalYear}
+                            handleYearBlur={handleArrivalYearBLur}
                         />
                         <DatePickerRow
                             rowTitle="Departure"
@@ -217,6 +143,7 @@ const TripModal = () => {
                             handleDay={setDepartureDay}
                             handleMonth={setDepartureMonth}
                             handleYear={setDepartureYear}
+                            handleYearBlur={handleDepartureYearBlur}
                         />
                     </View>
                     <View style={styles.modalBasicDivision}>
@@ -249,7 +176,29 @@ const TripModal = () => {
                             placeholder="Select option"
                         />
                     </View>
-                </View>
+                    <TipsDivision />
+                    <TouchableOpacity
+                        style={{
+                            marginHorizontal: "10%",
+                            backgroundColor: COLORS.secondary,
+                            width: "80%",
+                            paddingVertical: 8,
+                            borderRadius: 60,
+                            ...SHADOWS.medium,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: COLORS.white,
+                                textTransform: "uppercase",
+                                letterSpacing: -0.5,
+                                textAlign: "center",
+                            }}
+                        >
+                            Add trip
+                        </Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </Modal>
             <TouchableOpacity
                 onPress={handleOpen}

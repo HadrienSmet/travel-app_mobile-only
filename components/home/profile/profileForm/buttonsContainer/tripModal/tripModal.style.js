@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: windowDimensions.width / 12,
         paddingVertical: windowDimensions.height / 24,
         gap: 16,
-        flex: 1,
+        // flex: 1,
     },
     closingIconRow: {
         width: "100%",
