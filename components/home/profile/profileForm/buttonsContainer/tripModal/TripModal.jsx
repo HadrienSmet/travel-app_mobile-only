@@ -49,15 +49,20 @@ const TripModal = () => {
         handleArrivalYearBLur,
         handleDepartureYearBlur,
     } = useTripDuration();
-    const { tripDestination, handleDestination } = useTripDestination("0");
+    const { tripDestination, handleDestination } = useTripDestination();
     const [isVisible, setIsVisible] = useState(false);
     const [tripType, setTripType] = useState(undefined);
     const [tripWithWhom, setTripWithWhom] = useState(undefined);
-    const [tripTips, setTripTips] = useState(undefined);
+    const [tripTips, setTripTips] = useState([]);
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
     const { countriesArray } = useCountryArray();
 
+    const closeAccordion = () => setIsAccordionOpen(false);
+    const toggleAccordion = () => setIsAccordionOpen((state) => !state);
     const handleOpen = () => setIsVisible(true);
     const handleClose = () => setIsVisible(false);
+    const pushTripTips = (tips) => setTripTips((state) => [...state, tips]);
     const handleConfirm = () => {
         const data = {
             destination: tripDestination,
@@ -67,6 +72,9 @@ const TripModal = () => {
             tips: tripTips,
         };
         console.log(data);
+        for (let i = 0; i < data.tips.length; i++) {
+            console.log(data.tips[i].tipsLocation);
+        }
     };
 
     useEffect(() => {
@@ -77,11 +85,15 @@ const TripModal = () => {
         <>
             <Modal
                 visible={isVisible}
-                transparent={true}
+                // transparent={true}
+                backgroundColor={COLORS.white}
                 animationType="slide"
                 onRequestClose={() => handleClose()}
+                style={styles.modalStyle}
             >
                 <ScrollView
+                    endFillColor={COLORS.white}
+                    centerContent={true}
                     contentContainerStyle={styles.modalContentContainer}
                 >
                     <View style={{ width: "100%", alignItems: "flex-end" }}>
@@ -117,11 +129,13 @@ const TripModal = () => {
                             <Text
                                 style={{
                                     position: "absolute",
-                                    bottom: 12,
+                                    top: 12,
                                     color: SHADES.black06,
                                 }}
                             >
-                                {tripDestination.join(", ")}
+                                {tripDestination.length === 0
+                                    ? "Select a your destination(s)"
+                                    : tripDestination.join(", ")}
                             </Text>
                         </View>
                     </View>
@@ -176,8 +190,15 @@ const TripModal = () => {
                             placeholder="Select option"
                         />
                     </View>
-                    <TipsDivision />
+                    <TipsDivision
+                        isAccordionOpen={isAccordionOpen}
+                        tripTips={tripTips}
+                        closeAccordion={closeAccordion}
+                        toggleAccordion={toggleAccordion}
+                        pushTripTips={pushTripTips}
+                    />
                     <TouchableOpacity
+                        onPress={handleConfirm}
                         style={{
                             marginHorizontal: "10%",
                             backgroundColor: COLORS.secondary,

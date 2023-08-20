@@ -4,12 +4,15 @@ import { COLORS, FONT, SHADES, SIZES } from "../../../../../../constants";
 const windowDimensions = Dimensions.get("window");
 
 const styles = StyleSheet.create({
+    modalStyle: {
+        flex: 1,
+    },
     modalContentContainer: {
+        // height: "100%",
         backgroundColor: COLORS.white,
         paddingHorizontal: windowDimensions.width / 12,
         paddingVertical: windowDimensions.height / 24,
         gap: 16,
-        // flex: 1,
     },
     closingIconRow: {
         width: "100%",
