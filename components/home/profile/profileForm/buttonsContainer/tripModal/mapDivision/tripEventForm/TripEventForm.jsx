@@ -143,7 +143,7 @@ const TripEventForm = ({
                     onChangeText={setContent}
                     placeholder="Writte some comments if you want"
                     multiline
-                    numberOfLines={6}
+                    numberOfLines={5}
                     style={[styles.textareaStyle, { verticalAlign: "top" }]}
                 />
             </View>

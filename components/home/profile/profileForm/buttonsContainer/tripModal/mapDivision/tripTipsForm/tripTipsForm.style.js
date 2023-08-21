@@ -1,15 +1,15 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../../../../../../../constants";
+import { COLORS, SHADES, SIZES } from "../../../../../../../../constants";
 
 const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
-    tripEventForm: {
+    tripTipsForm: {
         paddingHorizontal: 24,
-        height: windowHeight - 348,
+        height: windowHeight - 428,
         justifyContent: "center",
         alignItems: "center",
-        gap: 20,
+        gap: 8,
         borderRadius: 24,
     },
     mainTitle: {
@@ -20,6 +20,16 @@ const styles = StyleSheet.create({
     },
     secondTitle: { color: COLORS.white, fontWeight: "500" },
     basicView: { width: "100%" },
+    listContainer: {
+        borderWidth: 0,
+        borderRadius: 8,
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: COLORS.white,
+    },
+    listContent: {
+        color: SHADES.black06,
+    },
     textareaStyle: {
         verticalAlign: "top",
         backgroundColor: COLORS.white,

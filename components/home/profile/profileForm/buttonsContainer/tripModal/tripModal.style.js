@@ -1,46 +1,16 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { COLORS, FONT, SHADES, SIZES } from "../../../../../../constants";
+import { COLORS, FONT, SHADES } from "../../../../../../constants";
 
-const windowDimensions = Dimensions.get("window");
+const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
     modalStyle: {
         flex: 1,
     },
     modalContentContainer: {
-        // height: "100%",
+        paddingVertical: 16,
+        paddingHorizontal: windowWidth / 12,
         backgroundColor: COLORS.white,
-        paddingHorizontal: windowDimensions.width / 12,
-        paddingVertical: windowDimensions.height / 24,
-        gap: 16,
-    },
-    closingIconRow: {
-        width: "100%",
-        alignItems: "flex-end",
-    },
-    closingIcon: {
-        fontSize: 20,
-        color: COLORS.black,
-    },
-    modalMainTitle: {
-        fontSize: SIZES.large,
-        textAlign: "center",
-    },
-    modalSecondTitle: {
-        fontSize: SIZES.medium,
-        color: COLORS.black,
-    },
-    modalBasicDivision: {
-        gap: 4,
-    },
-    modalInputBox: {
-        borderWidth: 0,
-        borderBottomWidth: 1,
-        borderColor: COLORS.black,
-        borderRadius: 0,
-    },
-    modalInputElement: {
-        color: SHADES.black06,
     },
     basicContainerStyle: {
         borderRadius: 60,
