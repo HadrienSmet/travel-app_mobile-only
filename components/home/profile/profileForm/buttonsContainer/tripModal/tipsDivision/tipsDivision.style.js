@@ -2,26 +2,6 @@ import { StyleSheet } from "react-native";
 import { COLORS, SHADES, SIZES } from "../../../../../../../constants";
 
 const styles = StyleSheet.create({
-    tipsDivisionContainer: {
-        gap: 12,
-        paddingHorizontal: 12,
-    },
-    divisionHeader: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingVertical: 12,
-        marginBottom: 12,
-        borderBottomWidth: 1,
-        borderBottomColor: COLORS.black,
-    },
-    mainTitle: {
-        fontSize: SIZES.medium,
-        color: COLORS.black,
-    },
-    secondTitle: {
-        fontSize: SIZES.medium,
-        color: SHADES.black07,
-    },
     basicDivision: {
         gap: 4,
     },

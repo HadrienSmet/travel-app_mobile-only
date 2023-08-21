@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         width: windowDimensions.width,
-        height: windowDimensions.height * 0.6,
+        minHeight: windowDimensions.height * 0.6,
         backgroundColor: COLORS.white,
         justifyContent: "center",
         gap: 24,

@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
         // justifyContent: "space-around"
     },
     inputStyle: {
-        borderBottomWidth: 1,
-        borderColor: COLORS.black,
-        borderRadius: 0,
+        // borderBottomWidth: 1,
+        // borderColor: COLORS.white,
+        backgroundColor: COLORS.white,
+        borderRadius: 8,
         paddingHorizontal: 12,
         paddingVertical: 0,
+        color: COLORS.black,
     },
-    fadeElement: { color: SHADES.black06 },
-    strongElement: { color: COLORS.black },
 });
 
 export default styles;
