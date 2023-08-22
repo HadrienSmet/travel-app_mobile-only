@@ -1,9 +1,9 @@
 import axios from "axios";
+import { API_URL } from "@env";
 
-export const axiosCreateTrip = async (userId, trip, token) => {
-    const url = import.meta.env.VITE_REACT_APP_API_URL;
+export const axiosPushTrip = async (userId, trip, token) => {
     return await axios({
-        url: `${url}api/auth/setTrip/${userId}`,
+        url: `${API_URL}api/auth/pushTrip/${userId}`,
         method: "put",
         data: trip,
         headers: {

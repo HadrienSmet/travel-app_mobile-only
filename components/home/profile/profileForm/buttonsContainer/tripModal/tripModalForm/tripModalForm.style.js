@@ -1,8 +1,10 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS, SHADES, SHADOWS, SIZES } from "../../../../../../../constants";
 
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
-    formStyle: { gap: 8 },
+    formStyle: { gap: 8, height: windowHeight - 200 },
     modalSecondTitle: {
         fontSize: SIZES.medium,
         color: COLORS.black,
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         borderRadius: 60,
         ...SHADOWS.medium,
+        marginBottom: 50,
     },
     addTripBtnContent: {
         color: COLORS.white,

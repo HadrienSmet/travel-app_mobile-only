@@ -94,7 +94,7 @@ const TripEventForm = ({
             pushTripStep({
                 event: eventType,
                 location: eventLocation,
-                duration: dateObject,
+                date: dateObject,
                 content,
             });
         } else {

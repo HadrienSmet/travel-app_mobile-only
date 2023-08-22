@@ -18,9 +18,11 @@ const styles = StyleSheet.create({
     personalsContent: {
         zIndex: 2,
         position: "absolute",
-        height: "100%",
+        minHeight: "100%",
+        // height: "100%",
         width: "100%",
         gap: 24,
+        paddingVertical: 40,
         paddingLeft: windowWidth / 8,
         paddingRight: windowWidth / 8,
         backgroundColor: SHADES.orange055,

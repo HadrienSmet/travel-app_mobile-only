@@ -6,7 +6,8 @@ const windowHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
     tripTipsForm: {
         paddingHorizontal: 24,
-        height: windowHeight - 428,
+        paddingVertical: 12,
+        minHeight: windowHeight - 428,
         justifyContent: "center",
         alignItems: "center",
         gap: 8,
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: SIZES.medium,
         color: COLORS.white,
-        textAlign: "center",
+        verticalAlign: "center",
     },
     secondTitle: { color: COLORS.white, fontWeight: "500" },
     basicView: { width: "100%" },

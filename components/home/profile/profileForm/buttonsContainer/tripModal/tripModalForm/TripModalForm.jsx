@@ -1,9 +1,18 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { travelerTypeArray } from "../../../../../../../data/travelerTypeArray";
 import styles from "./tripModalForm.style";
 import { useEffect, useState } from "react";
 import MapDivision from "../mapDivision/MapDivision";
+import { axiosPushTrip } from "../../../../../../../utils/axios/user/axiosPushTrip";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../../../../../../../features/userData.slice";
 
 const whithWhomArray = [
     "In couple",
@@ -19,15 +28,25 @@ const TripModalForm = () => {
     const [tripWithWhom, setTripWithWhom] = useState(undefined);
     const [tripSteps, setTripSteps] = useState([]);
     const [tripTips, setTripTips] = useState([]);
+    const userData = useSelector((state) => state.newUserData.userData);
+    const dispatch = useDispatch();
 
     const pushTripSteps = (step) => setTripSteps((state) => [...state, step]);
     const pushTripTips = (tips) => setTripTips((state) => [...state, tips]);
     const handleConfirm = () => {
         const data = {
+            title: tripTitle,
             type: tripType,
             withWhom: tripWithWhom,
+            tips: tripTips,
+            steps: tripSteps,
         };
         console.log(data);
+        axiosPushTrip(userData.userId, data, userData.token)
+            .then((res) => {
+                dispatch(setUserData(res.data));
+            })
+            .catch((err) => console.log(err));
     };
     useEffect(() => {
         console.log(tripSteps);
@@ -35,9 +54,17 @@ const TripModalForm = () => {
     useEffect(() => {
         console.log(tripTips);
     }, [tripTips]);
-
+    useEffect(() => {
+        console.log(tripTitle);
+    }, [tripTitle]);
+    useEffect(() => {
+        console.log(tripType);
+    }, [tripType]);
+    useEffect(() => {
+        console.log(tripWithWhom);
+    }, [tripWithWhom]);
     return (
-        <View style={styles.formStyle}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.modalBasicDivision}>
                 <Text style={styles.modalSecondTitle}>
                     Give a title to your trip!
@@ -84,6 +111,7 @@ const TripModalForm = () => {
             <MapDivision
                 tripSteps={tripSteps}
                 tripTips={tripTips}
+                tripTitle={tripTitle}
                 pushTripSteps={pushTripSteps}
                 pushTripTips={pushTripTips}
             />
@@ -93,7 +121,7 @@ const TripModalForm = () => {
             >
                 <Text style={styles.addTripBtnContent}>Add trip</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 

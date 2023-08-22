@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import FontAwesome from "@expo/vector-icons/FontAwesome5";
-import TripEventForm from "./tripEventForm/TripEventForm";
-import TripTipsForm from "./tripTipsForm/TripTipsForm";
-import { COLORS } from "../../../../../../../constants";
+import { Text, View } from "react-native";
 import styles from "./mapDivision.style";
 import MapContainer from "./mapContainer/MapContainer";
+import MarkerFormsContainer from "./markerFormsContainer/MarkerFormsContainer";
+import TripDetailsDisplayer from "./tripDetailsDisplayer/TripDetailsDisplayer";
 
 const useMapPin = ({ pushTripSteps, pushTripTips }) => {
     const [mapState, setMapState] = useState("map");
@@ -101,7 +98,13 @@ const useMapPin = ({ pushTripSteps, pushTripTips }) => {
     };
 };
 
-const MapDivision = ({ pushTripSteps, pushTripTips }) => {
+const MapDivision = ({
+    tripSteps,
+    tripTips,
+    tripTitle,
+    pushTripSteps,
+    pushTripTips,
+}) => {
     const {
         mapState,
         adviceLocation,
@@ -131,51 +134,22 @@ const MapDivision = ({ pushTripSteps, pushTripTips }) => {
                     handleLongPress={handleLongPress}
                     handlePinState={handlePinState}
                 />
-                {mapState === "arrival" && (
-                    <TripEventForm
-                        eventLocation={arrivalLocation}
-                        eventType={mapState}
-                        formBackground={COLORS.primary}
-                        pushTripStep={handleTripSteps}
-                    />
-                )}
-                {mapState === "stopover" && (
-                    <TripEventForm
-                        eventLocation={
-                            stopoverLocation[stopoverLocation.length - 1]
-                        }
-                        eventType={mapState}
-                        formBackground={COLORS.secondary}
-                        pushTripStep={handleTripSteps}
-                    />
-                )}
-                {mapState === "departure" && (
-                    <TripEventForm
-                        eventLocation={departureLocation}
-                        eventType={mapState}
-                        formBackground={COLORS.tertiary}
-                        pushTripStep={handleTripSteps}
-                    />
-                )}
-                {mapState === "advice" && (
-                    <TripTipsForm
-                        formBackground="green"
-                        tipsLocation={adviceLocation[adviceLocation.length - 1]}
-                        tipsType={mapState}
-                        pushTips={handleTripTips}
-                    />
-                )}
-                {mapState === "warning" && (
-                    <TripTipsForm
-                        formBackground="red"
-                        tipsLocation={
-                            warningLocation[warningLocation.length - 1]
-                        }
-                        tipsType={mapState}
-                        pushTips={handleTripTips}
-                    />
-                )}
+                <MarkerFormsContainer
+                    mapState={mapState}
+                    adviceLocation={adviceLocation}
+                    arrivalLocation={arrivalLocation}
+                    departureLocation={departureLocation}
+                    stopoverLocation={stopoverLocation}
+                    warningLocation={warningLocation}
+                    handleTripSteps={handleTripSteps}
+                    handleTripTips={handleTripTips}
+                />
             </View>
+            <TripDetailsDisplayer
+                tripSteps={tripSteps}
+                tripTips={tripTips}
+                tripTitle={tripTitle}
+            />
         </View>
     );
 };

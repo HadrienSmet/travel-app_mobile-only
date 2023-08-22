@@ -3,6 +3,7 @@ export const travelerTypeArray = [
     "Biker",
     "Business",
     "Camper / Nature",
+    "City trip",
     "Digital nomad",
     "Jet-set",
     "Seasonal worker",

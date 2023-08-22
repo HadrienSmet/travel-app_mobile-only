@@ -12,6 +12,7 @@ import styles from "./profilePicturePicker.style";
 
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
+    const [isWarned, setIsWarned] = useState(false);
     const userData = useSelector((state) => state.newUserData.userData);
     const router = useRouter();
     const dispatch = useDispatch();
@@ -49,13 +50,17 @@ const ProfilePicturePicker = () => {
                 })
                 .catch((err) => console.log(err));
         } else {
-            alert("Are you sure you dont want to set a picture?");
-            axiosPostUserSignupData(userData)
-                .then((res) => {
-                    dispatch(setUserData(res.data));
-                    router.push("/home");
-                })
-                .catch((err) => console.log(err));
+            if (!isWarned) {
+                setIsWarned(true);
+                alert("Are you sure you dont want to set a picture?");
+            } else {
+                axiosPostUserSignupData(userData)
+                    .then((res) => {
+                        dispatch(setUserData(res.data));
+                        router.push("/home");
+                    })
+                    .catch((err) => console.log(err));
+            }
         }
     };
 

@@ -273,11 +273,17 @@ const PersonalsForm = () => {
                     label="Age"
                     placeholder="Age"
                 />
-                {/* <DatePicker /> */}
                 <SelectList
                     search={false}
                     boxStyles={styles.flatListStyle}
-                    dropdownStyles={styles.dropDownStyle}
+                    dropdownStyles={[
+                        styles.dropDownStyle,
+                        {
+                            position: "relative",
+                            top: -10,
+                            zIndex: 20,
+                        },
+                    ]}
                     inputStyles={
                         country === ""
                             ? { color: SHADES.black04 }
@@ -298,7 +304,6 @@ const PersonalsForm = () => {
                             position: "relative",
                             top: -10,
                             zIndex: 20,
-                            marginBottom: 80,
                         },
                     ]}
                     inputStyles={

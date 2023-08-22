@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 
-import { Text, View } from "react-native";
-import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
+import { Text, TextInput, View } from "react-native";
 import ButtonsContainer from "./buttonsContainer/ButtonsContainer";
 import EditListComponent from "./editListComponent/EditListComponent";
 
 import styles from "./profileForm.style";
 import { axiosPatchProfileData } from "../../../../utils/axios/user/axiosPatchProfileData";
 import { setUserData } from "../../../../features/userData.slice";
+import { SHADES } from "../../../../constants";
 
 const useUserLanguages = (userData) => {
     const { languagesArray } = useLanguagesArray();
@@ -85,25 +85,39 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
 
     return (
         <View style={styles.formContainer}>
-            <ConnexionInput
+            <TextInput
+                multiline
                 numberOfLines={6}
-                mutliline={true}
-                inputValue={userBio}
-                inputHandler={setUserBio}
-                inputPlaceholder={"Bio"}
-                isTextArea={true}
-                defaultBorder={styles.inputBorder}
+                value={userBio}
+                onChangeText={setUserBio}
+                placeholder="Bio"
+                style={{
+                    borderWidth: 1,
+                    borderColor: SHADES.black06,
+                    borderRadius: 8,
+                    paddingVertical: 8,
+                    paddingHorizontal: 12,
+                    color: SHADES.black06,
+                    verticalAlign: "top",
+                }}
             />
             <View style={styles.fieldDivision}>
                 <Text style={styles.titleContainer}>What I seak</Text>
-                <ConnexionInput
+                <TextInput
+                    multiline
                     numberOfLines={6}
-                    mutliline={true}
-                    inputValue={userPurpose}
-                    inputHandler={setUserPurpose}
-                    inputPlaceholder="Some greate fellows to bike across Asia"
-                    isTextArea={true}
-                    defaultBorder={styles.inputBorder}
+                    value={userPurpose}
+                    onChangeText={setUserPurpose}
+                    placeholder="Some great fellows to bike accross Asia"
+                    style={{
+                        borderWidth: 1,
+                        borderColor: SHADES.black06,
+                        borderRadius: 8,
+                        paddingVertical: 8,
+                        paddingHorizontal: 12,
+                        color: SHADES.black06,
+                        verticalAlign: "top",
+                    }}
                 />
             </View>
             <EditListComponent
