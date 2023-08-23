@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     mainContainer: {
-        height: windowHeight - 328,
+        minHeight: windowHeight - 328,
         paddingHorizontal: windowWidth / 10,
         alignItems: "center",
         justifyContent: "center",
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         paddingRight: 24,
         backgroundColor: COLORS.secondary,
         borderRadius: 60,
+        marginBottom: 36,
     },
     buttonTextStyle: {
         color: COLORS.white,

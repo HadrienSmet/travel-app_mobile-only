@@ -1,18 +1,13 @@
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./profileMain.style";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import PreviousTripCard from "./previousTripCard/PreviousTripCard";
 
 const ProfileMain = ({ handleEdit }) => {
     const userData = useSelector((state) => state.newUserData.userData);
 
-    useEffect(() => {
-        console.log(userData.albums);
-        console.log(userData.albums.length);
-    }, []);
-
     return (
-        <View style={styles.mainContainer}>
+        <ScrollView contentContainerStyle={styles.mainContainer}>
             {userData.purpose !== undefined && (
                 <Text style={styles.profileText}>{userData.purpose}</Text>
             )}
@@ -35,12 +30,18 @@ const ProfileMain = ({ handleEdit }) => {
                     </Text>
                 </View>
             )}
+            {userData.previousTrips.length !== 0 && (
+                <View>
+                    <Text>Previous trips :</Text>
+                    {userData.previousTrips.map((trip, index) => (
+                        <PreviousTripCard trip={trip} index={index} />
+                    ))}
+                </View>
+            )}
             <TouchableOpacity style={styles.buttonStyle} onPress={handleEdit}>
-                <Text style={styles.buttonTextStyle}>
-                    Complete your profile
-                </Text>
+                <Text style={styles.buttonTextStyle}>Edit your profile</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 

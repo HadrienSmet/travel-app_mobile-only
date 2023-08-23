@@ -23,7 +23,7 @@ const TripModal = () => {
             >
                 <View style={styles.modalContentContainer}>
                     <TripModalHeader handleClose={handleClose} />
-                    <TripModalForm />
+                    <TripModalForm handleClose={handleClose} />
                 </View>
             </Modal>
             <TouchableOpacity

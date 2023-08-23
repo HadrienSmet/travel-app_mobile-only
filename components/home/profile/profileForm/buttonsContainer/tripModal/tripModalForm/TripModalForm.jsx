@@ -22,7 +22,7 @@ const whithWhomArray = [
     "With my friends",
 ];
 
-const TripModalForm = () => {
+const TripModalForm = ({ handleClose }) => {
     const [tripTitle, setTripTitle] = useState("");
     const [tripType, setTripType] = useState(undefined);
     const [tripWithWhom, setTripWithWhom] = useState(undefined);
@@ -45,6 +45,7 @@ const TripModalForm = () => {
         axiosPushTrip(userData.userId, data, userData.token)
             .then((res) => {
                 dispatch(setUserData(res.data));
+                handleClose();
             })
             .catch((err) => console.log(err));
     };
