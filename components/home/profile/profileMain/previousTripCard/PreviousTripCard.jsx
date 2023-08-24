@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./previousTripCard.style";
-import { SHADES } from "../../../../../constants";
+import TripStepsDivision from "./tripStepsDivision/TripStepsDivision";
+import TripTipsDivision from "./tripTipsDivision/TripTipsDivision";
 
 const PreviousTripCard = ({ trip, index }) => {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -16,52 +17,30 @@ const PreviousTripCard = ({ trip, index }) => {
             <View style={styles.rowDisplay}>
                 <Text style={styles.triptitle}>{trip.title}</Text>
                 <TouchableOpacity onPress={toggleAccordion}>
-                    <FontAwesome style={styles.angleIcon} name="angle-down" />
+                    <FontAwesome
+                        style={
+                            isAccordionOpen
+                                ? [
+                                      { transform: [{ rotate: "180deg" }] },
+                                      styles.angleIcon,
+                                  ]
+                                : styles.angleIcon
+                        }
+                        name="angle-down"
+                    />
                 </TouchableOpacity>
             </View>
-            <View style={styles.basicDivision}>
-                <Text style={styles.fadeElement}>{trip.type}</Text>
-                <View style={styles.basicDivision}>
-                    <Text style={styles.tripScdTitle}>
-                        The stages of my journey :
-                    </Text>
-                    <View style={styles.stepsContainer}>
-                        {trip.steps.map((step, i) => (
-                            <View
-                                style={
-                                    i < trip.steps.length - 1 && {
-                                        borderBottomWidth: 1,
-                                        borderColor: SHADES.black02,
-                                        paddingBottom: 8,
-                                    }
-                                }
-                                key={`step-${i}`}
-                            >
-                                <View style={styles.rowDisplay}>
-                                    <Text style={styles.stepTitle}>
-                                        {step.event}
-                                    </Text>
-                                    <Text
-                                        style={styles.fadeElement}
-                                    >{`${step.date[0].day}/${step.date[0].month}/${step.date[0].year}`}</Text>
-                                </View>
-                                <Text
-                                    style={[
-                                        styles.fadeElement,
-                                        { paddingHorizontal: 6 },
-                                    ]}
-                                >
-                                    {step.content}
-                                </Text>
-                            </View>
-                        ))}
-                    </View>
-                    <TouchableOpacity style={styles.stepsButtonContainer}>
-                        <Text style={styles.stepsButtonElement}>
-                            My journey on a map
-                        </Text>
-                    </TouchableOpacity>
+            <View
+                style={
+                    isAccordionOpen ? styles.basicDivision : { display: "none" }
+                }
+            >
+                <View style={[styles.rowDisplay, { paddingTop: 8 }]}>
+                    <Text style={styles.fadeElement}>{trip.type}</Text>
+                    <Text style={styles.fadeElement}>{trip.withWhom}</Text>
                 </View>
+                <TripStepsDivision trip={trip} />
+                {trip.tips.length !== 0 && <TripTipsDivision trip={trip} />}
             </View>
         </View>
     );

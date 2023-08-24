@@ -41,26 +41,21 @@ const TripModalForm = ({ handleClose }) => {
             tips: tripTips,
             steps: tripSteps,
         };
+        console.log("next is data");
         console.log(data);
-        axiosPushTrip(userData.userId, data, userData.token)
-            .then((res) => {
-                dispatch(setUserData(res.data));
-                handleClose();
-            })
-            .catch((err) => console.log(err));
+        if (
+            tripTitle !== "" &&
+            tripWithWhom !== undefined &&
+            tripType !== undefined
+        ) {
+            axiosPushTrip(userData.userId, data, userData.token)
+                .then((res) => {
+                    dispatch(setUserData(res.data));
+                    handleClose();
+                })
+                .catch((err) => console.log(err));
+        }
     };
-    useEffect(() => {
-        console.log(tripSteps);
-    }, [tripSteps]);
-    useEffect(() => {
-        console.log(tripTips);
-    }, [tripTips]);
-    useEffect(() => {
-        console.log(tripTitle);
-    }, [tripTitle]);
-    useEffect(() => {
-        console.log(tripType);
-    }, [tripType]);
     useEffect(() => {
         console.log(tripWithWhom);
     }, [tripWithWhom]);

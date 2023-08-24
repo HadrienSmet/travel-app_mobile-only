@@ -1,23 +1,23 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
-import styles from "./tripStepsDivision.style";
 import { useState } from "react";
+import styles from "./tripTipsDivision.style";
 
-const TripStepsDivision = ({ trip }) => {
-    const [isStepsAccordionOpen, setIsStepsAccordionOpen] = useState(false);
-    const toggleAccordion = () => setIsStepsAccordionOpen((state) => !state);
+const TripTipsDivision = ({ trip }) => {
+    const [isTipsAccordionOpen, setIsTipssAccordionOpen] = useState(false);
+    const toggleAccordion = () => setIsTipssAccordionOpen((state) => !state);
     return (
         <View style={styles.basicDivision}>
             <View style={styles.rowDisplay}>
                 <Text style={styles.tripScdTitle}>
-                    The stages of my journey
+                    The tips I learned during my journey
                 </Text>
                 <TouchableOpacity onPress={toggleAccordion}>
                     <FontAwesome
                         name="angle-down"
                         style={
-                            isStepsAccordionOpen && {
+                            isTipsAccordionOpen && {
                                 transform: [{ rotate: "180deg" }],
                             }
                         }
@@ -26,27 +26,25 @@ const TripStepsDivision = ({ trip }) => {
             </View>
             <View
                 style={
-                    isStepsAccordionOpen
+                    isTipsAccordionOpen
                         ? styles.stepsContainer
                         : { display: "none" }
                 }
             >
-                {trip.steps.map((step, i) => (
+                {trip.tips.map((tip, i) => (
                     <View
                         style={
-                            i < trip.steps.length - 1 && {
+                            i < trip.tips.length - 1 && {
                                 borderBottomWidth: 1,
                                 borderColor: SHADES.black02,
                                 paddingBottom: 8,
                             }
                         }
-                        key={`step-${i}`}
+                        key={`tip-${i}`}
                     >
                         <View style={styles.rowDisplay}>
-                            <Text style={styles.stepTitle}>{step.event}</Text>
-                            <Text
-                                style={styles.fadeElement}
-                            >{`${step.date[0].day}/${step.date[0].month}/${step.date[0].year}`}</Text>
+                            <Text style={styles.stepTitle}>{tip.type}</Text>
+                            <Text style={styles.fadeElement}>{tip.about}</Text>
                         </View>
                         <Text
                             style={[
@@ -54,18 +52,16 @@ const TripStepsDivision = ({ trip }) => {
                                 { paddingHorizontal: 6 },
                             ]}
                         >
-                            {step.content}
+                            {tip.content}
                         </Text>
                     </View>
                 ))}
             </View>
             <TouchableOpacity style={styles.stepsButtonContainer}>
-                <Text style={styles.stepsButtonElement}>
-                    My journey on a map
-                </Text>
+                <Text style={styles.stepsButtonElement}>My tips on a map</Text>
             </TouchableOpacity>
         </View>
     );
 };
 
-export default TripStepsDivision;
+export default TripTipsDivision;

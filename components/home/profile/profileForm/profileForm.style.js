@@ -23,6 +23,15 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     inputBorder: { borderWidth: 1, borderColor: SHADES.black04 },
+    textareaStyle: {
+        borderWidth: 1,
+        borderColor: SHADES.black06,
+        borderRadius: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        color: SHADES.black06,
+        width: "100%",
+    },
 });
 
 export default styles;

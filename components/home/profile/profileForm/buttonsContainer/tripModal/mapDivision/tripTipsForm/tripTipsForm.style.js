@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: SIZES.medium,
         color: COLORS.white,
-        verticalAlign: "center",
     },
     secondTitle: { color: COLORS.white, fontWeight: "500" },
     basicView: { width: "100%" },

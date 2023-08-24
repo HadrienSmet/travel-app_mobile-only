@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS, SHADES, SIZES } from "../../../../../constants/index";
+
+const windowWidth = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     tripContainer: {
@@ -8,10 +10,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: SHADES.black06,
         borderRadius: 8,
+        minWidth: "100%",
     },
     rowDisplay: {
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    headerStyle: {
+        paddingVertical: 8,
+        width: "100%",
+        // paddingHorizontal: windowWidth / 10,
     },
     triptitle: {
         fontSize: SIZES.medium,

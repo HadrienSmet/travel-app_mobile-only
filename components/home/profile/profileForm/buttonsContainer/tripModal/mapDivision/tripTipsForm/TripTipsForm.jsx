@@ -71,7 +71,7 @@ const TripTipsForm = ({ formBackground, tipsType, tipsLocation, pushTips }) => {
                     value={tipsContent}
                     onChangeText={setTipsContent}
                     placeholder={`My ${tipsType} is...`}
-                    style={[styles.textareaStyle, { textAlign: "top" }]}
+                    style={[styles.textareaStyle, { verticalAlign: "top" }]}
                 />
             </View>
             <TouchableOpacity

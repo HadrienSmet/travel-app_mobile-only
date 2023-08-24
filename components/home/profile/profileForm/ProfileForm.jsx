@@ -91,15 +91,7 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
                 value={userBio}
                 onChangeText={setUserBio}
                 placeholder="Bio"
-                style={{
-                    borderWidth: 1,
-                    borderColor: SHADES.black06,
-                    borderRadius: 8,
-                    paddingVertical: 8,
-                    paddingHorizontal: 12,
-                    color: SHADES.black06,
-                    verticalAlign: "top",
-                }}
+                style={[styles.textareaStyle, { verticalAlign: "top" }]}
             />
             <View style={styles.fieldDivision}>
                 <Text style={styles.titleContainer}>What I seak</Text>
@@ -109,15 +101,7 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
                     value={userPurpose}
                     onChangeText={setUserPurpose}
                     placeholder="Some great fellows to bike accross Asia"
-                    style={{
-                        borderWidth: 1,
-                        borderColor: SHADES.black06,
-                        borderRadius: 8,
-                        paddingVertical: 8,
-                        paddingHorizontal: 12,
-                        color: SHADES.black06,
-                        verticalAlign: "top",
-                    }}
+                    style={[styles.textareaStyle, { verticalAlign: "top" }]}
                 />
             </View>
             <EditListComponent

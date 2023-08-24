@@ -34,7 +34,11 @@ const ProfileMain = ({ handleEdit }) => {
                 <View>
                     <Text>Previous trips :</Text>
                     {userData.previousTrips.map((trip, index) => (
-                        <PreviousTripCard trip={trip} index={index} />
+                        <PreviousTripCard
+                            key={`previous-trip-${index}`}
+                            trip={trip}
+                            index={index}
+                        />
                     ))}
                 </View>
             )}
