@@ -2,9 +2,11 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./profileMain.style";
 import { useSelector } from "react-redux";
 import PreviousTripCard from "./previousTripCard/PreviousTripCard";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ProfileMain = ({ handleEdit }) => {
     const userData = useSelector((state) => state.newUserData.userData);
+    const previousTrips = [...userData.previousTrips];
 
     return (
         <ScrollView contentContainerStyle={styles.mainContainer}>
@@ -31,15 +33,29 @@ const ProfileMain = ({ handleEdit }) => {
                 </View>
             )}
             {userData.previousTrips.length !== 0 && (
-                <View>
-                    <Text>Previous trips :</Text>
-                    {userData.previousTrips.map((trip, index) => (
-                        <PreviousTripCard
-                            key={`previous-trip-${index}`}
-                            trip={trip}
-                            index={index}
-                        />
-                    ))}
+                <View style={{ gap: 4 }}>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <Text>Previous trips</Text>
+                        <FontAwesome name="plane" />
+                    </View>
+                    {previousTrips
+                        .sort(
+                            (a, b) =>
+                                parseInt(b.steps[0].date.year) -
+                                parseInt(a.steps[0].date.year)
+                        )
+                        .map((trip, index) => (
+                            <PreviousTripCard
+                                key={`previous-trip-${index}`}
+                                trip={trip}
+                                index={index}
+                            />
+                        ))}
                 </View>
             )}
             <TouchableOpacity style={styles.buttonStyle} onPress={handleEdit}>

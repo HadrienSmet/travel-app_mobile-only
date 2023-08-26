@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     basicDivision: {
         borderTopWidth: 1,
         borderColor: SHADES.black02,
-        paddingTop: 12,
+        marginHorizontal: 16,
+        paddingVertical: 12,
         gap: 12,
     },
     tripScdTitle: {

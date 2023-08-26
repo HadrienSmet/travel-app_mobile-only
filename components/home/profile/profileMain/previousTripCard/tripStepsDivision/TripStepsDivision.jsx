@@ -2,18 +2,19 @@ import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
 import styles from "./tripStepsDivision.style";
-import { useState } from "react";
 
-const TripStepsDivision = ({ trip }) => {
-    const [isStepsAccordionOpen, setIsStepsAccordionOpen] = useState(false);
-    const toggleAccordion = () => setIsStepsAccordionOpen((state) => !state);
+const TripStepsDivision = ({
+    isStepsAccordionOpen,
+    toggleStepsAccordion,
+    trip,
+}) => {
     return (
         <View style={styles.basicDivision}>
             <View style={styles.rowDisplay}>
                 <Text style={styles.tripScdTitle}>
                     The stages of my journey
                 </Text>
-                <TouchableOpacity onPress={toggleAccordion}>
+                <TouchableOpacity onPress={toggleStepsAccordion}>
                     <FontAwesome
                         name="angle-down"
                         style={
@@ -46,7 +47,7 @@ const TripStepsDivision = ({ trip }) => {
                             <Text style={styles.stepTitle}>{step.event}</Text>
                             <Text
                                 style={styles.fadeElement}
-                            >{`${step.date[0].day}/${step.date[0].month}/${step.date[0].year}`}</Text>
+                            >{`${step.date.day}/${step.date.month}/${step.date.year}`}</Text>
                         </View>
                         <Text
                             style={[

@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderColor: SHADES.black02,
         paddingTop: 12,
+        paddingBottom: 16,
+        marginHorizontal: 16,
         gap: 12,
     },
     tripScdTitle: {

@@ -50,15 +50,29 @@ const TripModalForm = ({ handleClose }) => {
         ) {
             axiosPushTrip(userData.userId, data, userData.token)
                 .then((res) => {
-                    dispatch(setUserData(res.data));
+                    const dispatchData = {
+                        previousTrips: [...userData.previousTrips, data],
+                    };
+                    console.log(res.data);
+                    dispatch(setUserData(dispatchData));
                     handleClose();
                 })
                 .catch((err) => console.log(err));
+        } else {
+            alert(
+                "Need to define a title, a type and to share with whom you traveled with"
+            );
         }
     };
     useEffect(() => {
         console.log(tripWithWhom);
     }, [tripWithWhom]);
+    useEffect(() => {
+        console.log(tripSteps);
+    }, [tripSteps]);
+    useEffect(() => {
+        console.log(tripTips);
+    }, [tripTips]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.modalBasicDivision}>

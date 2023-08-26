@@ -13,12 +13,6 @@ const ButtonsContainer = ({ handleConfirm }) => {
                     <FontAwesome style={styles.buttonElement} name="camera" />
                     <Text style={styles.buttonElement}>Edit albums</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity
-                    style={[styles.basicContainerStyle, styles.buttonContainer]}
-                >
-                    <FontAwesome style={styles.buttonElement} name="map" />
-                    <Text style={styles.buttonElement}>Edit trips</Text>
-                </TouchableOpacity> */}
                 <TripModal />
             </View>
             <TouchableOpacity

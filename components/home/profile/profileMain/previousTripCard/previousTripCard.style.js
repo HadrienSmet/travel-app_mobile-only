@@ -1,16 +1,18 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { COLORS, SHADES, SIZES } from "../../../../../constants/index";
+import { COLORS, SHADES, SHADOWS, SIZES } from "../../../../../constants/index";
 
 const windowWidth = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     tripContainer: {
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderWidth: 1,
-        borderColor: SHADES.black06,
+        // paddingHorizontal: 16,
+        // paddingVertical: 12,
+        overflow: "hidden",
+        // borderWidth: 1,
+        // borderColor: SHADES.black06,
         borderRadius: 8,
         minWidth: "100%",
+        ...SHADOWS.medium,
     },
     rowDisplay: {
         flexDirection: "row",
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     triptitle: {
         fontSize: SIZES.medium,
         fontWeight: "700",
-        color: COLORS.black,
+        color: COLORS.white,
     },
     tripScdTitle: {
         fontSize: SIZES.medium,
@@ -32,11 +34,13 @@ const styles = StyleSheet.create({
         color: SHADES.black06,
     },
     angleIcon: {
-        fontSize: SIZES.medium,
-        color: COLORS.black,
+        fontSize: SIZES.large,
+        color: COLORS.white,
+        fontWeight: "900",
     },
     basicDivision: {
         gap: 12,
+        backgroundColor: COLORS.white,
     },
     stepsContainer: {
         gap: 8,

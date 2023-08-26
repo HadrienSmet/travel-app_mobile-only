@@ -1,19 +1,20 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
-import { useState } from "react";
 import styles from "./tripTipsDivision.style";
 
-const TripTipsDivision = ({ trip }) => {
-    const [isTipsAccordionOpen, setIsTipssAccordionOpen] = useState(false);
-    const toggleAccordion = () => setIsTipssAccordionOpen((state) => !state);
+const TripTipsDivision = ({
+    isTipsAccordionOpen,
+    toggleTipsAccordion,
+    trip,
+}) => {
     return (
         <View style={styles.basicDivision}>
             <View style={styles.rowDisplay}>
                 <Text style={styles.tripScdTitle}>
                     The tips I learned during my journey
                 </Text>
-                <TouchableOpacity onPress={toggleAccordion}>
+                <TouchableOpacity onPress={toggleTipsAccordion}>
                     <FontAwesome
                         name="angle-down"
                         style={
