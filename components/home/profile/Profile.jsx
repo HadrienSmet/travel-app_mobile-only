@@ -13,11 +13,6 @@ const Profile = () => {
 
     const handleEdit = () => setIsEditing((state) => !state);
 
-    useEffect(() => {
-        console.log("next log is userData");
-        console.log(userData);
-    }, [userData]);
-
     return (
         <ScrollView style={{ flex: 1 }}>
             <ProfileHeader

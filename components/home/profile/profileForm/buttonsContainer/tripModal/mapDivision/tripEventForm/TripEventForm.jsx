@@ -92,7 +92,7 @@ const TripEventForm = ({
             dateObject.year !== undefined
         ) {
             pushTripStep({
-                event: eventType,
+                type: eventType,
                 location: eventLocation,
                 date: dateObject,
                 content,

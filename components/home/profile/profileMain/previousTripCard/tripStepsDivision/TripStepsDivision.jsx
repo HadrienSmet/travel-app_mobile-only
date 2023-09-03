@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
 import styles from "./tripStepsDivision.style";
+import MarkersDisplayer from "../markersDisplayer/MarkersDisplayer";
 
 const TripStepsDivision = ({
     isStepsAccordionOpen,
@@ -44,7 +45,7 @@ const TripStepsDivision = ({
                         key={`step-${i}`}
                     >
                         <View style={styles.rowDisplay}>
-                            <Text style={styles.stepTitle}>{step.event}</Text>
+                            <Text style={styles.stepTitle}>{step.type}</Text>
                             <Text
                                 style={styles.fadeElement}
                             >{`${step.date.day}/${step.date.month}/${step.date.year}`}</Text>
@@ -60,11 +61,7 @@ const TripStepsDivision = ({
                     </View>
                 ))}
             </View>
-            <TouchableOpacity style={styles.stepsButtonContainer}>
-                <Text style={styles.stepsButtonElement}>
-                    My journey on a map
-                </Text>
-            </TouchableOpacity>
+            <MarkersDisplayer markersList={trip.steps} buttonText="journey" />
         </View>
     );
 };

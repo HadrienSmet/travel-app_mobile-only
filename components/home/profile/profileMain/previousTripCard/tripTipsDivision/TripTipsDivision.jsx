@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
 import styles from "./tripTipsDivision.style";
+import MarkersDisplayer from "../markersDisplayer/MarkersDisplayer";
 
 const TripTipsDivision = ({
     isTipsAccordionOpen,
@@ -58,9 +59,7 @@ const TripTipsDivision = ({
                     </View>
                 ))}
             </View>
-            <TouchableOpacity style={styles.stepsButtonContainer}>
-                <Text style={styles.stepsButtonElement}>My tips on a map</Text>
-            </TouchableOpacity>
+            <MarkersDisplayer markersList={trip.tips} buttonText="tips" />
         </View>
     );
 };
