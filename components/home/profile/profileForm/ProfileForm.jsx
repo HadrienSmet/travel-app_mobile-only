@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 
-import { Text, TextInput, View } from "react-native";
-import ButtonsContainer from "./buttonsContainer/ButtonsContainer";
-import EditListComponent from "./editListComponent/EditListComponent";
-
-import styles from "./profileForm.style";
 import { axiosPatchProfileData } from "../../../../utils/axios/user/axiosPatchProfileData";
 import { setUserData } from "../../../../features/userData.slice";
-import { SHADES } from "../../../../constants";
+
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AddAlbumModal from "./addAlbumModal/AddAlbumModal";
+import AddTripModal from "./addTripModal/AddTripModal";
+import EditListComponent from "./editListComponent/EditListComponent";
+import PreviousTripsDivision from "./previousTripsDivision/PreviousTripsDivision";
+
+import styles from "./profileForm.style";
 
 const useUserLanguages = (userData) => {
     const { languagesArray } = useLanguagesArray();
@@ -127,7 +130,23 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
                 }
                 handleEdit={handleUserDreamTrips}
             />
-            <ButtonsContainer handleConfirm={handleConfirm} />
+            <PreviousTripsDivision />
+            <View style={styles.buttonsDivision}>
+                <View style={styles.buttonsContainer}>
+                    <AddAlbumModal />
+                    <AddTripModal />
+                </View>
+                <TouchableOpacity
+                    onPress={handleConfirm}
+                    style={[
+                        styles.basicContainerStyle,
+                        styles.confirmContainer,
+                    ]}
+                >
+                    <FontAwesome style={styles.confirmElement} name="check" />
+                    <Text style={styles.confirmElement}>Confirm</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

@@ -4,6 +4,35 @@ import { COLORS, SHADES, SHADOWS, SIZES } from "../../../../constants";
 const windowDimensions = Dimensions.get("window");
 
 const styles = StyleSheet.create({
+    buttonsDivision: {
+        width: "100%",
+        gap: 16,
+        paddingTop: 12,
+        paddingBottom: 20,
+    },
+    basicContainerStyle: {
+        borderRadius: 60,
+        paddingVertical: 12,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 8,
+    },
+    buttonsContainer: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    confirmContainer: {
+        width: "100%",
+        backgroundColor: COLORS.primary,
+    },
+    confirmElement: {
+        fontSize: SIZES.medium,
+        color: COLORS.white,
+        textTransform: "uppercase",
+        fontWeight: "700",
+    },
     formContainer: {
         width: "100%",
         alignItems: "center",
@@ -11,8 +40,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: windowDimensions.width / 8,
         paddingVertical: 24,
         backgroundColor: COLORS.white,
-        // height: windowDimensions.height - 306,
-        // flex: 1,
     },
     fieldDivision: { width: "100%", gap: 4 },
     titleContainer: {

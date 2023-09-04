@@ -3,6 +3,9 @@ const COLORS = {
     secondary: "#FF7A00",
     tertiary: "#FF00A8",
 
+    warning: "red",
+    advice: "green",
+
     refusal: "#E20A0A",
     approval: "#6BBF44",
 
