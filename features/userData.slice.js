@@ -13,6 +13,7 @@ export const userDataSlice = createSlice({
                 state.userData = { ...state.userData, ...payload };
             }
         },
+        
     },
 });
 

@@ -4,30 +4,23 @@ import { TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import styles from "./mapContainer.style";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const MapContainer = ({
-    // adviceLocation,
-    // arrivalLocation,
-    // departureLocation,
-    // stopoverLocation,
-    // warningLocation,
-    tripSteps,
-    tripTips,
-    mapState,
-    handleLongPress,
-    handlePinState,
-}) => {
+const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
     const [initialRegion, setInitialRegion] = useState(undefined);
+    const previousTripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
 
     useEffect(() => {
-        if (tripSteps.length !== 0) {
+        if (previousTripData.steps.length !== 0) {
             setInitialRegion({
-                ...tripSteps[0].location,
+                ...previousTripData.steps[0].location,
                 latitudeDelta: 0.9,
                 longitudeDelta: 0.9,
             });
         }
-    }, [tripSteps]);
+    }, [previousTripData.steps]);
 
     const handlePinColor = (markerType) => {
         switch (markerType) {
@@ -53,8 +46,8 @@ const MapContainer = ({
                         onLongPress={handleLongPress}
                         initialRegion={initialRegion}
                     >
-                        {tripSteps.length !== 0 &&
-                            tripSteps.map((step, index) => (
+                        {previousTripData.steps.length !== 0 &&
+                            previousTripData.steps.map((step, index) => (
                                 <Marker
                                     key={`marker-${index}`}
                                     coordinate={step.location}
@@ -62,8 +55,8 @@ const MapContainer = ({
                                     onPress={() => setSelectedMarker(step)}
                                 />
                             ))}
-                        {tripTips.length !== 0 &&
-                            tripTips.map((tips, index) => (
+                        {previousTripData.tips.length !== 0 &&
+                            previousTripData.tips.map((tips, index) => (
                                 <Marker
                                     key={`marker-${index}`}
                                     coordinate={tips.location}

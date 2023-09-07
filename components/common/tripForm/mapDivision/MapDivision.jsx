@@ -4,8 +4,14 @@ import styles from "./mapDivision.style";
 import MapContainer from "./mapContainer/MapContainer";
 import MarkerFormsContainer from "./markerFormsContainer/MarkerFormsContainer";
 import TripDetailsDisplayer from "./tripDetailsDisplayer/TripDetailsDisplayer";
+import { useDispatch } from "react-redux";
+import {
+    pushTripSteps,
+    pushTripTips,
+} from "../../../../features/previousTripData.slice";
 
-const useMapPin = ({ tripSteps, pushTripSteps, pushTripTips }) => {
+const useMapPin = () => {
+    const dispatch = useDispatch();
     const [mapState, setMapState] = useState("map");
     const [pinState, setPinState] = useState("");
     const [stopoverLocation, setStopoverLocation] = useState([]);
@@ -28,12 +34,12 @@ const useMapPin = ({ tripSteps, pushTripSteps, pushTripTips }) => {
         }, 700);
     };
     const handleTripSteps = (data) => {
-        pushTripSteps(data);
+        dispatch(pushTripSteps(data));
         resetMapState();
         handlePinState("");
     };
     const handleTripTips = (data) => {
-        pushTripTips(data);
+        dispatch(pushTripTips(data));
         resetMapState();
         handlePinState("");
     };
@@ -84,18 +90,18 @@ const useMapPin = ({ tripSteps, pushTripSteps, pushTripTips }) => {
         }
     };
 
-    useEffect(() => {
-        if (tripSteps.length !== 0) {
-            const array = [...tripSteps];
-            const arrival = array.filter((step) => step.type === "arrival")[0];
-            const departure = array.filter(
-                (step) => step.type === "departure"
-            )[0];
-            const stopovers = array.filter((step) => step.type === "stopover");
-            setArrivalLocation(arrival.location);
-            setDepartureLocation();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (previousTrip.steps.length !== 0) {
+    //         const array = [...previousTrip.steps];
+    //         const arrival = array.filter((step) => step.type === "arrival")[0];
+    //         const departure = array.filter(
+    //             (step) => step.type === "departure"
+    //         )[0];
+    //         const stopovers = array.filter((step) => step.type === "stopover");
+    //         setArrivalLocation(arrival.location);
+    //         setDepartureLocation();
+    //     }
+    // }, []);
 
     return {
         mapState,
@@ -111,13 +117,7 @@ const useMapPin = ({ tripSteps, pushTripSteps, pushTripTips }) => {
     };
 };
 
-const MapDivision = ({
-    tripSteps,
-    tripTips,
-    tripTitle,
-    pushTripSteps,
-    pushTripTips,
-}) => {
+const MapDivision = ({ tripTitle }) => {
     const {
         mapState,
         adviceLocation,
@@ -129,7 +129,7 @@ const MapDivision = ({
         handleLongPress,
         handleTripSteps,
         handleTripTips,
-    } = useMapPin({ tripSteps, pushTripSteps, pushTripTips });
+    } = useMapPin();
 
     return (
         <View style={styles.mapDivision}>
@@ -139,8 +139,6 @@ const MapDivision = ({
             <View>
                 <MapContainer
                     mapState={mapState}
-                    tripSteps={tripSteps}
-                    tripTips={tripTips}
                     handleLongPress={handleLongPress}
                     handlePinState={handlePinState}
                 />
@@ -156,8 +154,8 @@ const MapDivision = ({
                 />
             </View>
             <TripDetailsDisplayer
-                tripSteps={tripSteps}
-                tripTips={tripTips}
+                // tripSteps={tripSteps}
+                // tripTips={tripTips}
                 tripTitle={tripTitle}
             />
         </View>

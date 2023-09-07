@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome5";
+import { TouchableOpacity } from "react-native";
 
 import "react-native-gesture-handler";
 
@@ -9,8 +8,21 @@ import ElementButtons from "./elementButtons/ElementButtons";
 import ElementContent from "./elementContent/ElementContent";
 
 const ListElement = ({ elem, index, tripList }) => {
+    const [isEditing, setIsEditing] = useState(false);
     const [areButtonsVisible, setButtonsVisible] = useState(false);
     const toggleButtonsVisible = () => setButtonsVisible((state) => !state);
+    const editElement = () => {
+        setButtonsVisible(false);
+        setIsEditing(true);
+    };
+    const endEdit = () => setIsEditing(false);
+    const contentProps = {
+        elem,
+        index,
+        tripList,
+        isEditing,
+        endEdit,
+    };
 
     return (
         <TouchableOpacity
@@ -22,9 +34,9 @@ const ListElement = ({ elem, index, tripList }) => {
             }
         >
             {areButtonsVisible ? (
-                <ElementButtons />
+                <ElementButtons editElement={editElement} />
             ) : (
-                <ElementContent elem={elem} />
+                <ElementContent props={contentProps} />
             )}
         </TouchableOpacity>
     );

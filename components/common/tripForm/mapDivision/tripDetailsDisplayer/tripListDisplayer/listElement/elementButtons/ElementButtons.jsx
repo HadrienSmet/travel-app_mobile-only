@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import styles from "./elementButtons.style";
 
-const ElementButtons = () => {
+const ElementButtons = ({ editElement }) => {
     return (
         <View style={styles.buttonsRow}>
             <TouchableOpacity
@@ -15,6 +15,7 @@ const ElementButtons = () => {
                 />
             </TouchableOpacity>
             <TouchableOpacity
+                onPress={editElement}
                 style={[styles.elementButtonContainer, styles.editButton]}
             >
                 <FontAwesome style={styles.buttonContent} name="edit" />

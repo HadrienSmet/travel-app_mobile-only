@@ -10,6 +10,12 @@ import { travelerTypeArray } from "../../../data/travelerTypeArray";
 import styles from "./tripForm.style";
 import { useState } from "react";
 import MapDivision from "./mapDivision/MapDivision";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    patchTripSteps,
+    patchTripTips,
+} from "../../../features/previousTripData.slice";
+import { useEffect } from "react";
 
 const whithWhomArray = [
     "In couple",
@@ -20,19 +26,33 @@ const whithWhomArray = [
 ];
 
 const TripForm = ({ trip, handleConfirm }) => {
+    const dispatch = useDispatch();
+    const previousTripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
     const [tripTitle, setTripTitle] = useState(trip ? trip.title : "");
     const [tripType, setTripType] = useState(trip ? trip.type : undefined);
     const [tripWithWhom, setTripWithWhom] = useState(
         trip ? trip.withWhom : undefined
     );
-    const [tripSteps, setTripSteps] = useState(trip ? trip.steps : []);
-    const [tripTips, setTripTips] = useState(trip ? trip.tips : []);
-
-    const pushTripSteps = (step) => setTripSteps((state) => [...state, step]);
-    const pushTripTips = (tips) => setTripTips((state) => [...state, tips]);
 
     const handleSubmit = () =>
-        handleConfirm(tripTitle, tripType, tripWithWhom, tripTips, tripSteps);
+        handleConfirm(
+            tripTitle,
+            tripType,
+            tripWithWhom,
+            previousTripData.tips,
+            previousTripData.steps
+        );
+
+    useEffect(() => {
+        dispatch(patchTripSteps(trip.steps));
+        dispatch(patchTripTips(trip.tips));
+    }, []);
+
+    useEffect(() => {
+        console.log(previousTripData);
+    }, [previousTripData]);
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -87,13 +107,7 @@ const TripForm = ({ trip, handleConfirm }) => {
                     }
                 />
             </View>
-            <MapDivision
-                tripSteps={tripSteps}
-                tripTips={tripTips}
-                tripTitle={tripTitle}
-                pushTripSteps={pushTripSteps}
-                pushTripTips={pushTripTips}
-            />
+            <MapDivision tripTitle={tripTitle} />
             <TouchableOpacity
                 onPress={handleSubmit}
                 style={styles.addTrippBtnContainer}
