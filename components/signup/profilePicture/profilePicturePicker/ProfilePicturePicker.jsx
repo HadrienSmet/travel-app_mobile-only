@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
-import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
+// import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
 import { setUserData } from "../../../../features/userData.slice";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -41,12 +41,13 @@ const ProfilePicturePicker = () => {
             });
             axiosPostUserSignupData(userData)
                 .then((res) => {
-                    axiosPutCoverPicture(res, formData)
-                        .then((res) => {
-                            dispatch(setUserData(res.data));
-                            router.push("/home");
-                        })
-                        .catch((err) => console.log(err));
+                    // axiosPutCoverPicture(res, formData)
+                    //     .then((res) => {
+                    // dispatch(setUserData(res.data));
+                    dispatch(setUserData(res.data));
+                    router.push("/home");
+                    // })
+                    // .catch((err) => console.log(err));
                 })
                 .catch((err) => console.log(err));
         } else {

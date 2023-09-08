@@ -6,8 +6,14 @@ import "react-native-gesture-handler";
 import styles from "./listElement.style";
 import ElementButtons from "./elementButtons/ElementButtons";
 import ElementContent from "./elementContent/ElementContent";
+import { useDispatch } from "react-redux";
+import {
+    removeStep,
+    removeTip,
+} from "../../../../../../../features/previousTripData.slice";
 
 const ListElement = ({ elem, index, tripList }) => {
+    const dispatch = useDispatch();
     const [isEditing, setIsEditing] = useState(false);
     const [areButtonsVisible, setButtonsVisible] = useState(false);
     const toggleButtonsVisible = () => setButtonsVisible((state) => !state);
@@ -16,6 +22,15 @@ const ListElement = ({ elem, index, tripList }) => {
         setIsEditing(true);
     };
     const endEdit = () => setIsEditing(false);
+    const deleteElement = () => {
+        console.log(index);
+        if (elem.about !== undefined) {
+            dispatch(removeTip(index));
+        } else {
+            dispatch(removeStep(index));
+        }
+        setButtonsVisible(false);
+    };
     const contentProps = {
         elem,
         index,
@@ -34,7 +49,10 @@ const ListElement = ({ elem, index, tripList }) => {
             }
         >
             {areButtonsVisible ? (
-                <ElementButtons editElement={editElement} />
+                <ElementButtons
+                    deleteElement={deleteElement}
+                    editElement={editElement}
+                />
             ) : (
                 <ElementContent props={contentProps} />
             )}

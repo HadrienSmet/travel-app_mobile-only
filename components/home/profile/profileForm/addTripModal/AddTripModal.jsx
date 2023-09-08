@@ -10,6 +10,7 @@ import TripModalHeader from "./tripModalHeader/TripModalHeader";
 import TripForm from "../../../../common/tripForm/TripForm";
 
 import styles from "./addTripModal.style";
+import { resetState } from "../../../../../features/previousTripData.slice";
 
 const useAddTripModal = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -17,26 +18,16 @@ const useAddTripModal = () => {
     const dispatch = useDispatch();
 
     const handleOpen = () => setIsVisible(true);
-    const handleClose = () => setIsVisible(false);
+    const handleClose = () => {
+        dispatch(resetState());
+        setIsVisible(false);
+    };
 
-    const handleConfirm = (
-        tripTitle,
-        tripType,
-        tripWithWhom,
-        tripTips,
-        tripSteps
-    ) => {
-        const data = {
-            title: tripTitle,
-            type: tripType,
-            withWhom: tripWithWhom,
-            tips: tripTips,
-            steps: tripSteps,
-        };
+    const handleConfirm = (data) => {
         if (
-            tripTitle !== "" &&
-            tripWithWhom !== undefined &&
-            tripType !== undefined
+            data.title !== "" &&
+            data.withWhom !== undefined &&
+            data.type !== undefined
         ) {
             axiosPushTrip(userData.userId, data, userData.token)
                 .then(() => {

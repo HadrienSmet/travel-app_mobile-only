@@ -77,8 +77,9 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
         axiosPatchProfileData(userData.userId, data, userData.token)
             .then((res) => {
                 setIsEditing(false);
+                console.log("new userData: " + userData.previousTrips);
                 dispatch(setUserData(res.data));
-                console.log("new userData: " + userData);
+                console.log("new userData: " + userData.previousTrips);
             })
             .catch((err) => {
                 setIsEditing(false);

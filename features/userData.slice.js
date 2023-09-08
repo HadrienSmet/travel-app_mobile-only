@@ -13,9 +13,11 @@ export const userDataSlice = createSlice({
                 state.userData = { ...state.userData, ...payload };
             }
         },
-        
+        setUserPreviousTrips: (state, { payload }) => {
+            state.userData.previousTrips = payload;
+        },
     },
 });
 
-export const { setUserData } = userDataSlice.actions;
+export const { setUserData, setUserPreviousTrips } = userDataSlice.actions;
 export default userDataSlice.reducer;

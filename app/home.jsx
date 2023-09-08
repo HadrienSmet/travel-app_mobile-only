@@ -7,6 +7,7 @@ import HomeMain from "../components/home/homeMain/HomeMain";
 
 const home = () => {
     const [homeState, setHomeState] = useState("matcher");
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <AppHeader />

@@ -36,23 +36,21 @@ const TripForm = ({ trip, handleConfirm }) => {
         trip ? trip.withWhom : undefined
     );
 
-    const handleSubmit = () =>
-        handleConfirm(
-            tripTitle,
-            tripType,
-            tripWithWhom,
-            previousTripData.tips,
-            previousTripData.steps
-        );
+    const handleSubmit = () => {
+        const data = {
+            title: tripTitle,
+            type: tripType,
+            withWhom: tripWithWhom,
+            steps: previousTripData.steps,
+            tips: previousTripData.tips,
+        };
+        handleConfirm(data);
+    };
 
     useEffect(() => {
-        dispatch(patchTripSteps(trip.steps));
-        dispatch(patchTripTips(trip.tips));
+        if (trip) dispatch(patchTripSteps(trip.steps));
+        if (trip) dispatch(patchTripTips(trip.tips));
     }, []);
-
-    useEffect(() => {
-        console.log(previousTripData);
-    }, [previousTripData]);
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>

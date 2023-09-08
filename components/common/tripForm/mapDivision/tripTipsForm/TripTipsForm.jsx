@@ -10,11 +10,17 @@ import { SelectList } from "react-native-dropdown-select-list";
 import styles from "./tripTipsForm.style";
 import { COLORS } from "../../../../../constants";
 
-const adviseArray = ["Something to do", "Something to eat", "Something to see"];
+const adviseArray = [
+    "Something to do",
+    "Something to eat",
+    "Something to see",
+    "Something great",
+];
 const warningArray = [
     "Something you should avoid",
     "Something you should know",
     "Something you should not do",
+    "Something bad",
 ];
 
 const TripTipsForm = ({ formBackground, tipsType, tipsLocation, pushTips }) => {

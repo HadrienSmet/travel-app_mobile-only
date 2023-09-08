@@ -153,11 +153,7 @@ const MapDivision = ({ tripTitle }) => {
                     handleTripTips={handleTripTips}
                 />
             </View>
-            <TripDetailsDisplayer
-                // tripSteps={tripSteps}
-                // tripTips={tripTips}
-                tripTitle={tripTitle}
-            />
+            <TripDetailsDisplayer tripTitle={tripTitle} />
         </View>
     );
 };

@@ -9,8 +9,6 @@ const MarkerFormsContainer = ({
     departureLocation,
     adviceLocation,
     warningLocation,
-    // tripSteps,
-    // tripTips,
     handleTripSteps,
     handleTripTips,
 }) => {

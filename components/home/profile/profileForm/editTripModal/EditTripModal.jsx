@@ -1,25 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import TripForm from "../../../../common/tripForm/TripForm";
 import styles from "./editTripModal.style";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserPreviousTrips } from "../../../../../features/userData.slice";
+import { resetState } from "../../../../../features/previousTripData.slice";
+import { axiosPatchTrips } from "../../../../../utils/axios/user/axiosPatchTrips";
 
 const EditTripModal = ({ trip }) => {
+    const userData = useSelector((state) => state.newUserData.userData);
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+
     const openModal = () => setIsOpen(true);
-    const closeModal = () => setIsOpen(false);
-
-    const handleConfirm = (
-        tripTitle,
-        tripType,
-        tripWithWhom,
-        tripTips,
-        tripSteps
-    ) => console.log(tripTitle, tripType, tripWithWhom, tripTips, tripSteps);
-
-    useEffect(() => {
-        if (isOpen) console.log(trip);
-    }, [isOpen]);
+    const closeModal = () => {
+        dispatch(resetState());
+        setIsOpen(false);
+    };
+    const handleConfirm = (prevTrip) => {
+        if (
+            prevTrip.title !== "" &&
+            prevTrip.withWhom !== undefined &&
+            prevTrip.type !== undefined
+        ) {
+            axiosPatchTrips(userData.userId, prevTrip, userData.token)
+                .then(() => {
+                    const data = [...userData.previousTrips];
+                    const oldIndex = data.findIndex(
+                        (trip) => trip.title === prevTrip.title
+                    );
+                    data.splice(oldIndex, 1, prevTrip);
+                    dispatch(setUserPreviousTrips(data));
+                    closeModal();
+                })
+                .catch((err) => alert(err));
+        } else {
+            alert(
+                "Need to define a title, a type and to share with whom you traveled with"
+            );
+        }
+    };
 
     return (
         <>

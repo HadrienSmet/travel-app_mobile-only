@@ -27,14 +27,6 @@ const MarkersDisplayer = ({ markersList, buttonText }) => {
         }
     };
 
-    useEffect(() => {
-        console.log("markersList");
-        console.log(markersList);
-    }, []);
-    useEffect(() => {
-        console.log(selectedMarker);
-    }, [selectedMarker]);
-
     return (
         <>
             <Modal visible={isMapOpen}>
