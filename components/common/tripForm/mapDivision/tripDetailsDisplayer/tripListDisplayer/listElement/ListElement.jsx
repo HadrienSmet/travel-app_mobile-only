@@ -9,7 +9,7 @@ import ElementContent from "./elementContent/ElementContent";
 import { useDispatch } from "react-redux";
 import {
     removeStep,
-    removeTip,
+    // removeTip,
 } from "../../../../../../../features/previousTripData.slice";
 
 const ListElement = ({ elem, index, tripList }) => {
@@ -23,12 +23,11 @@ const ListElement = ({ elem, index, tripList }) => {
     };
     const endEdit = () => setIsEditing(false);
     const deleteElement = () => {
-        console.log(index);
-        if (elem.about !== undefined) {
-            dispatch(removeTip(index));
-        } else {
-            dispatch(removeStep(index));
-        }
+        // if (elem.about !== undefined) {
+        //     dispatch(removeTip(index));
+        // } else {
+        dispatch(removeStep(index));
+        // }
         setButtonsVisible(false);
     };
     const contentProps = {

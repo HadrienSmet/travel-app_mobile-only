@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setUserData } from "../../../../../features/userData.slice";
+import { resetState } from "../../../../../features/previousTripData.slice";
 import { axiosPushTrip } from "../../../../../utils/axios/user/axiosPushTrip";
 
 import { TouchableOpacity, Text, Modal, View } from "react-native";
@@ -10,7 +11,6 @@ import TripModalHeader from "./tripModalHeader/TripModalHeader";
 import TripForm from "../../../../common/tripForm/TripForm";
 
 import styles from "./addTripModal.style";
-import { resetState } from "../../../../../features/previousTripData.slice";
 
 const useAddTripModal = () => {
     const [isVisible, setIsVisible] = useState(false);

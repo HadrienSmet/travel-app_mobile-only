@@ -5,54 +5,54 @@ export const previousTripDataSlice = createSlice({
     initialState: {
         previousTripData: {
             steps: [],
-            tips: [],
+            // tips: [],
         },
     },
     reducers: {
         patchTripSteps: (state, { payload }) => {
             state.previousTripData = {
                 steps: payload,
-                tips: state.previousTripData.tips,
+                // tips: state.previousTripData.tips,
             };
         },
-        patchTripTips: (state, { payload }) => {
-            state.previousTripData = {
-                steps: state.previousTripData.steps,
-                tips: payload,
-            };
-        },
+        // patchTripTips: (state, { payload }) => {
+        //     state.previousTripData = {
+        //         steps: state.previousTripData.steps,
+        //         tips: payload,
+        //     };
+        // },
         pushTripSteps: (state, { payload }) => {
             state.previousTripData = {
                 steps: [...state.previousTripData.steps, payload],
-                tips: state.previousTripData.tips,
+                // tips: state.previousTripData.tips,
             };
         },
-        pushTripTips: (state, { payload }) => {
-            state.previousTripData = {
-                steps: state.previousTripData.steps,
-                tips: [...state.previousTripData.tips, payload],
-            };
-        },
+        // pushTripTips: (state, { payload }) => {
+        //     state.previousTripData = {
+        //         steps: state.previousTripData.steps,
+        //         tips: [...state.previousTripData.tips, payload],
+        //     };
+        // },
         removeStep: (state, { payload }) => {
             const newSteps = [...state.previousTripData.steps];
             newSteps.splice(payload, 1);
             state.previousTripData = {
                 steps: newSteps,
-                tips: state.previousTripData.tips,
+                // tips: state.previousTripData.tips,
             };
         },
-        removeTip: (state, { payload }) => {
-            const newTips = [...state.previousTripData.tips];
-            newTips.splice(payload, 1);
-            state.previousTripData = {
-                steps: state.previousTripData.steps,
-                tips: newTips,
-            };
-        },
+        // removeTip: (state, { payload }) => {
+        //     const newTips = [...state.previousTripData.tips];
+        //     newTips.splice(payload, 1);
+        //     state.previousTripData = {
+        //         steps: state.previousTripData.steps,
+        //         tips: newTips,
+        //     };
+        // },
         resetState: (state) => {
             state.previousTripData = {
                 steps: [],
-                tips: [],
+                // tips: [],
             };
         },
     },
@@ -60,11 +60,11 @@ export const previousTripDataSlice = createSlice({
 
 export const {
     patchTripSteps,
-    patchTripTips,
+    // patchTripTips,
     pushTripSteps,
-    pushTripTips,
+    // pushTripTips,
     removeStep,
-    removeTip,
+    // removeTip,
     resetState,
 } = previousTripDataSlice.actions;
 export default previousTripDataSlice.reducer;

@@ -21,8 +21,9 @@
         "@reduxjs/toolkit": "^1.9.5",
         "axios": "^1.4.0",
         "dotenv": "^16.3.1",
-        "expo": "^49.0.7",
+        "expo": "^49.0.10",
         "expo-constants": "~14.4.2",
+        "expo-file-system": "~15.4.4",
         "expo-font": "^11.4.0",
         "expo-image-picker": "^14.3.2",
         "expo-linear-gradient": "^12.3.0",
@@ -48,6 +49,7 @@
         "react-native-web": "~0.19.6",
         "react-redux": "^8.1.2",
         "react-select-country-list": "^2.2.3",
+        "start": "^5.1.0",
         "uuid": "^9.0.0"
     },
     "devDependencies": {

@@ -3,33 +3,33 @@ import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./previousTripCard.style";
 import TripStepsDivision from "./tripStepsDivision/TripStepsDivision";
-import TripTipsDivision from "./tripTipsDivision/TripTipsDivision";
+// import TripTipsDivision from "./tripTipsDivision/TripTipsDivision";
 import { COLORS } from "../../../../../constants";
 
 const useTripAccordions = () => {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isStepsAccordionOpen, setIsStepsAccordionOpen] = useState(false);
-    const [isTipsAccordionOpen, setIsTipssAccordionOpen] = useState(false);
+    // const [isTipsAccordionOpen, setIsTipssAccordionOpen] = useState(false);
 
     const closeStepsAccordion = () => setIsStepsAccordionOpen(false);
-    const closeTipsAccordion = () => setIsTipssAccordionOpen(false);
+    // const closeTipsAccordion = () => setIsTipssAccordionOpen(false);
     const toggleStepsAccordion = () =>
         setIsStepsAccordionOpen((state) => !state);
-    const toggleTipsAccordion = () =>
-        setIsTipssAccordionOpen((state) => !state);
+    // const toggleTipsAccordion = () =>
+    //     setIsTipssAccordionOpen((state) => !state);
     const toggleAccordion = () => {
         closeStepsAccordion();
-        closeTipsAccordion();
+        // closeTipsAccordion();
         setIsAccordionOpen((state) => !state);
     };
 
     return {
         isAccordionOpen,
         isStepsAccordionOpen,
-        isTipsAccordionOpen,
+        // isTipsAccordionOpen,
         toggleAccordion,
         toggleStepsAccordion,
-        toggleTipsAccordion,
+        // toggleTipsAccordion,
     };
 };
 
@@ -37,10 +37,10 @@ const PreviousTripCard = ({ trip, index }) => {
     const {
         isAccordionOpen,
         isStepsAccordionOpen,
-        isTipsAccordionOpen,
+        // isTipsAccordionOpen,
         toggleAccordion,
         toggleStepsAccordion,
-        toggleTipsAccordion,
+        // toggleTipsAccordion,
     } = useTripAccordions();
 
     return (
@@ -89,13 +89,13 @@ const PreviousTripCard = ({ trip, index }) => {
                     toggleStepsAccordion={toggleStepsAccordion}
                     trip={trip}
                 />
-                {trip.tips.length !== 0 && (
+                {/* {trip.tips.length !== 0 && (
                     <TripTipsDivision
                         isTipsAccordionOpen={isTipsAccordionOpen}
                         toggleTipsAccordion={toggleTipsAccordion}
                         trip={trip}
                     />
-                )}
+                )} */}
             </View>
         </View>
     );

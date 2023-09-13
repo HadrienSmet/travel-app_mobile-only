@@ -23,7 +23,7 @@ const LoginForm = () => {
                     dispatch(setUserData(res.data));
                     router.push("/home");
                 })
-                .catch((err) => console.log(err));
+                .catch(() => alert("Invalid password or email adress"));
         } else {
             alert("Those fields are requiered");
         }

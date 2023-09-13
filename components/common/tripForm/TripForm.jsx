@@ -42,14 +42,14 @@ const TripForm = ({ trip, handleConfirm }) => {
             type: tripType,
             withWhom: tripWithWhom,
             steps: previousTripData.steps,
-            tips: previousTripData.tips,
+            // tips: previousTripData.tips,
         };
         handleConfirm(data);
     };
 
     useEffect(() => {
         if (trip) dispatch(patchTripSteps(trip.steps));
-        if (trip) dispatch(patchTripTips(trip.tips));
+        // if (trip) dispatch(patchTripTips(trip.tips));
     }, []);
 
     return (

@@ -13,10 +13,10 @@ const TripDetailsDisplayer = ({ tripTitle }) => {
                 tripList={previousTripData.steps}
                 tripTitle={`All the steps of ${tripTitle}`}
             />
-            <TripListDisplayer
+            {/* <TripListDisplayer
                 tripList={previousTripData.tips}
                 tripTitle={`The tips I learned during ${tripTitle}`}
-            />
+            /> */}
         </View>
     );
 };

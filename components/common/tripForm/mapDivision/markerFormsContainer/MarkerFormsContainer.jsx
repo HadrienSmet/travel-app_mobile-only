@@ -7,10 +7,10 @@ const MarkerFormsContainer = ({
     arrivalLocation,
     stopoverLocation,
     departureLocation,
-    adviceLocation,
-    warningLocation,
+    // adviceLocation,
+    // warningLocation,
     handleTripSteps,
-    handleTripTips,
+    // handleTripTips,
 }) => {
     return (
         <>
@@ -40,7 +40,7 @@ const MarkerFormsContainer = ({
                     pushTripStep={handleTripSteps}
                 />
             )}
-            {mapState === "advice" && (
+            {/* {mapState === "advice" && (
                 <TripTipsForm
                     formBackground="green"
                     tipsLocation={adviceLocation[adviceLocation.length - 1]}
@@ -55,7 +55,7 @@ const MarkerFormsContainer = ({
                     tipsType={mapState}
                     pushTips={handleTripTips}
                 />
-            )}
+            )} */}
         </>
     );
 };

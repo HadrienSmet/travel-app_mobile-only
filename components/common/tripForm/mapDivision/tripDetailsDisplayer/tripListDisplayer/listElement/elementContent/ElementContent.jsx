@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import styles from "./elementContent.style";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { SelectList } from "react-native-dropdown-select-list";
+// import { SelectList } from "react-native-dropdown-select-list";
 import { COLORS } from "../../../../../../../../constants";
 import { useDispatch } from "react-redux";
 import {
     patchTripSteps,
-    patchTripTips,
+    // patchTripTips,
 } from "../../../../../../../../features/previousTripData.slice";
 
-const adviseArray = ["Something to do", "Something to eat", "Something to see"];
-const warningArray = [
-    "Something you should avoid",
-    "Something you should know",
-    "Something you should not do",
-];
+// const adviseArray = ["Something to do", "Something to eat", "Something to see"];
+// const warningArray = [
+//     "Something you should avoid",
+//     "Something you should know",
+//     "Something you should not do",
+// ];
 
 const useElementContent = (tripList, index, elem, endEdit) => {
     const dispatch = useDispatch();
-    const [about, setAbout] = useState(
-        elem.about !== undefined ? elem.about : undefined
-    );
+    // const [about, setAbout] = useState(
+    //     elem.about !== undefined ? elem.about : undefined
+    // );
     const [content, setContent] = useState(
         elem.content !== "" ? elem.content : ""
     );
@@ -45,38 +45,44 @@ const useElementContent = (tripList, index, elem, endEdit) => {
         if (parseInt(tripList[index - 1].date.year) > parseInt(date.year))
             setDate(tripList[index - 1].date.year);
     };
-    const pickRightArray = () => {
-        const rightArray = elem.type === "warning" ? warningArray : adviseArray;
-        return rightArray;
-    };
+    // const pickRightArray = () => {
+    //     const rightArray = elem.type === "warning" ? warningArray : adviseArray;
+    //     return rightArray;
+    // };
 
     const handleEdit = () => {
-        const data =
-            elem.date !== undefined
-                ? {
-                      type: elem.type,
-                      location: elem.location,
-                      date,
-                      content,
-                  }
-                : {
-                      type: elem.type,
-                      location: elem.location,
-                      about,
-                      content,
-                  };
+        // const data =
+        //     elem.date !== undefined
+        //         ? {
+        //               type: elem.type,
+        //               location: elem.location,
+        //               date,
+        //               content,
+        //           }
+        //         : {
+        //               type: elem.type,
+        //               location: elem.location,
+        //               about,
+        //               content,
+        //           };
+        const data = {
+            type: elem.type,
+            location: elem.location,
+            date,
+            content,
+        };
         let array = [...tripList];
         array.splice(index, 1, data);
-        if (elem.date !== undefined) {
-            dispatch(patchTripSteps(array));
-        } else {
-            dispatch(patchTripTips(array));
-        }
+        // if (elem.date !== undefined) {
+        dispatch(patchTripSteps(array));
+        // } else {
+        //     dispatch(patchTripTips(array));
+        // }
         endEdit();
     };
 
     return {
-        about,
+        // about,
         content,
         date,
         handleDay,
@@ -84,8 +90,8 @@ const useElementContent = (tripList, index, elem, endEdit) => {
         handleYear,
         handleBlur,
         handleEdit,
-        pickRightArray,
-        setAbout,
+        // pickRightArray,
+        // setAbout,
         setContent,
     };
 };
@@ -93,7 +99,7 @@ const useElementContent = (tripList, index, elem, endEdit) => {
 const ElementContent = ({ props }) => {
     const { elem, index, tripList, isEditing, endEdit } = props;
     const {
-        about,
+        // about,
         content,
         date,
         handleDay,
@@ -101,8 +107,8 @@ const ElementContent = ({ props }) => {
         handleYear,
         handleBlur,
         handleEdit,
-        pickRightArray,
-        setAbout,
+        // pickRightArray,
+        // setAbout,
         setContent,
     } = useElementContent(tripList, index, elem, endEdit);
     return (
@@ -146,7 +152,7 @@ const ElementContent = ({ props }) => {
                         {elem.date.day}/{elem.date.month}/{elem.date.year}
                     </Text>
                 )}
-                {elem.about !== undefined && isEditing && (
+                {/* {elem.about !== undefined && isEditing && (
                     <SelectList
                         // boxStyles={styles.listContainer}
                         // inputStyles={styles.listContent}
@@ -162,10 +168,10 @@ const ElementContent = ({ props }) => {
                         placeholder={`Select the type of your ${elem.type}`}
                         value={about}
                     />
-                )}
-                {elem.about !== undefined && !isEditing && (
+                )} */}
+                {/* {elem.about !== undefined && !isEditing && (
                     <Text>{elem.about}</Text>
-                )}
+                )} */}
             </View>
             {elem.content !== "" && isEditing && (
                 <TextInput
