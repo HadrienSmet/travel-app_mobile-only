@@ -7,10 +7,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         gap: 8,
+        marginBottom: 28,
     },
     personalsInputsContainer: {
         width: "100%",
-        gap: 4,
+        // gap: 4,
     },
     iconsContainer: {
         position: "absolute",
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingLeft: 15,
         paddingRight: 15,
-        marginBottom: 16.5,
+        marginBottom: 16,
         backgroundColor: COLORS.white,
         borderRadius: 4,
         borderWidth: 0,

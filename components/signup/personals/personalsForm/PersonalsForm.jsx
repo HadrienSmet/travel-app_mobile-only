@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
-import { View, TouchableOpacity, Text, Platform } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../../features/userData.slice";
 
-import { useAgeArray } from "../../../../hooks/useAgeArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 
 import { COLORS, SHADES, nationalitiesArray } from "../../../../constants";
 import styles from "./personalsForm.style";
+import DateSelectRow from "../../../common/dateSelectRow/DateSelectRow";
 // import DatePicker from "./datePicker/DatePicker";
 
 const usePersonalsFirstname = () => {
@@ -129,37 +129,28 @@ const usePersonalsGender = () => {
 };
 
 const usePersonalsAge = () => {
-    const [age, setAge] = useState(0);
-    const { ageArray } = useAgeArray();
+    const [birthTimestamp, setBirthTimestamp] = useState(0);
+    const [birthday, setBirthday] = useState({
+        day: 0,
+        month: 0,
+        year: 0,
+    });
+    const handleDay = (day) => setBirthday((state) => ({ ...state, day: day }));
+    const handleMonth = (month) =>
+        setBirthday((state) => ({ ...state, month: month }));
+    const handleYear = (year) =>
+        setBirthday((state) => ({ ...state, year: year }));
 
     return {
-        age,
-        ageArray,
-        setAge,
+        birthday,
+        birthTimestamp,
+        setBirthTimestamp,
+        handleDay,
+        handleMonth,
+        handleYear,
     };
 };
-const usePersonalsDate = () => {
-    const [date, setDate] = useState(undefined);
-    const [dateOfBirth, setDateOfBirth] = useState(undefined);
-    const [showPicker, setShowPicker] = useState(false);
 
-    const togglePicker = () => setShowPicker((state) => !state);
-    const changeDate = ({ type }, selectedDate) => {
-        if (type == "set") {
-            const currentDate = selectedDate;
-            setDate(currentDate);
-
-            if (Platform.OS === "android") {
-                togglePicker();
-                setDateOfBirth(currentDate.toDateString());
-            }
-        } else {
-            togglePicker();
-        }
-    };
-
-    return { date, changeDate };
-};
 const usePersonalsCountry = () => {
     const { countriesArray } = useCountryArray();
     const [country, setCountry] = useState("");
@@ -192,8 +183,14 @@ const PersonalsForm = () => {
         handleLastname,
     } = usePersonalsLastname();
     const { genderArray, gender, setGender } = usePersonalsGender();
-    const { age, ageArray, setAge } = usePersonalsAge();
-    // const { date, changeDate } = usePersonalsDate();
+    const {
+        birthday,
+        birthTimestamp,
+        setBirthTimestamp,
+        handleDay,
+        handleMonth,
+        handleYear,
+    } = usePersonalsAge();
     const { country, countriesArray, setCountry } = usePersonalsCountry();
     const dispatch = useDispatch();
     const router = useRouter();
@@ -203,7 +200,7 @@ const PersonalsForm = () => {
             isFirstnameOk &&
             isLastnameOk &&
             gender !== "" &&
-            age !== 0 &&
+            birthTimestamp !== 0 &&
             country !== "" &&
             nationality !== ""
         ) {
@@ -211,7 +208,7 @@ const PersonalsForm = () => {
                 firstname: firstname.trimEnd(),
                 lastname: lastname.trimEnd(),
                 gender,
-                age,
+                birth: birthTimestamp,
                 country,
                 nationality,
             };
@@ -258,20 +255,12 @@ const PersonalsForm = () => {
                     label="Gender"
                     placeholder="Gender"
                 />
-                <SelectList
-                    boxStyles={styles.flatListStyle}
-                    dropdownStyles={styles.dropDownStyle}
-                    inputStyles={
-                        age === 0
-                            ? { color: SHADES.black04 }
-                            : { color: COLORS.black }
-                    }
-                    data={ageArray}
-                    search={false}
-                    save="value"
-                    setSelected={(val) => setAge(val)}
-                    label="Age"
-                    placeholder="Age"
+                <DateSelectRow
+                    dateObject={birthday}
+                    handleDay={handleDay}
+                    handleMonth={handleMonth}
+                    handleYear={handleYear}
+                    setDateTimestamp={setBirthTimestamp}
                 />
                 <SelectList
                     search={false}

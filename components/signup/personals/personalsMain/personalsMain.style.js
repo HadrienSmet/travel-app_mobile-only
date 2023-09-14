@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import { COLORS, SHADES, SIZES } from "../../../../constants";
 
 const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     personalsMain: {
@@ -18,13 +19,12 @@ const styles = StyleSheet.create({
     personalsContent: {
         zIndex: 2,
         position: "absolute",
-        minHeight: "100%",
+        minHeight: windowHeight - 120,
         // height: "100%",
         width: "100%",
         gap: 24,
         paddingVertical: 40,
-        paddingLeft: windowWidth / 8,
-        paddingRight: windowWidth / 8,
+        paddingHorizontal: windowWidth / 8,
         backgroundColor: SHADES.orange055,
         justifyContent: "center",
         alignItems: "center",
