@@ -5,7 +5,7 @@ import PreviousTripCard from "./previousTripCard/PreviousTripCard";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const ProfileMain = ({ handleEdit }) => {
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const previousTrips = [...userData.previousTrips];
 
     return (

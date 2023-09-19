@@ -14,7 +14,7 @@ import styles from "./addTripModal.style";
 
 const useAddTripModal = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const dispatch = useDispatch();
 
     const handleOpen = () => setIsVisible(true);

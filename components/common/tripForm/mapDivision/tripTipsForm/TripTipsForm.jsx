@@ -15,6 +15,7 @@ const adviseArray = [
     "Something to eat",
     "Something to see",
     "Something great",
+    "Somewhere to go",
 ];
 const warningArray = [
     "Something you should avoid",

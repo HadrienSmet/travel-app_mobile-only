@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { COLORS } from "../../../../constants";
 
 const UserCard = () => {
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     return (
         <View style={{ backgroundColor: COLORS.white }}>
             <UserHeader username={userData.firstname} />

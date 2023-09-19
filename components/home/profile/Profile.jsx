@@ -4,12 +4,14 @@ import ProfileHeader from "./profileHeader/ProfileHeader";
 import ProfileMain from "./profileMain/ProfileMain";
 import { useEffect, useState } from "react";
 import ProfileForm from "./profileForm/ProfileForm";
+import { ageCalculator } from "../../../utils/functions/ageCalculator";
 
 const Profile = () => {
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const [isEditing, setIsEditing] = useState(false);
     const [onTravel, setOnTravel] = useState(userData.onTravel);
     const [travelerType, setTravelerType] = useState(userData.travelerType);
+    const age = ageCalculator(userData.birth);
 
     const handleEdit = () => setIsEditing((state) => !state);
 
@@ -19,7 +21,7 @@ const Profile = () => {
                 isEditing={isEditing}
                 profilePicture={userData.profilePicture}
                 firstname={userData.firstname}
-                age={userData.age}
+                age={age}
                 onTravel={onTravel}
                 travelerType={travelerType}
                 setOnTravel={setOnTravel}

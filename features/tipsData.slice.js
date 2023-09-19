@@ -9,27 +9,33 @@ export const tipsDataSlice = createSlice({
         },
     },
     reducers: {
-        pushUserTips(state, { payload }) {
+        pushInUserTips(state, { payload }) {
             state.tipsData = {
-                ...state.tipsData,
-                userTips: [...state.tipsData.userTips, ...payload],
+                everyTips: state.tipsData.everyTips,
+                userTips: [...state.tipsData.userTips, payload],
+            };
+        },
+        pushInEveryTips(state, { payload }) {
+            state.tipsData = {
+                userTips: state.tipsData.userTips,
+                everyTips: [...state.tipsData.userTips, payload],
             };
         },
         setUserTips(state, { payload }) {
             state.tipsData = {
-                ...state.tipsData,
-                userTips: [...payload],
+                everyTips: state.tipsData.everyTips,
+                userTips: payload,
             };
         },
         setEveryTips(state, { payload }) {
             state.tipsData = {
-                ...state.tipsData,
-                everyTips: [...payload],
+                userTips: state.tipsData.userTips,
+                everyTips: payload,
             };
         },
     },
 });
 
-export const { pushUserTips, setEveryTips, setUserTips } =
+export const { pushInUserTips, pushInEveryTips, setEveryTips, setUserTips } =
     tipsDataSlice.actions;
 export default tipsDataSlice.reducer;

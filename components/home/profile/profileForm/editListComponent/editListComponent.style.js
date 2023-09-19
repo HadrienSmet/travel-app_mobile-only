@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     userListStyle: {
         position: "absolute",
         left: 0,
-        color: SHADES.black04,
     },
     iconStyle: {
         color: SHADES.black07,

@@ -30,10 +30,10 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                 return COLORS.secondary;
             case "departure":
                 return COLORS.tertiary;
-            case "advice":
-                return "green";
-            case "warning":
-                return "red";
+            // case "advice":
+            //     return "green";
+            // case "warning":
+            //     return "red";
         }
     };
 
@@ -55,7 +55,7 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                     onPress={() => setSelectedMarker(step)}
                                 />
                             ))}
-                        {previousTripData.tips.length !== 0 &&
+                        {/* {previousTripData.tips.length !== 0 &&
                             previousTripData.tips.map((tips, index) => (
                                 <Marker
                                     key={`marker-${index}`}
@@ -63,7 +63,7 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                     pinColor={handlePinColor(tips.type)}
                                     onPress={() => setSelectedMarker(tips)}
                                 />
-                            ))}
+                            ))} */}
                     </MapView>
                     <View style={styles.mapIconsContainer}>
                         <TouchableOpacity
@@ -90,7 +90,7 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                 name="plane-departure"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             onPress={() => handlePinState("advice")}
                         >
                             <FontAwesome
@@ -105,7 +105,7 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                 style={styles.warningColor}
                                 name="thumbs-down"
                             />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </>
             )}

@@ -3,12 +3,14 @@ import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useState } from "react";
 import styles from "./editListComponent.style";
+import { COLORS, SHADES } from "../../../../../constants";
 
 const EditListComponent = ({
     componentTitle,
     listToEdit,
     listPlaceholder,
     handleEdit,
+    userCurrentList,
 }) => {
     return (
         <View style={styles.componentContainer}>
@@ -27,7 +29,18 @@ const EditListComponent = ({
                         <FontAwesome style={styles.iconStyle} name="plus" />
                     }
                 />
-                <Text style={styles.userListStyle}>{listPlaceholder}</Text>
+                <Text
+                    style={
+                        userCurrentList === undefined
+                            ? [styles.userListStyle, { color: SHADES.black04 }]
+                            : [
+                                  styles.userListStyle,
+                                  { color: COLORS.black, fontWeight: "600" },
+                              ]
+                    }
+                >
+                    {listPlaceholder}
+                </Text>
             </View>
         </View>
     );

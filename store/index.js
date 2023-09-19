@@ -5,8 +5,8 @@ import tipsDataSlice from "../features/tipsData.slice";
 
 export default configureStore({
     reducer: {
-        newUserData: userDataSlice,
+        userDataReducer: userDataSlice,
         previousTripReducer: previousTripDataSlice,
-        tipsReducer: tipsDataSlice,
+        tipsDataReducer: tipsDataSlice,
     },
 });

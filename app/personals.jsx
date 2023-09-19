@@ -3,13 +3,17 @@ import ConnexionHeader from "../components/connexion/connexionHeader/ConnexionHe
 import ConnexionFooter from "../components/connexion/connexionFooter/ConnexionFooter";
 import { COLORS } from "../constants";
 import PersonalsMain from "../components/signup/personals/personalsMain/PersonalsMain";
+import { useKeyboardStatus } from "../hooks/useKeyboardStatus";
 
 const authentification = () => {
+    const keyboardStatus = useKeyboardStatus();
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
             <ConnexionHeader />
             <PersonalsMain />
-            <ConnexionFooter firstWord="Already" link="Log in" />
+            {keyboardStatus === "hidden" && (
+                <ConnexionFooter firstWord="Already" link="Log in" />
+            )}
         </SafeAreaView>
     );
 };

@@ -52,7 +52,7 @@ const useUserDreamTrips = (userData) => {
 };
 
 const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const dispatch = useDispatch();
     const { languagesArray, userLanguages, handleUserLanguages } =
         useUserLanguages(userData);

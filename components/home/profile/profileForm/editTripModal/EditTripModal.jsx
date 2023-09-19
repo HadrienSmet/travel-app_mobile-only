@@ -9,7 +9,7 @@ import { resetState } from "../../../../../features/previousTripData.slice";
 import { axiosPatchTrips } from "../../../../../utils/axios/user/axiosPatchTrips";
 
 const EditTripModal = ({ trip }) => {
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
 

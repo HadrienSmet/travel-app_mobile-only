@@ -13,7 +13,7 @@ import styles from "./profilePicturePicker.style";
 const ProfilePicturePicker = () => {
     const [profilePicture, setProfilePicture] = useState(null);
     const [isWarned, setIsWarned] = useState(false);
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const router = useRouter();
     const dispatch = useDispatch();
 

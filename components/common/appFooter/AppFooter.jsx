@@ -27,7 +27,7 @@ const AppFooter = ({ homeState, setHomeState }) => {
             case "messages":
                 setMessagesIconStyle(selectedStyle);
                 break;
-            case "travel":
+            case "explore":
                 setTravelIconStyle(selectedStyle);
                 break;
             case "profile":
@@ -51,7 +51,7 @@ const AppFooter = ({ homeState, setHomeState }) => {
                     name="comments"
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setHomeState("travel")}>
+            <TouchableOpacity onPress={() => setHomeState("explore")}>
                 <FontAwesome
                     style={[styles.footerElement, travelIconStyle]}
                     name="compass"

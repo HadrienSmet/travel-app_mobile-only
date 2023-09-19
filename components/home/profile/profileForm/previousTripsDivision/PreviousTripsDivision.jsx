@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const PreviousTripsDivision = () => {
     const [isCertainRemove, setCertainRemove] = useState(false);
-    const userData = useSelector((state) => state.newUserData.userData);
+    const userData = useSelector((state) => state.userDataReducer.userData);
     const dispatch = useDispatch();
 
     const handleDelete = (tripTitle) => {
