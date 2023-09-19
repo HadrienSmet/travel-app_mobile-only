@@ -33,9 +33,53 @@ export const tipsDataSlice = createSlice({
                 everyTips: payload,
             };
         },
+        likeTips(state, { payload }) {
+            const tipsList = [...state.tipsData.everyTips];
+            const rightTipsIndex = tipsList.findIndex(
+                (el) => el._id === payload.tipsId
+            );
+            const newTip = { ...tipsList[rightTipsIndex] };
+            newTip.upVotes.push(payload.userId);
+            tipsList.splice(rightTipsIndex, 1, newTip);
+        },
+        dislikeTips(state, { payload }) {
+            const tipsList = [...state.tipsData.everyTips];
+            const rightTipsIndex = tipsList.findIndex(
+                (el) => el._id === payload.tipsId
+            );
+            const newTip = { ...tipsList[rightTipsIndex] };
+            newTip.downVotes.push(payload.userId);
+            tipsList.splice(rightTipsIndex, 1, newTip);
+        },
+        removeLike(state, { payload }) {
+            const tipsList = [...state.tipsData.everyTips];
+            const rightTipsIndex = tipsList.findIndex(
+                (el) => el._id === payload.tipsId
+            );
+            const newTip = { ...tipsList[rightTipsIndex] };
+            newTip.upVotes.filter((el) => el !== payload.userId);
+            tipsList.splice(rightTipsIndex, 1, newTip);
+        },
+        removeDislike(state, { payload }) {
+            const tipsList = [...state.tipsData.everyTips];
+            const rightTipsIndex = tipsList.findIndex(
+                (el) => el._id === payload.tipsId
+            );
+            const newTip = { ...tipsList[rightTipsIndex] };
+            newTip.downVotes.filter((el) => el !== payload.userId);
+            tipsList.splice(rightTipsIndex, 1, newTip);
+        },
     },
 });
 
-export const { pushInUserTips, pushInEveryTips, setEveryTips, setUserTips } =
-    tipsDataSlice.actions;
+export const {
+    pushInUserTips,
+    pushInEveryTips,
+    setEveryTips,
+    setUserTips,
+    likeTips,
+    dislikeTips,
+    removeLike,
+    removeDislike,
+} = tipsDataSlice.actions;
 export default tipsDataSlice.reducer;

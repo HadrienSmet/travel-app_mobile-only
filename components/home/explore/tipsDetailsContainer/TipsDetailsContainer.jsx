@@ -3,8 +3,55 @@ import { View, Text, TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./tipsDetailsContainer.style";
 import { COLORS } from "../../../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosRemoveLike } from "../../../../utils/axios/tips/axiosRemoveLike";
+import { axiosLikeTips } from "../../../../utils/axios/tips/axiosLikeTips";
+import { axiosRemoveDislike } from "../../../../utils/axios/tips/axiosRemoveDislike";
+import { axiosDislikeTips } from "../../../../utils/axios/tips/axiosDislikeTips";
+import {
+    dislikeTips,
+    likeTips,
+    removeDislike,
+    removeLike,
+} from "../../../../features/tipsData.slice";
+
+const useVotesButtons = (currentTips) => {
+    const dispatch = useDispatch();
+    const userId = useSelector(
+        (state) => state.userDataReducer.userData
+    ).userId;
+    const tipsId = currentTips._id;
+    const dispatchData = { tipsId, userId };
+    const handleLikeButton = () => {
+        if (currentTips.upVotes.includes(userId)) {
+            axiosRemoveLike(tipsId, userId)
+                .then(() => dispatch(removeLike(dispatchData)))
+                .catch(() => alert("Removing like didnt worked"));
+        } else {
+            axiosLikeTips(tipsId, userId)
+                .then(() => dispatch(likeTips(dispatchData)))
+                .catch(() => alert("Like didnt worked"));
+        }
+    };
+    const handleDislikeButton = () => {
+        if (currentTips.downVotes.includes(userId)) {
+            axiosRemoveDislike(tipsId, userId)
+                .then(() => dispatch(removeDislike(dispatchData)))
+                .catch(() => alert("Removing like didnt worked"));
+        } else {
+            axiosDislikeTips(tipsId, userId)
+                .then(() => dispatch(dislikeTips(dispatchData)))
+                .catch(() => alert("Like didnt worked"));
+        }
+    };
+
+    return { handleLikeButton, handleDislikeButton };
+};
 
 const TipsDetailsContainer = ({ currentTips, handleSelectedTips }) => {
+    const { handleLikeButton, handleDislikeButton } =
+        useVotesButtons(currentTips);
+
     return (
         <View style={styles.detailsContainer}>
             <View style={styles.closeButtonRow}>
@@ -37,28 +84,30 @@ const TipsDetailsContainer = ({ currentTips, handleSelectedTips }) => {
                 <Text style={styles.mainContent}>{currentTips.content}</Text>
             </View>
             <View style={styles.votesContainer}>
-                <View style={styles.votesView}>
+                <TouchableOpacity
+                    onPress={handleLikeButton}
+                    style={styles.votesView}
+                >
                     <Text style={styles.votesValue}>
                         {currentTips.upVotes.length}
                     </Text>
-                    <TouchableOpacity>
-                        <FontAwesome
-                            style={{ color: COLORS.advice }}
-                            name="thumbs-o-up"
-                        />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.votesView}>
+                    <FontAwesome
+                        style={{ color: COLORS.advice }}
+                        name="thumbs-o-up"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handleDislikeButton}
+                    style={styles.votesView}
+                >
                     <Text style={styles.votesValue}>
                         {currentTips.downVotes.length}
                     </Text>
-                    <TouchableOpacity>
-                        <FontAwesome
-                            style={{ color: COLORS.warning }}
-                            name="thumbs-o-down"
-                        />
-                    </TouchableOpacity>
-                </View>
+                    <FontAwesome
+                        style={{ color: COLORS.warning }}
+                        name="thumbs-o-down"
+                    />
+                </TouchableOpacity>
             </View>
         </View>
     );

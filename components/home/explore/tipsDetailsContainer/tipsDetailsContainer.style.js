@@ -7,9 +7,11 @@ const styles = StyleSheet.create({
         color: COLORS.black,
     },
     closeButtonRow: {
+        position: "absolute",
         width: "100%",
         flexDirection: "row",
         justifyContent: "flex-end",
+        marginTop: 16,
     },
     detailsContainer: {
         position: "absolute",
@@ -30,7 +32,10 @@ const styles = StyleSheet.create({
         borderRadius: 48,
     },
     headerContent: { color: COLORS.white },
-    mainContainer: { width: "100%" },
+    mainContainer: {
+        width: "100%",
+        gap: 8,
+    },
     mainAuthor: {
         color: SHADES.black07,
         fontWeight: "700",
@@ -42,11 +47,13 @@ const styles = StyleSheet.create({
     votesContainer: {
         flexDirection: "row",
         justifyContent: "center",
+        gap: 24,
     },
     votesValue: { color: SHADES.black04 },
     votesView: {
         flexDirection: "row",
         alignItems: "center",
+        gap: 4,
     },
 });
 
