@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./tipsDetailsContainer.style";
@@ -16,40 +16,67 @@ import {
 } from "../../../../features/tipsData.slice";
 
 const useVotesButtons = (currentTips) => {
+    const [upVotes, setUpVotes] = useState(currentTips.upVotes);
+    const [downVotes, setDownVotes] = useState(currentTips.downVotes);
     const dispatch = useDispatch();
     const userId = useSelector(
         (state) => state.userDataReducer.userData
     ).userId;
     const tipsId = currentTips._id;
     const dispatchData = { tipsId, userId };
+
+    const handleRemove = (votes, setVotes) => {
+        const currentState = [...votes];
+        const likeIndex = currentState.findIndex((el) => el === userId);
+        currentState.splice(likeIndex, 1);
+        setVotes(currentState);
+    };
+
     const handleLikeButton = () => {
-        if (currentTips.upVotes.includes(userId)) {
+        if (upVotes.includes(userId)) {
             axiosRemoveLike(tipsId, userId)
-                .then(() => dispatch(removeLike(dispatchData)))
+                .then(() => {
+                    handleRemove(upVotes, setUpVotes);
+                    dispatch(removeLike(dispatchData));
+                })
                 .catch(() => alert("Removing like didnt worked"));
         } else {
             axiosLikeTips(tipsId, userId)
-                .then(() => dispatch(likeTips(dispatchData)))
+                .then(() => {
+                    setUpVotes((state) => [...state, userId]);
+                    dispatch(likeTips(dispatchData));
+                })
                 .catch(() => alert("Like didnt worked"));
         }
     };
     const handleDislikeButton = () => {
-        if (currentTips.downVotes.includes(userId)) {
+        if (downVotes.includes(userId)) {
             axiosRemoveDislike(tipsId, userId)
-                .then(() => dispatch(removeDislike(dispatchData)))
+                .then(() => {
+                    handleRemove(downVotes, setDownVotes);
+                    dispatch(removeDislike(dispatchData));
+                })
                 .catch(() => alert("Removing like didnt worked"));
         } else {
             axiosDislikeTips(tipsId, userId)
-                .then(() => dispatch(dislikeTips(dispatchData)))
+                .then(() => {
+                    setDownVotes((state) => [...state, userId]);
+                    dispatch(dislikeTips(dispatchData));
+                })
                 .catch(() => alert("Like didnt worked"));
         }
     };
 
-    return { handleLikeButton, handleDislikeButton };
+    return {
+        downVotes,
+        upVotes,
+        handleLikeButton,
+        handleDislikeButton,
+    };
 };
 
 const TipsDetailsContainer = ({ currentTips, handleSelectedTips }) => {
-    const { handleLikeButton, handleDislikeButton } =
+    const { downVotes, upVotes, handleLikeButton, handleDislikeButton } =
         useVotesButtons(currentTips);
 
     return (
@@ -88,9 +115,7 @@ const TipsDetailsContainer = ({ currentTips, handleSelectedTips }) => {
                     onPress={handleLikeButton}
                     style={styles.votesView}
                 >
-                    <Text style={styles.votesValue}>
-                        {currentTips.upVotes.length}
-                    </Text>
+                    <Text style={styles.votesValue}>{upVotes.length}</Text>
                     <FontAwesome
                         style={{ color: COLORS.advice }}
                         name="thumbs-o-up"
@@ -100,9 +125,7 @@ const TipsDetailsContainer = ({ currentTips, handleSelectedTips }) => {
                     onPress={handleDislikeButton}
                     style={styles.votesView}
                 >
-                    <Text style={styles.votesValue}>
-                        {currentTips.downVotes.length}
-                    </Text>
+                    <Text style={styles.votesValue}>{downVotes.length}</Text>
                     <FontAwesome
                         style={{ color: COLORS.warning }}
                         name="thumbs-o-down"

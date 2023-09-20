@@ -1,65 +1,43 @@
 import React, { useState } from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { TouchableOpacity, View } from "react-native";
 import styles from "./buttonsContainer.style";
+import AddingButtons from "./addingButtons/AddingButtons";
+import FilteringButtons from "./filteringButtons/FilteringButtons";
+import LearningButtons from "./learningButtons/LearningButtons";
 
-const ButtonsContainer = ({ handlePinState }) => {
+const ButtonsContainer = ({
+    isLookingSomething,
+    handlePinState,
+    handleIsLookingSomething,
+}) => {
     const [isAddingTips, setIsAddingTips] = useState(false);
+    const [isFiltering, setIsFiltering] = useState(false);
+    const [isLearning, setIsLearning] = useState(false);
 
     const toggleAddTips = () => setIsAddingTips((state) => !state);
+    const toggleFiltering = () => setIsFiltering((state) => !state);
+    const toggleLearning = () => setIsLearning((state) => !state);
 
     return (
         <View style={styles.buttonsContainer}>
-            <View
-                style={{
-                    flexDirection: "row-reverse",
-                    alignItems: "center",
-                    gap: 8,
-                }}
-            >
-                <TouchableOpacity
-                    onPress={toggleAddTips}
-                    style={styles.mainButtonContainer}
-                >
-                    <FontAwesome style={styles.mainButtonElement} name="plus" />
-                </TouchableOpacity>
-                {isAddingTips && (
-                    <View style={{ flexDirection: "row", gap: 4 }}>
-                        <TouchableOpacity
-                            onPress={() => handlePinState("advice")}
-                            style={styles.tipsButtonContainer}
-                        >
-                            <FontAwesome
-                                style={[
-                                    styles.adviceColor,
-                                    styles.buttonElement,
-                                ]}
-                                name="thumbs-up"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handlePinState("warning")}
-                            style={styles.tipsButtonContainer}
-                        >
-                            <FontAwesome
-                                style={[
-                                    styles.warningColor,
-                                    styles.buttonElement,
-                                ]}
-                                name="thumbs-down"
-                            />
-                        </TouchableOpacity>
-                    </View>
-                )}
-            </View>
-            <View>
-                <TouchableOpacity style={styles.mainButtonContainer}>
-                    <FontAwesome
-                        style={styles.mainButtonElement}
-                        name="sliders"
-                    />
-                </TouchableOpacity>
-            </View>
+            <AddingButtons
+                isAddingTips={isAddingTips}
+                handlePinState={handlePinState}
+                toggleAddTips={toggleAddTips}
+            />
+            <FilteringButtons
+                isFiltering={isFiltering}
+                isLookingSomething={isLookingSomething}
+                handleIsLookingSomething={handleIsLookingSomething}
+                toggleFiltering={toggleFiltering}
+            />
+            <LearningButtons
+                isLearning={isLearning}
+                isLookingSomething={isLookingSomething}
+                handleIsLookingSomething={handleIsLookingSomething}
+                toggleLearning={toggleLearning}
+            />
         </View>
     );
 };

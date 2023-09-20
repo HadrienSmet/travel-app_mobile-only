@@ -20,31 +20,28 @@ const adviseArray = [
     "Activity",
     "Advice",
     "Bar",
-    "Festival",
+    "Beach",
+    "Cheap",
     "Hotel",
     "Museum",
+    "Music",
     "Nature",
     "Night life",
+    "Remains",
     "Restaurant",
     "Sport",
+    "Swim",
     "Transport",
     "Other...",
 ];
-// const adviseArray = [
-//     "Something to do",
-//     "Something to eat",
-//     "Something to see",
-//     "Something great",
-//     "Somewhere to go",
-// ];
 const warningArray = [
     "Activity",
     "Bad experience",
     "Bar",
     "Danger",
-    "Festival",
     "Hotel",
     "Museum",
+    "Music",
     "Nature",
     "Night life",
     "Restaurant",
@@ -53,14 +50,8 @@ const warningArray = [
     "Transport",
     "Other...",
 ];
-// const warningArray = [
-//     "Something you should avoid",
-//     "Something you should know",
-//     "Something you should not do",
-//     "Something bad",
-// ];
 
-const useFormsContainer = (tipsLocation, tipsType) => {
+const useFormsContainer = (tipsLocation, tipsType, handleFormState) => {
     const [tipsAbout, setTipsAbout] = useState("");
     const [tipsContent, setTipsContent] = useState("");
     const userData = useSelector((state) => state.userDataReducer.userData);
@@ -82,10 +73,9 @@ const useFormsContainer = (tipsLocation, tipsType) => {
             console.log(data);
             axiosPostTips(data)
                 .then(() => {
-                    console.log("worked");
                     dispatch(pushInEveryTips(data));
                     dispatch(pushInUserTips(data));
-                    console.log("pushed");
+                    handleFormState("");
                 })
                 .catch((err) => console.log(err));
         } else {
@@ -102,12 +92,7 @@ const useFormsContainer = (tipsLocation, tipsType) => {
     };
 };
 
-const FormsContainer = ({
-    formBackground,
-    tipsType,
-    tipsLocation,
-    pushTips,
-}) => {
+const FormsContainer = ({ tipsType, tipsLocation, handleFormState }) => {
     const currentArray = tipsType === "warning" ? warningArray : adviseArray;
     const keyboardStatus = useKeyboardStatus();
     const {
@@ -116,7 +101,7 @@ const FormsContainer = ({
         setTipsAbout,
         setTipsContent,
         handleConfirm,
-    } = useFormsContainer(tipsLocation, tipsType);
+    } = useFormsContainer(tipsLocation, tipsType, handleFormState);
 
     return (
         <View

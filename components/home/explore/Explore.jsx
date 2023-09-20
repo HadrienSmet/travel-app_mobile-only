@@ -10,16 +10,32 @@ import { axiosGetUserTips } from "../../../utils/axios/tips/axiosGetUserTips";
 import TipsDetailsContainer from "./tipsDetailsContainer/TipsDetailsContainer";
 
 const useExplore = () => {
+    const [selectedTips, setSelectedTips] = useState(undefined);
+    const userData = useSelector((state) => state.userDataReducer.userData);
+    const dispatch = useDispatch();
+
+    const handleSelectedTips = (tips) => setSelectedTips(tips);
+
+    useEffect(() => {
+        axiosGetEveryTips()
+            .then((res) => dispatch(setEveryTips(res.data)))
+            .catch((err) => alert(err));
+        axiosGetUserTips(userData.userId)
+            .then((res) => dispatch(setUserTips(res.data)))
+            .catch((err) => alert(err));
+    }, []);
+
+    return {
+        selectedTips,
+        handleSelectedTips,
+    };
+};
+
+const useExploreAddTips = () => {
     const [pinState, setPinState] = useState("");
     const [formState, setFormState] = useState("");
     const [pinLocation, setPinLocation] = useState(undefined);
-    const [selectedTips, setSelectedTips] = useState(undefined);
 
-    const dispatch = useDispatch();
-    const userData = useSelector((state) => state.userDataReducer.userData);
-    const tipsData = useSelector((state) => state.tipsDataReducer.tipsData);
-
-    const handleSelectedTips = (tips) => setSelectedTips(tips);
     const handleFormState = (state) => setFormState(state);
     const handlePinState = (state) => setPinState(state);
     const handlePinLocation = (e) => {
@@ -42,37 +58,38 @@ const useExplore = () => {
         }
     };
 
-    useEffect(() => {
-        axiosGetEveryTips()
-            .then((res) => dispatch(setEveryTips(res.data)))
-            .catch((err) => alert(err));
-        axiosGetUserTips(userData.userId)
-            .then((res) => dispatch(setUserTips(res.data)))
-            .catch((err) => alert(err));
-    }, []);
-    useEffect(() => {
-        console.log(tipsData);
-    }, [tipsData]);
-
     return {
         formState,
         pinLocation,
-        selectedTips,
+        handleFormState,
         handleLongPress,
         handlePinState,
-        handleSelectedTips,
     };
 };
 
+const useExploreFilters = () => {
+    const [isLookingSomething, setIsLookSomething] = useState("");
+
+    const handleIsLookingSomething = (state) => setIsLookSomething(state);
+
+    useEffect(() => {
+        console.log(isLookingSomething);
+    }, [isLookingSomething]);
+
+    return { isLookingSomething, handleIsLookingSomething };
+};
+
 const Explore = () => {
+    const { selectedTips, handleSelectedTips } = useExplore();
+    const { isLookingSomething, handleIsLookingSomething } =
+        useExploreFilters();
     const {
         formState,
         pinLocation,
-        selectedTips,
+        handleFormState,
         handleLongPress,
         handlePinState,
-        handleSelectedTips,
-    } = useExplore();
+    } = useExploreAddTips();
     return (
         <View>
             <MapContainer
@@ -80,11 +97,16 @@ const Explore = () => {
                 handleSelectedTips={handleSelectedTips}
                 pinLocation={pinLocation}
             />
-            <ButtonsContainer handlePinState={handlePinState} />
+            <ButtonsContainer
+                isLookingSomething={isLookingSomething}
+                handlePinState={handlePinState}
+                handleIsLookingSomething={handleIsLookingSomething}
+            />
             {formState !== "" && (
                 <FormsContainer
                     tipsLocation={pinLocation}
                     tipsType={formState}
+                    handleFormState={handleFormState}
                 />
             )}
             {selectedTips !== undefined && (
