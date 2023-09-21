@@ -9,24 +9,18 @@ import { setEveryTips, setUserTips } from "../../../features/tipsData.slice";
 import { axiosGetUserTips } from "../../../utils/axios/tips/axiosGetUserTips";
 import TipsDetailsContainer from "./tipsDetailsContainer/TipsDetailsContainer";
 
-const useExplore = () => {
+const useExploreDisplayedTips = () => {
     const [selectedTips, setSelectedTips] = useState(undefined);
-    const userData = useSelector((state) => state.userDataReducer.userData);
-    const dispatch = useDispatch();
+    const [isLookingSomething, setIsLookSomething] = useState("");
 
     const handleSelectedTips = (tips) => setSelectedTips(tips);
-
-    useEffect(() => {
-        axiosGetEveryTips()
-            .then((res) => dispatch(setEveryTips(res.data)))
-            .catch((err) => alert(err));
-        axiosGetUserTips(userData.userId)
-            .then((res) => dispatch(setUserTips(res.data)))
-            .catch((err) => alert(err));
-    }, []);
+    const handleIsLookingSomething = (about) =>
+        setIsLookSomething((state) => (state === about ? "" : about));
 
     return {
         selectedTips,
+        isLookingSomething,
+        handleIsLookingSomething,
         handleSelectedTips,
     };
 };
@@ -67,22 +61,13 @@ const useExploreAddTips = () => {
     };
 };
 
-const useExploreFilters = () => {
-    const [isLookingSomething, setIsLookSomething] = useState("");
-
-    const handleIsLookingSomething = (state) => setIsLookSomething(state);
-
-    useEffect(() => {
-        console.log(isLookingSomething);
-    }, [isLookingSomething]);
-
-    return { isLookingSomething, handleIsLookingSomething };
-};
-
 const Explore = () => {
-    const { selectedTips, handleSelectedTips } = useExplore();
-    const { isLookingSomething, handleIsLookingSomething } =
-        useExploreFilters();
+    const {
+        selectedTips,
+        isLookingSomething,
+        handleIsLookingSomething,
+        handleSelectedTips,
+    } = useExploreDisplayedTips();
     const {
         formState,
         pinLocation,
@@ -93,9 +78,9 @@ const Explore = () => {
     return (
         <View>
             <MapContainer
+                isLookingSomething={isLookingSomething}
                 handleLongPress={handleLongPress}
                 handleSelectedTips={handleSelectedTips}
-                pinLocation={pinLocation}
             />
             <ButtonsContainer
                 isLookingSomething={isLookingSomething}

@@ -10,20 +10,30 @@ const FilteringButtons = ({
     toggleFiltering,
 }) => {
     const handlePress = (tips_about) => handleIsLookingSomething(tips_about);
-    const handleElementStyle = (filterAbout) => {
-        if (isLookingSomething !== filterAbout) {
-            return styles.defaultElement;
-        } else {
-            return styles.selectedElement;
-        }
-    };
-    const handleBorderStyle = (filterAbout) => {
-        if (isLookingSomething !== filterAbout) {
-            return [styles.filterButton, styles.defaultBorder];
-        } else {
-            return [styles.filterButton, styles.selectedBorder];
-        }
-    };
+    // const handleElementStyle = (filterAbout) => {
+    //     if (isLookingSomething !== filterAbout) {
+    //         return styles.defaultElement;
+    //     } else {
+    //         return styles.selectedElement;
+    //     }
+    // };
+    const handleElementStyle = (filterAbout) =>
+        isLookingSomething !== filterAbout
+            ? styles.defaultElement
+            : styles.selectedElement;
+
+    // const handleBorderStyle = (filterAbout) => {
+    //     if (isLookingSomething !== filterAbout) {
+    //         return [styles.filterButton, styles.defaultBorder];
+    //     } else {
+    //         return [styles.filterButton, styles.selectedBorder];
+    //     }
+    // };
+    const handleBorderStyle = (filterAbout) =>
+        isLookingSomething !== filterAbout
+            ? [styles.filterButton, styles.defaultBorder]
+            : [styles.filterButton, styles.selectedBorder];
+
     return (
         <View>
             <TouchableOpacity

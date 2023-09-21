@@ -30,7 +30,7 @@ export const tipsDataSlice = createSlice({
         setEveryTips(state, { payload }) {
             state.tipsData = {
                 userTips: state.tipsData.userTips,
-                everyTips: payload,
+                everyTips: [...payload],
             };
         },
         likeTips(state, { payload }) {
