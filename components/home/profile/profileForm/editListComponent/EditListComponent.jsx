@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useState } from "react";
 import styles from "./editListComponent.style";
 import { COLORS, SHADES } from "../../../../../constants";
 

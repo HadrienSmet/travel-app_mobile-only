@@ -10,7 +10,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch, useSelector } from "react-redux";
 import { useKeyboardStatus } from "../../../../hooks/useKeyboardStatus";
 import styles from "./formsContainer.style";
-import { axiosPostTips } from "../../../../utils/axios/tips/axiosPostTips";
+import { axiosPostTips } from "../../../../utils/axios/tips";
 import {
     pushInEveryTips,
     pushInUserTips,

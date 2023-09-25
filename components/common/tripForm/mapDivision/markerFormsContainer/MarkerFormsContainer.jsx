@@ -1,16 +1,12 @@
 import { COLORS } from "../../../../../constants";
 import TripEventForm from "../tripEventForm/TripEventForm";
-import TripTipsForm from "../tripTipsForm/TripTipsForm";
 
 const MarkerFormsContainer = ({
     mapState,
     arrivalLocation,
     stopoverLocation,
     departureLocation,
-    // adviceLocation,
-    // warningLocation,
     handleTripSteps,
-    // handleTripTips,
 }) => {
     return (
         <>
@@ -40,22 +36,6 @@ const MarkerFormsContainer = ({
                     pushTripStep={handleTripSteps}
                 />
             )}
-            {/* {mapState === "advice" && (
-                <TripTipsForm
-                    formBackground="green"
-                    tipsLocation={adviceLocation[adviceLocation.length - 1]}
-                    tipsType={mapState}
-                    pushTips={handleTripTips}
-                />
-            )}
-            {mapState === "warning" && (
-                <TripTipsForm
-                    formBackground="red"
-                    tipsLocation={warningLocation[warningLocation.length - 1]}
-                    tipsType={mapState}
-                    pushTips={handleTripTips}
-                />
-            )} */}
         </>
     );
 };

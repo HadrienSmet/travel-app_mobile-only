@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MapView, { Marker } from "react-native-maps";
-import { COLORS, SHADES, SHADOWS } from "../../../../../../constants";
+import { COLORS } from "../../../../../../constants";
 import styles from "./markersDisplayer.style";
 
 const MarkersDisplayer = ({ markersList, buttonText }) => {
@@ -21,9 +21,9 @@ const MarkersDisplayer = ({ markersList, buttonText }) => {
             case "departure":
                 return COLORS.tertiary;
             case "advice":
-                return "green";
+                return COLORS.advice;
             case "warning":
-                return "red";
+                return COLORS.warning;
         }
     };
 

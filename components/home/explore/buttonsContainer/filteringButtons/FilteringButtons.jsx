@@ -9,7 +9,7 @@ const FilteringButtons = ({
     handleIsLookingSomething,
     toggleFiltering,
 }) => {
-    const handlePress = (tips_about) => handleIsLookingSomething(tips_about);
+    const handlePress = (tipsAbout) => handleIsLookingSomething(tipsAbout);
     // const handleElementStyle = (filterAbout) => {
     //     if (isLookingSomething !== filterAbout) {
     //         return styles.defaultElement;

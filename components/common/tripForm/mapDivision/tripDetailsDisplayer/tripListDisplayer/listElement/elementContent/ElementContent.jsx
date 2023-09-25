@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import styles from "./elementContent.style";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-// import { SelectList } from "react-native-dropdown-select-list";
 import { COLORS } from "../../../../../../../../constants";
 import { useDispatch } from "react-redux";
 import {

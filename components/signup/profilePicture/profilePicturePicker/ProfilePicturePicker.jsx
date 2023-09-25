@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { View, Image, TouchableOpacity, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { axiosPostUserSignupData } from "../../../../utils/axios/user/axiosPostUserSignupData";
+import { axiosSignup } from "../../../../utils/axios/user";
 // import { axiosPutCoverPicture } from "../../../../utils/axios/user/axiosPutCoverPicture";
 import { setUserData } from "../../../../features/userData.slice";
 
@@ -35,11 +35,12 @@ const ProfilePicturePicker = () => {
     const handleConfirm = () => {
         if (profilePicture) {
             const formData = new FormData();
+            const presentTimestamp = Date.now();
             formData.append("file", {
                 uri: profilePicture,
-                name: `${userData.firstname}_${userData.lastname}_profile.jpg`,
+                name: `${userData.firstname}-${userData.lastname}_profile-picture_${presentTimestamp}.jpg`,
             });
-            axiosPostUserSignupData(userData)
+            axiosSignup(userData)
                 .then((res) => {
                     // axiosPutCoverPicture(res, formData)
                     //     .then((res) => {
@@ -55,7 +56,7 @@ const ProfilePicturePicker = () => {
                 setIsWarned(true);
                 alert("Are you sure you dont want to set a picture?");
             } else {
-                axiosPostUserSignupData(userData)
+                axiosSignup(userData)
                     .then((res) => {
                         dispatch(setUserData(res.data));
                         router.push("/home");

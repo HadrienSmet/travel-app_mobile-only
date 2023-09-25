@@ -8,7 +8,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../../features/userData.slice";
 import { useRouter } from "expo-router";
-import { axiosCheckMail } from "../../../../utils/axios/user/axiosCheckMail";
+import { axiosCheckMail } from "../../../../utils/axios/user";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 
 const useSignupEmail = () => {

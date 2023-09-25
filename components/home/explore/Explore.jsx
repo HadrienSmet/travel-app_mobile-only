@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { View } from "react-native";
 import MapContainer from "./mapContainer/MapContainer";
 import ButtonsContainer from "./buttonsContainer/ButtonsContainer";
 import FormsContainer from "./formsContainer/FormsContainer";
-import { axiosGetEveryTips } from "../../../utils/axios/tips/axiosGetEveryTips";
-import { useDispatch, useSelector } from "react-redux";
-import { setEveryTips, setUserTips } from "../../../features/tipsData.slice";
-import { axiosGetUserTips } from "../../../utils/axios/tips/axiosGetUserTips";
 import TipsDetailsContainer from "./tipsDetailsContainer/TipsDetailsContainer";
 
 const useExploreDisplayedTips = () => {

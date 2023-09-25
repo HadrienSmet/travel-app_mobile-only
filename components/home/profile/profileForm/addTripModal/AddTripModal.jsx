@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setUserData } from "../../../../../features/userData.slice";
 import { resetState } from "../../../../../features/previousTripData.slice";
-import { axiosPushTrip } from "../../../../../utils/axios/user/axiosPushTrip";
+import { axiosPushTrip } from "../../../../../utils/axios/user";
 
 import { TouchableOpacity, Text, Modal, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";

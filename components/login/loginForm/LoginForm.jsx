@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { useRouter } from "expo-router";
 
-import { axiosSignIn } from "../../../utils/axios/user/axiosSignin";
+import { axiosSignIn } from "../../../utils/axios/user";
 
 import ConnexionInput from "../../connexion/connexionInput/ConnexionInput";
 import styles from "./loginForm.style";

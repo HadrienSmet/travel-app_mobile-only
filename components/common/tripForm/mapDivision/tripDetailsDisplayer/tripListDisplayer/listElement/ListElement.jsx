@@ -7,10 +7,7 @@ import styles from "./listElement.style";
 import ElementButtons from "./elementButtons/ElementButtons";
 import ElementContent from "./elementContent/ElementContent";
 import { useDispatch } from "react-redux";
-import {
-    removeStep,
-    // removeTip,
-} from "../../../../../../../features/previousTripData.slice";
+import { removeStep } from "../../../../../../../features/previousTripData.slice";
 
 const ListElement = ({ elem, index, tripList }) => {
     const dispatch = useDispatch();
@@ -23,11 +20,7 @@ const ListElement = ({ elem, index, tripList }) => {
     };
     const endEdit = () => setIsEditing(false);
     const deleteElement = () => {
-        // if (elem.about !== undefined) {
-        //     dispatch(removeTip(index));
-        // } else {
         dispatch(removeStep(index));
-        // }
         setButtonsVisible(false);
     };
     const contentProps = {

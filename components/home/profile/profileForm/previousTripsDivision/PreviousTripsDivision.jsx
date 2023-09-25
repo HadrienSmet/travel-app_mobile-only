@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./previousTripsDivision.style";
 import EditTripModal from "../editTripModal/EditTripModal";
-import { axiosDeleteTrip } from "../../../../../utils/axios/user/axiosDeleteTrip";
+import { axiosDeleteTrip } from "../../../../../utils/axios/user";
 import { removeUserTrip } from "../../../../../features/userData.slice";
 import { useState } from "react";
 

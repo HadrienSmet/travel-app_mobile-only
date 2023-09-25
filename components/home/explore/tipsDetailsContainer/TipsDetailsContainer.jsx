@@ -4,10 +4,12 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./tipsDetailsContainer.style";
 import { COLORS } from "../../../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosRemoveLike } from "../../../../utils/axios/tips/axiosRemoveLike";
-import { axiosLikeTips } from "../../../../utils/axios/tips/axiosLikeTips";
-import { axiosRemoveDislike } from "../../../../utils/axios/tips/axiosRemoveDislike";
-import { axiosDislikeTips } from "../../../../utils/axios/tips/axiosDislikeTips";
+import {
+    axiosRemoveLike,
+    axiosDislikeTips,
+    axiosLikeTips,
+    axiosRemoveDislike,
+} from "../../../../utils/axios/tips";
 import {
     dislikeTips,
     likeTips,

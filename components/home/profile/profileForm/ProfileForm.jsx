@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
 
-import { axiosPatchProfileData } from "../../../../utils/axios/user/axiosPatchProfileData";
+import { axiosPatchProfileData } from "../../../../utils/axios/user";
 import { setUserData } from "../../../../features/userData.slice";
 
 import { Text, TextInput, TouchableOpacity, View } from "react-native";

@@ -6,7 +6,7 @@ import styles from "./editTripModal.style";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserPreviousTrips } from "../../../../../features/userData.slice";
 import { resetState } from "../../../../../features/previousTripData.slice";
-import { axiosPatchTrips } from "../../../../../utils/axios/user/axiosPatchTrips";
+import { axiosPatchTrips } from "../../../../../utils/axios/user";
 
 const EditTripModal = ({ trip }) => {
     const userData = useSelector((state) => state.userDataReducer.userData);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "expo-router";
 import { View, TouchableOpacity, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -12,7 +12,6 @@ import ConnexionInputContainer from "../../../connexion/connexionInputContainer/
 import { COLORS, SHADES, nationalitiesArray } from "../../../../constants";
 import styles from "./personalsForm.style";
 import DateSelectRow from "../../../common/dateSelectRow/DateSelectRow";
-// import DatePicker from "./datePicker/DatePicker";
 
 const usePersonalsFirstname = () => {
     const [firstname, setFirstname] = useState("");

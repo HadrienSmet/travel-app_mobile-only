@@ -3,9 +3,11 @@ import { Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS } from "../../../../constants";
-import { axiosGetEveryTips } from "../../../../utils/axios/tips/axiosGetEveryTips";
-import { axiosGetUserTips } from "../../../../utils/axios/tips/axiosGetUserTips";
 import { setEveryTips, setUserTips } from "../../../../features/tipsData.slice";
+import {
+    axiosGetEveryTips,
+    axiosGetUserTips,
+} from "../../../../utils/axios/tips";
 
 const windowHeight = Dimensions.get("window").height;
 
