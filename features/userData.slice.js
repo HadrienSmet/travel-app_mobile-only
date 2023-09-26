@@ -13,6 +13,9 @@ export const userDataSlice = createSlice({
                 state.userData = { ...state.userData, ...payload };
             }
         },
+        setUserCoordinates: (state, { payload }) => {
+            state.userData.coordinates = { ...payload };
+        },
         setUserPreviousTrips: (state, { payload }) => {
             state.userData.previousTrips = payload;
         },
@@ -25,6 +28,10 @@ export const userDataSlice = createSlice({
     },
 });
 
-export const { setUserData, setUserPreviousTrips, removeUserTrip } =
-    userDataSlice.actions;
+export const {
+    setUserData,
+    setUserCoordinates,
+    setUserPreviousTrips,
+    removeUserTrip,
+} = userDataSlice.actions;
 export default userDataSlice.reducer;

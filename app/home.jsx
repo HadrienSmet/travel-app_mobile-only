@@ -7,11 +7,11 @@ import HomeMain from "../components/home/homeMain/HomeMain";
 import { useKeyboardStatus } from "../hooks/useKeyboardStatus";
 import { useUserLocation } from "../hooks/useUserLocation";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserData } from "../features/userData.slice";
+import { setUserCoordinates, setUserData } from "../features/userData.slice";
 import { axiosPatchUser } from "../utils/axios/user";
 
 const useHome = () => {
-    const [homeState, setHomeState] = useState("matcher");
+    const [homeState, setHomeState] = useState("epxlore");
     const keyboardStatus = useKeyboardStatus();
     const location = useUserLocation();
     const dispatch = useDispatch();
@@ -25,10 +25,12 @@ const useHome = () => {
                     longitude: location.coords.longitude,
                 },
             };
-            dispatch(setUserData(coordinatesObj));
             axiosPatchUser(userData.userId, coordinatesObj, userData.token)
                 .then((res) => console.log(res.data))
                 .catch((err) => alert(err));
+            coordinatesObj.latitudeDelta = 2;
+            coordinatesObj.longitudeDelta = 2;
+            dispatch(setUserCoordinates(coordinatesObj));
         }
     }, [location]);
 

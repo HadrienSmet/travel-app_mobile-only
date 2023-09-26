@@ -11,41 +11,75 @@ import {
 
 const windowHeight = Dimensions.get("window").height;
 
-const MapContainer = ({
-    isLookingSomething,
-    handleLongPress,
-    handleSelectedTips,
-}) => {
+const useMapContainer = (isLookingSomething) => {
     const tipsData = useSelector((state) => state.tipsDataReducer.tipsData);
-    const [displayedTips, setDisplayedTips] = useState([]);
-    const dispatch = useDispatch();
     const userData = useSelector((state) => state.userDataReducer.userData);
+    const [displayedTips, setDisplayedTips] = useState([]);
+    const [mapScope, setMapScope] = useState({
+        latitude: userData.coordinates.latitude,
+        longitude: userData.coordinates.longitude,
+        latitudeDelta: 2,
+        longitudeDelta: 2,
+    });
 
-    const handlePinColor = (tips) =>
-        tips.type !== "advice" ? COLORS.warning : COLORS.advice;
+    const dispatch = useDispatch();
+
+    const handleRegionChange = (region) => setMapScope(region);
 
     useEffect(() => {
+        console.log(mapScope);
         if (isLookingSomething !== "") {
-            axiosGetEveryTips(10, isLookingSomething)
+            axiosGetEveryTips(10, mapScope, isLookingSomething)
                 .then((res) => dispatch(setEveryTips(res.data)))
                 .catch((err) => alert(err));
         } else {
-            axiosGetEveryTips(10)
+            axiosGetEveryTips(10, mapScope)
                 .then((res) => dispatch(setEveryTips(res.data)))
                 .catch((err) => alert(err));
             axiosGetUserTips(userData.userId)
                 .then((res) => dispatch(setUserTips(res.data)))
                 .catch((err) => alert(err));
         }
-    }, [isLookingSomething]);
+    }, [isLookingSomething, mapScope]);
+
+    useEffect(() => {
+        console.log(mapScope);
+    }, [mapScope]);
 
     useEffect(() => {
         setDisplayedTips(tipsData.everyTips);
     }, [tipsData]);
+
+    return {
+        displayedTips,
+        mapScope,
+        handleRegionChange,
+    };
+};
+
+const MapContainer = ({
+    isLookingSomething,
+    handleLongPress,
+    handleSelectedTips,
+}) => {
+    const { displayedTips, mapScope, handleRegionChange } =
+        useMapContainer(isLookingSomething);
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = mapScope;
+
+    const handlePinColor = (tips) =>
+        tips.type !== "advice" ? COLORS.warning : COLORS.advice;
+
     return (
         <MapView
             onLongPress={handleLongPress}
+            onRegionChangeComplete={handleRegionChange}
             style={{ width: "100%", height: windowHeight - 140 }}
+            region={{
+                latitude,
+                longitude,
+                latitudeDelta,
+                longitudeDelta,
+            }}
         >
             {displayedTips.length !== 0 &&
                 displayedTips.map((tips) => (
