@@ -1,33 +1,46 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { COLORS, FONT, SHADES } from "../../../../../constants";
+import { COLORS, FONT, SHADES, SHADOWS } from "../../../../../constants";
 
 const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
-    modalStyle: {
-        flex: 1,
+    backButtonDivision: {
+        position: "absolute",
+        top: 28,
+        left: 8,
+        zIndex: 1,
     },
-    modalContentContainer: {
-        paddingVertical: 16,
-        paddingHorizontal: windowWidth / 12,
+    buttonContainer: {
         backgroundColor: COLORS.white,
+        width: 48,
+        height: 48,
+        borderRadius: 48,
+        justifyContent: "center",
+        alignItems: "center",
+        ...SHADOWS.medium,
     },
-    basicContainerStyle: {
+    mapContainer: { height: "100%", width: "100%" },
+    modalButtonContainer: {
         borderRadius: 60,
         paddingVertical: 12,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
         gap: 8,
-    },
-    buttonContainer: {
         borderWidth: 1,
         borderColor: SHADES.black04,
         width: "48%",
     },
-    buttonElement: {
+    modalButtonElement: {
         color: SHADES.black04,
         fontSize: FONT.large,
+    },
+    tripButtonsDivision: {
+        position: "absolute",
+        top: 28,
+        right: 8,
+        zIndex: 1,
+        gap: 8,
     },
 });
 

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
 import { useCountryArray } from "../../../../hooks/useCountryArray";
-
-import { axiosPatchProfileData } from "../../../../utils/axios/user";
+import { axiosPatchUser } from "../../../../utils/axios/user";
 import { setUserData } from "../../../../features/userData.slice";
 
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AddAlbumModal from "./addAlbumModal/AddAlbumModal";
 import AddTripModal from "./addTripModal/AddTripModal";
@@ -74,12 +73,10 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
             languages: userLanguages,
             dreamTrips: userDreamTrips,
         };
-        axiosPatchProfileData(userData.userId, data, userData.token)
+        axiosPatchUser(userData.userId, data, userData.token)
             .then((res) => {
                 setIsEditing(false);
-                console.log("new userData: " + userData.previousTrips);
                 dispatch(setUserData(res.data));
-                console.log("new userData: " + userData.previousTrips);
             })
             .catch((err) => {
                 setIsEditing(false);

@@ -27,23 +27,28 @@ const useMapContainer = (isLookingSomething) => {
     const handleRegionChange = (region) => setMapScope(region);
 
     useEffect(() => {
-        if (isLookingSomething !== "") {
-            axiosGetEveryTips(10, mapScope, isLookingSomething)
-                .then((res) => dispatch(setEveryTips(res.data)))
-                .catch((err) => alert(err));
-        } else {
-            axiosGetEveryTips(10, mapScope)
-                .then((res) => dispatch(setEveryTips(res.data)))
-                .catch((err) => alert(err));
-            axiosGetUserTips(userData.userId)
-                .then((res) => dispatch(setUserTips(res.data)))
-                .catch((err) => alert(err));
+        console.log(isLookingSomething);
+        if (
+            mapScope.longitude !== undefined &&
+            mapScope.latitude !== undefined
+        ) {
+            if (isLookingSomething !== "") {
+                axiosGetEveryTips(10, mapScope, isLookingSomething)
+                    .then((res) => dispatch(setEveryTips(res.data)))
+                    .catch((err) => alert(err));
+            } else {
+                axiosGetEveryTips(10, mapScope)
+                    .then((res) => dispatch(setEveryTips(res.data)))
+                    .catch((err) => alert(err));
+                axiosGetUserTips(userData.userId)
+                    .then((res) => dispatch(setUserTips(res.data)))
+                    .catch((err) => alert(err));
+            }
         }
     }, [isLookingSomething, mapScope]);
 
     useEffect(() => {
         setDisplayedTips(tipsData.everyTips);
-        console.log(tipsData.everyTips);
     }, [tipsData]);
 
     return {
