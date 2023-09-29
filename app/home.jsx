@@ -11,14 +11,15 @@ import { setUserCoordinates, setUserData } from "../features/userData.slice";
 import { axiosPatchUser } from "../utils/axios/user";
 
 const useHome = () => {
-    const [homeState, setHomeState] = useState("epxlore");
+    const [homeState, setHomeState] = useState("matcher");
     const keyboardStatus = useKeyboardStatus();
     const location = useUserLocation();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.userDataReducer.userData);
 
     useEffect(() => {
-        if (location !== undefined) {
+        console.log(location);
+        if (location !== undefined && location.coords) {
             const coordinatesObj = {
                 coordinates: {
                     latitude: location.coords.latitude,
@@ -28,8 +29,8 @@ const useHome = () => {
             axiosPatchUser(userData.userId, coordinatesObj, userData.token)
                 .then((res) => console.log(res.data))
                 .catch((err) => alert(err));
-            coordinatesObj.latitudeDelta = 2;
-            coordinatesObj.longitudeDelta = 2;
+            coordinatesObj.coordinates.latitudeDelta = 2;
+            coordinatesObj.coordinates.longitudeDelta = 2;
             dispatch(setUserCoordinates(coordinatesObj));
         }
     }, [location]);

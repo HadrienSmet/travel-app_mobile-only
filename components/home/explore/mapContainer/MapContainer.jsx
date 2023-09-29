@@ -27,7 +27,6 @@ const useMapContainer = (isLookingSomething) => {
     const handleRegionChange = (region) => setMapScope(region);
 
     useEffect(() => {
-        console.log(mapScope);
         if (isLookingSomething !== "") {
             axiosGetEveryTips(10, mapScope, isLookingSomething)
                 .then((res) => dispatch(setEveryTips(res.data)))
@@ -43,11 +42,8 @@ const useMapContainer = (isLookingSomething) => {
     }, [isLookingSomething, mapScope]);
 
     useEffect(() => {
-        console.log(mapScope);
-    }, [mapScope]);
-
-    useEffect(() => {
         setDisplayedTips(tipsData.everyTips);
+        console.log(tipsData.everyTips);
     }, [tipsData]);
 
     return {
