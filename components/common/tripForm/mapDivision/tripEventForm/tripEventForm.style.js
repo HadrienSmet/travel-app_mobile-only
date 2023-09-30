@@ -5,20 +5,19 @@ const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     tripEventForm: {
-        paddingHorizontal: 24,
-        height: windowHeight - 428,
+        // paddingHorizontal: 24,
         justifyContent: "center",
         alignItems: "center",
         gap: 8,
-        borderRadius: 24,
+        // minHeight: windowHeight * 0.5,
     },
     mainTitle: {
         fontWeight: "700",
         fontSize: SIZES.medium,
-        color: COLORS.white,
+        color: COLORS.black,
         textAlign: "center",
     },
-    secondTitle: { color: COLORS.white, fontWeight: "500" },
+    secondTitle: { color: COLORS.black, fontWeight: "500" },
     basicView: { width: "100%" },
     textareaStyle: {
         verticalAlign: "top",
@@ -31,10 +30,10 @@ const styles = StyleSheet.create({
         width: "60%",
         paddingVertical: 8,
         borderRadius: 40,
-        borderColor: COLORS.white,
+        borderColor: COLORS.primary,
         borderWidth: 1,
     },
-    confirmButtonContent: { color: COLORS.white, textAlign: "center" },
+    confirmButtonContent: { color: COLORS.primary, textAlign: "center" },
 });
 
 export default styles;

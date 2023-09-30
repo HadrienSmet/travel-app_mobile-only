@@ -1,24 +1,52 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { daysArray, monthArray } from "../../../data/numberOfDaysArray";
-import styles from "./dateSelectRow.style";
-import { COLORS, SHADES } from "../../../constants";
-import { useDateData } from "../../../hooks/useDateData";
+
 import { dateToTimestamp } from "../../../utils/functions/dateToTimestamp";
-import { ageCalculator } from "../../../utils/functions/ageCalculator";
+import { useDateData } from "../../../hooks/useDateData";
+import { monthArray } from "../../../data/numberOfDaysArray";
+
+import { COLORS, SHADES } from "../../../constants";
+import styles from "./dateSelectRow.style";
 
 const windowWidth = Dimensions.get("window").width;
 const rowInputsWidth = windowWidth * 0.75 - 68;
 
 const DateSelectRow = ({
+    dateContext,
     dateObject,
     handleDay,
     handleMonth,
     handleYear,
     setDateTimestamp,
 }) => {
-    const { dayData, monthData, yearData } = useDateData();
+    const { dayData, monthData, yearData } = useDateData(dateContext);
+
+    const handleBoxStyle = (denominator) => {
+        const boxStyle = [
+            styles.selectBox,
+            dateContext === "signup"
+                ? {
+                      width: rowInputsWidth / denominator - 5.33,
+                      borderRadius: 4,
+                  }
+                : {
+                      width: rowInputsWidth / denominator - 5.33,
+                      borderBottomWidth: 1,
+                      borderRadius: 0,
+                  },
+        ];
+        return boxStyle;
+    };
+    const handleElementStyle = (dateProperty) => {
+        const elementStyle = [
+            styles.selectContent,
+            dateProperty === 0
+                ? { color: SHADES.black04 }
+                : { color: COLORS.black },
+        ];
+        return elementStyle;
+    };
 
     useEffect(() => {
         const checkDay = () => {
@@ -39,16 +67,14 @@ const DateSelectRow = ({
             setDateTimestamp(userTimestamp);
         }
     }, [dateObject]);
+
     return (
         <View style={styles.divRow}>
             <Text style={styles.rowTitle}>Birthday:</Text>
             <View style={styles.inputsRow}>
                 <View style={styles.selectDivision}>
                     <SelectList
-                        boxStyles={[
-                            styles.selectBox,
-                            { width: rowInputsWidth / 4 - 5.33 },
-                        ]}
+                        boxStyles={handleBoxStyle(4)}
                         dropdownStyles={styles.selectDropdown}
                         inputStyles={{ color: COLORS.white }}
                         placeholder="dd"
@@ -56,27 +82,16 @@ const DateSelectRow = ({
                         search={false}
                         save="value"
                         label="day"
-                        // onSelect={(val) => handleDay(val)}
                         setSelected={(val) => handleDay(val)}
                         arrowicon={<></>}
                     />
-                    <Text
-                        style={[
-                            styles.selectContent,
-                            dateObject.day === 0
-                                ? { color: SHADES.black04 }
-                                : { color: COLORS.black },
-                        ]}
-                    >
+                    <Text style={handleElementStyle(dateObject.day)}>
                         {dateObject.day === 0 ? "dd" : dateObject.day}
                     </Text>
                 </View>
                 <View style={styles.selectDivision}>
                     <SelectList
-                        boxStyles={[
-                            styles.selectBox,
-                            { width: rowInputsWidth / 4 - 5.33 },
-                        ]}
+                        boxStyles={handleBoxStyle(4)}
                         dropdownStyles={styles.selectDropdown}
                         inputStyles={{ color: COLORS.white }}
                         placeholder="mm"
@@ -84,27 +99,16 @@ const DateSelectRow = ({
                         search={false}
                         label="month"
                         save="value"
-                        // onSelect={(val) => handleMonth(val)}
                         setSelected={(val) => handleMonth(val)}
                         arrowicon={<></>}
                     />
-                    <Text
-                        style={[
-                            styles.selectContent,
-                            dateObject.month === 0
-                                ? { color: SHADES.black04 }
-                                : { color: COLORS.black },
-                        ]}
-                    >
+                    <Text style={handleElementStyle(dateObject.month)}>
                         {dateObject.month === 0 ? "mm" : dateObject.month}
                     </Text>
                 </View>
                 <View style={styles.selectDivision}>
                     <SelectList
-                        boxStyles={[
-                            styles.selectBox,
-                            { width: rowInputsWidth / 2 - 5.33 },
-                        ]}
+                        boxStyles={handleBoxStyle(2)}
                         dropdownStyles={styles.selectDropdown}
                         inputStyles={{ color: COLORS.white }}
                         placeholder="yyyy"
@@ -112,18 +116,10 @@ const DateSelectRow = ({
                         search={false}
                         save="value"
                         label="year"
-                        // onSelect={(val) => handleYear(val)}
                         setSelected={(val) => handleYear(val)}
                         arrowicon={<></>}
                     />
-                    <Text
-                        style={[
-                            styles.selectContent,
-                            dateObject.year === 0
-                                ? { color: SHADES.black04 }
-                                : { color: COLORS.black },
-                        ]}
-                    >
+                    <Text style={handleElementStyle(dateObject.year)}>
                         {dateObject.year === 0 ? "yyyy" : dateObject.year}
                     </Text>
                 </View>

@@ -1,3 +1,4 @@
+import { TouchableOpacity, Text, Modal, View } from "react-native";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,26 +9,38 @@ import {
 } from "../../../../../features/previousTripData.slice";
 import { axiosPushTrip } from "../../../../../utils/axios/user";
 
-import { TouchableOpacity, Text, Modal, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 import styles from "./addTripModal.style";
 import MapView from "react-native-maps";
-import TripEventForm from "../../../../common/tripForm/mapDivision/tripEventForm/TripEventForm";
 import { COLORS } from "../../../../../constants";
 import PopupForm from "../../../../common/tripForm/popupForm/PopupForm";
+import StepForm from "./stepForm/StepForm";
+import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
+import DetailsContainer from "./detailsContainer/DetailsContainer";
 
-const useAddTripModal = () => {
+const usePopupForm = () => {
+    const [isPopupVisible, setPopupVisible] = useState(false);
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState(undefined);
+    const [withWhom, setWithWhom] = useState(undefined);
     const [isVisible, setIsVisible] = useState(false);
+
     const userData = useSelector((state) => state.userDataReducer.userData);
+    const tripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        console.log(tripData);
+    }, [tripData]);
 
     const handleOpen = () => setIsVisible(true);
     const handleClose = () => {
         dispatch(resetState());
         setIsVisible(false);
     };
-
     const handleConfirm = (data) => {
         if (
             data.title !== "" &&
@@ -50,35 +63,26 @@ const useAddTripModal = () => {
         }
     };
 
-    return {
-        isVisible,
-        handleOpen,
-        handleClose,
-        handleConfirm,
-    };
-};
-
-const usePopupForm = () => {
-    const [isPopupVisible, setPopupVisible] = useState(false);
-    const [title, setTitle] = useState("");
-    const [type, setType] = useState(undefined);
-    const [withWhom, setWithWhom] = useState(undefined);
-
     useEffect(() => {
         const handlePopuDisplay = () => {
-            if (title === "" && type === undefined && withWhom === undefined) {
+            if (title === "" || type === undefined || withWhom === undefined) {
                 setPopupVisible(true);
             } else {
                 setPopupVisible(false);
             }
         };
+        handlePopuDisplay();
     }, [title, type, withWhom]);
 
     return {
         isPopupVisible,
+        isVisible,
         title,
         type,
         withWhom,
+        handleOpen,
+        handleClose,
+        handleConfirm,
         setTitle,
         setType,
         setWithWhom,
@@ -87,7 +91,7 @@ const usePopupForm = () => {
 
 const useMapPins = () => {
     const dispatch = useDispatch();
-    const [mapState, setMapState] = useState("map");
+    const [formState, setFormState] = useState("");
     const [pinState, setPinState] = useState("");
 
     const [stopoverLocation, setStopoverLocation] = useState([]);
@@ -101,36 +105,35 @@ const useMapPins = () => {
     });
 
     useEffect(() => {
+        console.log("arrivalLocation");
         console.log(arrivalLocation);
     }, [arrivalLocation]);
     useEffect(() => {
+        console.log("pinState");
         console.log(pinState);
     }, [pinState]);
     useEffect(() => {
-        console.log(mapState);
-    }, [mapState]);
+        console.log("formState");
+        console.log(formState);
+    }, [formState]);
 
-    const resetMapState = () => setMapState("map");
-    const handleMapState = (state) => {
-        setTimeout(() => {
-            setMapState(state);
-        }, 700);
-    };
+    const resetFormState = () => setFormState("");
+    const handleFormState = (state) => setFormState(state);
 
     const handleArrival = (e) => {
         const { longitude, latitude } = e.nativeEvent.coordinate;
         setArrivalLocation({ latitude, longitude });
-        handleMapState("arrival");
+        handleFormState("arrival");
     };
     const handleDeparture = (e) => {
         const { longitude, latitude } = e.nativeEvent.coordinate;
         setDepartureLocation({ latitude, longitude });
-        handleMapState("departure");
+        handleFormState("departure");
     };
     const handleStopover = (e) => {
         const { longitude, latitude } = e.nativeEvent.coordinate;
         setStopoverLocation((state) => [...state, { latitude, longitude }]);
-        handleMapState("stopover");
+        handleFormState("stopover");
     };
 
     const handlePinColor = (markerType) => {
@@ -162,7 +165,7 @@ const useMapPins = () => {
     };
     const handleTripSteps = (data) => {
         dispatch(pushTripSteps(data));
-        resetMapState();
+        resetFormState();
         handlePinState("");
     };
 
@@ -170,7 +173,7 @@ const useMapPins = () => {
         arrivalLocation,
         departureLocation,
         stopoverLocation,
-        mapState,
+        formState,
         handleLongPress,
         handlePinState,
         handleTripSteps,
@@ -178,13 +181,15 @@ const useMapPins = () => {
 };
 
 const AddTripModal = () => {
-    const { isVisible, handleOpen, handleClose, handleConfirm } =
-        useAddTripModal();
     const {
         isPopupVisible,
+        isVisible,
         title,
         type,
         withWhom,
+        handleOpen,
+        handleClose,
+        handleConfirm,
         setTitle,
         setType,
         setWithWhom,
@@ -193,7 +198,7 @@ const AddTripModal = () => {
         arrivalLocation,
         stopoverLocation,
         departureLocation,
-        mapState,
+        formState,
         handleLongPress,
         handlePinState,
         handleTripSteps,
@@ -219,35 +224,7 @@ const AddTripModal = () => {
                             <FontAwesome name="arrow-left" />
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.tripButtonsDivision}>
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            onPress={() => handlePinState("arrival")}
-                        >
-                            <FontAwesome
-                                style={styles.arrivalColor}
-                                name="plane-arrival"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            onPress={() => handlePinState("stopover")}
-                        >
-                            <FontAwesome
-                                style={styles.stopoverColor}
-                                name="map-marker"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.buttonContainer}
-                            onPress={() => handlePinState("departure")}
-                        >
-                            <FontAwesome
-                                style={styles.departureColor}
-                                name="plane-departure"
-                            />
-                        </TouchableOpacity>
-                    </View>
+                    <TripButtonsDivision handlePinState={handlePinState} />
                     {isPopupVisible && (
                         <PopupForm
                             title={title}
@@ -258,36 +235,21 @@ const AddTripModal = () => {
                             setWithWhom={setWithWhom}
                         />
                     )}
-                    <View>
-                        {mapState === "arrival" && (
-                            <TripEventForm
-                                eventLocation={arrivalLocation}
-                                eventType={mapState}
-                                formBackground={COLORS.primary}
-                                pushTripStep={handleTripSteps}
-                            />
-                        )}
-                        {mapState === "stopover" && (
-                            <TripEventForm
-                                eventLocation={
-                                    stopoverLocation[
-                                        stopoverLocation.length - 1
-                                    ]
-                                }
-                                eventType={mapState}
-                                formBackground={COLORS.secondary}
-                                pushTripStep={handleTripSteps}
-                            />
-                        )}
-                        {mapState === "departure" && (
-                            <TripEventForm
-                                eventLocation={departureLocation}
-                                eventType={mapState}
-                                formBackground={COLORS.tertiary}
-                                pushTripStep={handleTripSteps}
-                            />
-                        )}
-                    </View>
+                    {formState !== "" && (
+                        <StepForm
+                            formState={formState}
+                            arrivalLocation={arrivalLocation}
+                            departureLocation={departureLocation}
+                            stopoverLocation={stopoverLocation}
+                            handleTripSteps={handleTripSteps}
+                        />
+                    )}
+                    <DetailsContainer
+                        isPopupVisible={isPopupVisible}
+                        title={title}
+                        type={type}
+                        withWhom={withWhom}
+                    />
                 </View>
             </Modal>
             <TouchableOpacity

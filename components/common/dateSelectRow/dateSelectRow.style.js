@@ -8,12 +8,10 @@ const styles = StyleSheet.create({
     divRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        // alignItems: "center",
         marginBottom: 16,
     },
     inputsRow: {
         flexDirection: "row",
-        // justifyContent: "space-between",
         width: rowInputsWidth,
         gap: 8,
     },
@@ -23,7 +21,6 @@ const styles = StyleSheet.create({
         marginTop: 12,
     },
     selectBox: {
-        borderRadius: 4,
         backgroundColor: COLORS.white,
         borderWidth: 0,
         paddingHorizontal: 0,
@@ -36,7 +33,6 @@ const styles = StyleSheet.create({
     },
     selectDivision: {
         alignItems: "center",
-        // justifyContent: "center",
     },
     selectDropdown: {
         backgroundColor: COLORS.white,

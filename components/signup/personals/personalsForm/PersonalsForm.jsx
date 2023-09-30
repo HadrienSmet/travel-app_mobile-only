@@ -255,6 +255,7 @@ const PersonalsForm = () => {
                     placeholder="Gender"
                 />
                 <DateSelectRow
+                    dateContext="signup"
                     dateObject={birthday}
                     handleDay={handleDay}
                     handleMonth={handleMonth}

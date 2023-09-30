@@ -2,89 +2,48 @@ import { Text, TextInput, View, TouchableOpacity } from "react-native";
 import DatePickerRow from "../../../datePickerRow/DatePickerRow";
 import { useState } from "react";
 import styles from "./tripEventForm.style";
+import DateSelectRow from "../../../dateSelectRow/DateSelectRow";
 
 const useEventDate = () => {
+    const [dateTimestamp, setDateTimestamp] = useState(0);
     const [dateObject, setDateObject] = useState({
-        day: undefined,
-        month: undefined,
-        year: undefined,
+        day: 0,
+        month: 0,
+        year: 0,
     });
-    const handleDay = (day) => {
-        if (parseInt(day) < 1) {
-            setDateObject({
-                ...dateObject,
-                day: "1",
-            });
-        } else if (parseInt(day) > 31) {
-            setDateObject({
-                ...dateObject,
-                day: "31",
-            });
-        } else {
-            setDateObject({
-                ...dateObject,
-                day,
-            });
-        }
-    };
-    const handleMonth = (month) => {
-        if (parseInt(month) < 1) {
-            setDateObject({
-                ...dateObject,
-                month: "1",
-            });
-        } else if (parseInt(month) > 12) {
-            setDateObject({
-                ...dateObject,
-                month: "12",
-            });
-        } else {
-            setDateObject({
-                ...dateObject,
-                month,
-            });
-        }
-    };
+    const handleDay = (day) =>
+        setDateObject((state) => ({ ...state, day: day }));
+    const handleMonth = (month) =>
+        setDateObject((state) => ({ ...state, month: month }));
     const handleYear = (year) =>
-        setDateObject({
-            ...dateObject,
-            year,
-        });
-    const checkYear = () => {
-        let year = dateObject.year;
-        const currentYear = new Date().getFullYear();
-        if (parseInt(year) < 1950) {
-            setDateObject({
-                ...dateObject,
-                year: "1950",
-            });
-        } else if (parseInt(year) > currentYear) {
-            setDateObject({
-                ...dateObject,
-                year: currentYear.toString(),
-            });
-        }
-    };
+        setDateObject((state) => ({ ...state, year: year }));
 
     return {
         dateObject,
-        checkYear,
+        dateTimestamp,
         handleDay,
         handleMonth,
         handleYear,
+        setDateTimestamp,
     };
 };
 
-const TripEventForm = ({
-    eventLocation,
-    eventType,
-    formBackground,
-    pushTripStep,
-}) => {
+const TripEventForm = ({ eventLocation, eventType, pushTripStep }) => {
     const [content, setContent] = useState("");
-    const { dateObject, checkYear, handleDay, handleMonth, handleYear } =
-        useEventDate();
-
+    const {
+        dateObject,
+        dateTimestamp,
+        handleDay,
+        handleMonth,
+        handleYear,
+        setDateTimestamp,
+    } = useEventDate();
+    const titleString =
+        eventType === "arrival"
+            ? " land"
+            : eventType === "departure"
+            ? " take your flight back"
+            : " arrive there";
     const handleSubmit = () => {
         if (
             dateObject.day !== undefined &&
@@ -103,36 +62,25 @@ const TripEventForm = ({
     };
 
     return (
-        <View
-            style={[styles.tripEventForm, { backgroundColor: formBackground }]}
-        >
+        <View style={[styles.tripEventForm]}>
             <Text style={styles.mainTitle}>
                 Give us some details about your {eventType}
             </Text>
             <View style={styles.basicView}>
-                {eventType === "arrival" && (
-                    <Text style={styles.secondTitle}>When did you land?</Text>
-                )}
-                {eventType === "stopover" && (
-                    <Text style={styles.secondTitle}>
-                        When did you arrive there?
-                    </Text>
-                )}
-                {eventType === "departure" && (
-                    <Text style={styles.secondTitle}>
-                        When did you take your flight?
-                    </Text>
-                )}
-                <DatePickerRow
-                    rowTitle={
-                        eventType !== "departure" ? "arrival" : "departure"
-                    }
-                    dateObject={dateObject}
-                    handleDay={handleDay}
-                    handleMonth={handleMonth}
-                    handleYear={handleYear}
-                    handleYearBlur={checkYear}
-                />
+                <Text style={styles.secondTitle}>
+                    When did you {titleString}?
+                </Text>
+                <View style={{ justifyContent: "center", width: "100%" }}>
+                    <View style={{ width: "60%" }}>
+                        <DateSelectRow
+                            dateObject={dateObject}
+                            handleDay={handleDay}
+                            handleMonth={handleMonth}
+                            handleYear={handleYear}
+                            setDateTimestamp={setDateTimestamp}
+                        />
+                    </View>
+                </View>
             </View>
             <View style={styles.basicView}>
                 <Text style={styles.secondTitle}>
@@ -151,7 +99,7 @@ const TripEventForm = ({
                 style={styles.confirmButtonContainer}
                 onPress={handleSubmit}
             >
-                <Text style={styles.confirmButtonContent}>Confirm</Text>
+                <Text style={styles.confirmButtonContent}>Add {eventType}</Text>
             </TouchableOpacity>
         </View>
     );

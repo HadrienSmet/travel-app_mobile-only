@@ -30,10 +30,6 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                 return COLORS.secondary;
             case "departure":
                 return COLORS.tertiary;
-            // case "advice":
-            //     return "green";
-            // case "warning":
-            //     return "red";
         }
     };
 

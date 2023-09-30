@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { monthArray } from "../data/numberOfDaysArray";
 
-export const useDateData = () => {
+export const useDateData = (dateContext) => {
     const fillDayData = () => {
         let current = 1;
         let data = [];
@@ -21,7 +21,7 @@ export const useDateData = () => {
     const fillYearData = () => {
         const currentYear = new Date().getFullYear();
         let data = [];
-        let current = currentYear - 16;
+        let current = dateContext === "signup" ? currentYear - 16 : currentYear;
         while (current >= 1940) {
             data.push(current);
             current--;
