@@ -1,7 +1,13 @@
 import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../../../../../constants";
+import { COLORS, SHADES, SIZES } from "../../../../../../constants";
 
 const styles = StyleSheet.create({
+    borderBottom: {
+        width: "60%",
+        marginHorizontal: "20%",
+        borderBottomWidth: 1,
+        borderColor: SHADES.black02,
+    },
     buttonContainer: {
         marginHorizontal: "25%",
         width: "50%",
@@ -23,6 +29,11 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: COLORS.white,
     },
+    detailsContent: {
+        paddingHorizontal: 24,
+        gap: 12,
+        paddingBottom: 16,
+    },
     detailsHeader: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -34,15 +45,33 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         color: COLORS.black,
     },
-    detailsContent: {
-        paddingHorizontal: 24,
-        gap: 12,
-        paddingBottom: 16,
-    },
     detailsRow: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 8,
+    },
+    stepContainer: {
+        gap: 8,
+        paddingVertical: 8,
+    },
+    stepContent: {
+        color: COLORS.black,
+        width: "75%",
+        marginHorizontal: "12.5%",
+        textAlign: "center",
+    },
+    setpHeader: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    stepType: {
+        fontWeight: "700",
+        color: SHADES.black07,
+        letterSpacing: 1.1,
+    },
+    stepsContainer: {
+        gap: 12,
+        marginBottom: 12,
     },
 });
 

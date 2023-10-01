@@ -12,9 +12,9 @@ import { axiosPushTrip } from "../../../../../utils/axios/user";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 import styles from "./addTripModal.style";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { COLORS } from "../../../../../constants";
-import PopupForm from "../../../../common/tripForm/popupForm/PopupForm";
+import PopupForm from "./popupForm/PopupForm";
 import StepForm from "./stepForm/StepForm";
 import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
 import DetailsContainer from "./detailsContainer/DetailsContainer";
@@ -27,14 +27,7 @@ const usePopupForm = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const userData = useSelector((state) => state.userDataReducer.userData);
-    const tripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(tripData);
-    }, [tripData]);
 
     const handleOpen = () => setIsVisible(true);
     const handleClose = () => {
@@ -93,7 +86,6 @@ const useMapPins = () => {
     const dispatch = useDispatch();
     const [formState, setFormState] = useState("");
     const [pinState, setPinState] = useState("");
-
     const [stopoverLocation, setStopoverLocation] = useState([]);
     const [arrivalLocation, setArrivalLocation] = useState({
         latitude: undefined,
@@ -104,22 +96,15 @@ const useMapPins = () => {
         longitude: undefined,
     });
 
+    const tripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
     useEffect(() => {
-        console.log("arrivalLocation");
-        console.log(arrivalLocation);
-    }, [arrivalLocation]);
-    useEffect(() => {
-        console.log("pinState");
-        console.log(pinState);
-    }, [pinState]);
-    useEffect(() => {
-        console.log("formState");
-        console.log(formState);
-    }, [formState]);
+        console.log(tripData);
+    }, [tripData]);
 
     const resetFormState = () => setFormState("");
     const handleFormState = (state) => setFormState(state);
-
     const handleArrival = (e) => {
         const { longitude, latitude } = e.nativeEvent.coordinate;
         setArrivalLocation({ latitude, longitude });
@@ -135,7 +120,6 @@ const useMapPins = () => {
         setStopoverLocation((state) => [...state, { latitude, longitude }]);
         handleFormState("stopover");
     };
-
     const handlePinColor = (markerType) => {
         switch (markerType) {
             case "arrival":
@@ -164,9 +148,21 @@ const useMapPins = () => {
         }
     };
     const handleTripSteps = (data) => {
-        dispatch(pushTripSteps(data));
-        resetFormState();
-        handlePinState("");
+        // console.log('data')
+        // console.log(data)
+        const arrivalIndex = tripData.steps.findIndex(
+            (el) => el.type === "arrival"
+        );
+        if (
+            arrivalIndex !== -1 &&
+            tripData.steps[arrivalIndex].date > data.date
+        ) {
+            alert("The date you gave is before your arrival");
+        } else {
+            dispatch(pushTripSteps(data));
+            resetFormState();
+            handlePinState("");
+        }
     };
 
     return {
@@ -175,6 +171,7 @@ const useMapPins = () => {
         stopoverLocation,
         formState,
         handleLongPress,
+        handlePinColor,
         handlePinState,
         handleTripSteps,
     };
@@ -196,13 +193,21 @@ const AddTripModal = () => {
     } = usePopupForm();
     const {
         arrivalLocation,
-        stopoverLocation,
         departureLocation,
+        stopoverLocation,
         formState,
         handleLongPress,
+        handlePinColor,
         handlePinState,
         handleTripSteps,
     } = useMapPins();
+    const previousTripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
+    const [selectedMarker, setSelectedMarker] = useState("");
+    useEffect(() => {
+        console.log(selectedMarker);
+    }, [selectedMarker]);
 
     return (
         <>
@@ -215,7 +220,17 @@ const AddTripModal = () => {
                     <MapView
                         onLongPress={handleLongPress}
                         style={styles.mapContainer}
-                    ></MapView>
+                    >
+                        {previousTripData.steps.length !== 0 &&
+                            previousTripData.steps.map((step, index) => (
+                                <Marker
+                                    key={`marker-${index}`}
+                                    coordinate={step.location}
+                                    pinColor={handlePinColor(step.type)}
+                                    onPress={() => setSelectedMarker(step)}
+                                />
+                            ))}
+                    </MapView>
                     <View style={styles.backButtonDivision}>
                         <TouchableOpacity
                             onPress={handleClose}

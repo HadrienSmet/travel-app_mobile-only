@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, SHADES, SIZES, SHADOWS } from "../../../../constants";
+import { COLORS, SHADES, SIZES, SHADOWS } from "../../../../../../constants";
 
 const styles = StyleSheet.create({
     popupSecondTitle: {

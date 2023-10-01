@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./detailsContainer.style";
+import { useSelector } from "react-redux";
+import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
 
 const useDetailsContainer = () => {
     const [areDetailsVisible, setDetailsVisible] = useState(false);
@@ -22,6 +24,9 @@ const DetailsContainer = ({
     handleConfirm,
 }) => {
     const { areDetailsVisible, toggleDetails } = useDetailsContainer();
+    const tripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
 
     return (
         <>
@@ -53,6 +58,31 @@ const DetailsContainer = ({
                                 <Text>{type}</Text>
                                 <Text>{withWhom}</Text>
                             </View>
+                            {tripData.steps.length !== 0 && (
+                                <View style={styles.stepsContainer}>
+                                    {tripData.steps.map((step, index) => (
+                                        <View
+                                            style={styles.stepContainer}
+                                            key={`step-${index}`}
+                                        >
+                                            <View style={styles.setpHeader}>
+                                                <Text style={styles.stepType}>
+                                                    {step.type}
+                                                </Text>
+                                                <Text>
+                                                    {timestampToDate(step.date)}
+                                                </Text>
+                                            </View>
+                                            <Text style={styles.stepContent}>
+                                                {step.content}
+                                            </Text>
+                                            <View
+                                                style={styles.borderBottom}
+                                            ></View>
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
                             <TouchableOpacity
                                 style={styles.buttonContainer}
                                 onPress={handleConfirm}

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextInput, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import styles from "./popuForm.style";
-import { travelerTypeArray } from "../../../../data/travelerTypeArray";
+import { travelerTypeArray } from "../../../../../../data/travelerTypeArray";
 
 const whithWhomArray = [
     "In couple",

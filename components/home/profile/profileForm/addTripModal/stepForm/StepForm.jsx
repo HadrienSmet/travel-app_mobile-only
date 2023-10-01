@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     ScrollView,
     Text,
@@ -23,13 +23,6 @@ const useStepForm = () => {
         setDateObject((state) => ({ ...state, month: month }));
     const handleYear = (year) =>
         setDateObject((state) => ({ ...state, year: year }));
-
-    useEffect(() => {
-        console.log(dateObject);
-    }, [dateObject]);
-    useEffect(() => {
-        console.log(dateTimestamp);
-    }, [dateTimestamp]);
 
     return {
         content,
