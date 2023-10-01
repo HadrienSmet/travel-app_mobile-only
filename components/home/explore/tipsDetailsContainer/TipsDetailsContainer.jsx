@@ -21,9 +21,7 @@ const useVotesButtons = (currentTips) => {
     const [upVotes, setUpVotes] = useState(currentTips.upVotes);
     const [downVotes, setDownVotes] = useState(currentTips.downVotes);
     const dispatch = useDispatch();
-    const userId = useSelector(
-        (state) => state.userDataReducer.userData
-    ).userId;
+    const userId = useSelector((state) => state.userDataReducer.userData)._id;
     const tipsId = currentTips._id;
     const dispatchData = { tipsId, userId };
 

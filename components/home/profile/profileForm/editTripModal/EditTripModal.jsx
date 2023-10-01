@@ -24,7 +24,7 @@ const EditTripModal = ({ trip }) => {
             prevTrip.withWhom !== undefined &&
             prevTrip.type !== undefined
         ) {
-            axiosPatchTrips(userData.userId, prevTrip, userData.token)
+            axiosPatchTrips(userData._id, prevTrip, userData.token)
                 .then(() => {
                     const data = [...userData.previousTrips];
                     const oldIndex = data.findIndex(

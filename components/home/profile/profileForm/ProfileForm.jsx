@@ -73,7 +73,7 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
             languages: userLanguages,
             dreamTrips: userDreamTrips,
         };
-        axiosPatchUser(userData.userId, data, userData.token)
+        axiosPatchUser(userData._id, data, userData.token)
             .then((res) => {
                 setIsEditing(false);
                 dispatch(setUserData(res.data));

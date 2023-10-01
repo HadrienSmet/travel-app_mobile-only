@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { COLORS } from "../../../../../../constants";
 import styles from "./detailsContainer.style";
 
 const useDetailsContainer = () => {

@@ -61,7 +61,7 @@ const useFormsContainer = (tipsLocation, tipsType, handleFormState) => {
         const singleLetter = userData.lastname.split("")[0];
         const data = {
             author: `${userData.firstname} ${singleLetter}`,
-            user_id: userData.userId,
+            user_id: userData._id,
             location: tipsLocation,
             type: tipsType,
             about: tipsAbout,

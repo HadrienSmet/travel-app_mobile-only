@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         width: rowInputsWidth,
         gap: 8,
     },
+    inputElem: { color: COLORS.white },
     rowTitle: {
         color: COLORS.white,
         fontWeight: "600",

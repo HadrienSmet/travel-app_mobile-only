@@ -40,7 +40,7 @@ const useMapContainer = (isLookingSomething) => {
                 axiosGetEveryTips(10, mapScope)
                     .then((res) => dispatch(setEveryTips(res.data)))
                     .catch((err) => alert(err));
-                axiosGetUserTips(userData.userId)
+                axiosGetUserTips(userData._id)
                     .then((res) => dispatch(setUserTips(res.data)))
                     .catch((err) => alert(err));
             }

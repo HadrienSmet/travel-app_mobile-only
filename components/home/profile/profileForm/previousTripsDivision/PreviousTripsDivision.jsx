@@ -19,7 +19,7 @@ const PreviousTripsDivision = () => {
             );
             setCertainRemove(true);
         } else {
-            axiosDeleteTrip(userData.userId, tripTitle, userData.token)
+            axiosDeleteTrip(userData._id, tripTitle, userData.token)
                 .then(() => dispatch(removeUserTrip(tripTitle)))
                 .catch((err) => alert(err.message));
             setCertainRemove(true);

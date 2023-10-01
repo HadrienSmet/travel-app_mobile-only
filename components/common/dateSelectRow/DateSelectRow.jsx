@@ -76,7 +76,7 @@ const DateSelectRow = ({
                     <SelectList
                         boxStyles={handleBoxStyle(4)}
                         dropdownStyles={styles.selectDropdown}
-                        inputStyles={{ color: COLORS.white }}
+                        inputStyles={styles.inputElem}
                         placeholder="dd"
                         data={dayData}
                         search={false}
@@ -93,7 +93,7 @@ const DateSelectRow = ({
                     <SelectList
                         boxStyles={handleBoxStyle(4)}
                         dropdownStyles={styles.selectDropdown}
-                        inputStyles={{ color: COLORS.white }}
+                        inputStyles={styles.inputElem}
                         placeholder="mm"
                         data={monthData}
                         search={false}
@@ -110,7 +110,7 @@ const DateSelectRow = ({
                     <SelectList
                         boxStyles={handleBoxStyle(2)}
                         dropdownStyles={styles.selectDropdown}
-                        inputStyles={{ color: COLORS.white }}
+                        inputStyles={styles.inputElem}
                         placeholder="yyyy"
                         data={yearData}
                         search={false}

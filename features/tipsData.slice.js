@@ -39,7 +39,7 @@ export const tipsDataSlice = createSlice({
                 (el) => el._id === payload.tipsId
             );
             const newTip = { ...tipsList[rightTipsIndex] };
-            newTip.upVotes.push(payload.userId);
+            newTip.upVotes.push(payload._id);
             tipsList.splice(rightTipsIndex, 1, newTip);
         },
         dislikeTips(state, { payload }) {
@@ -48,7 +48,7 @@ export const tipsDataSlice = createSlice({
                 (el) => el._id === payload.tipsId
             );
             const newTip = { ...tipsList[rightTipsIndex] };
-            newTip.downVotes.push(payload.userId);
+            newTip.downVotes.push(payload._id);
             tipsList.splice(rightTipsIndex, 1, newTip);
         },
         removeLike(state, { payload }) {
@@ -58,7 +58,7 @@ export const tipsDataSlice = createSlice({
             );
             const newTip = { ...tipsList[rightTipsIndex] };
             const voteIndex = newTip.upVotes.findIndex(
-                (el) => el === payload.userId
+                (el) => el === payload._id
             );
             newTip.upVotes.splice(voteIndex, 1);
             tipsList.splice(rightTipsIndex, 1, newTip);
@@ -70,7 +70,7 @@ export const tipsDataSlice = createSlice({
             );
             const newTip = { ...tipsList[rightTipsIndex] };
             const voteIndex = newTip.downVotes.findIndex(
-                (el) => el === payload.userId
+                (el) => el === payload._id
             );
             newTip.upVotes.splice(voteIndex, 1);
             tipsList.splice(rightTipsIndex, 1, newTip);

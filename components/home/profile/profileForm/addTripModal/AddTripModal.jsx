@@ -47,7 +47,7 @@ const usePopupForm = () => {
             data.withWhom !== undefined &&
             data.type !== undefined
         ) {
-            axiosPushTrip(userData.userId, data, userData.token)
+            axiosPushTrip(userData._id, data, userData.token)
                 .then(() => {
                     const dispatchData = {
                         previousTrips: [...userData.previousTrips, data],
