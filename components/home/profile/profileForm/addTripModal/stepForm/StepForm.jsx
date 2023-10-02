@@ -41,6 +41,7 @@ const StepForm = ({
     arrivalLocation,
     departureLocation,
     stopoverLocation,
+    // stepsLocation,
     handleTripSteps,
 }) => {
     const {
@@ -70,6 +71,8 @@ const StepForm = ({
             ? " take your flight back"
             : " arrive there";
     const handleSubmit = () => {
+        // const lastStepPortion = stepsLocation[stepsLocation - 1];
+        // const lastLocation = lastStepPortion[lastStepPortion - 1];
         if (dateTimestamp !== 0) {
             handleTripSteps({
                 type: formState,

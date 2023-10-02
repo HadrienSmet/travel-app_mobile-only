@@ -27,6 +27,9 @@ const usePopupForm = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const userData = useSelector((state) => state.userDataReducer.userData);
+    const tripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
     const dispatch = useDispatch();
 
     const handleOpen = () => setIsVisible(true);
@@ -34,7 +37,13 @@ const usePopupForm = () => {
         dispatch(resetState());
         setIsVisible(false);
     };
-    const handleConfirm = (data) => {
+    const handleConfirm = () => {
+        const data = {
+            title,
+            type,
+            withWhom,
+            steps: tripData.steps,
+        };
         if (
             data.title !== "" &&
             data.withWhom !== undefined &&
@@ -95,6 +104,25 @@ const useMapPins = () => {
         latitude: undefined,
         longitude: undefined,
     });
+    // const [stepLocations, setStepLocations] = useState([]);
+
+    // const handleStepLocation = (e, type) => {
+    //     const { longitude, latitude } = e.nativeEvent.coordinate;
+    //     const objData = {
+    //         type,
+    //         location: { longitude, latitude },
+    //     };
+    //     if (type === "arrival") {
+    //         setStepLocations((state) => [...state, [objData]]);
+    //     }
+    //     if (type === "stopover" || type === "departure") {
+    //         const currentState = [...stepLocations];
+    //         const currentPortion = currentState[currentState.length - 1];
+    //         const newPortion = [...currentPortion, objData];
+    //         currentState.splice(currentState.length - 1, 1, newPortion);
+    //         setStepLocations(currentState);
+    //     }
+    // };
 
     const tripData = useSelector(
         (state) => state.previousTripReducer.previousTripData
@@ -133,6 +161,7 @@ const useMapPins = () => {
     const handlePinState = (state) => setPinState(state);
 
     const handleLongPress = (e) => {
+        // handleStepLocation(e, pinState);
         switch (pinState) {
             case "arrival":
                 handleArrival(e);
@@ -169,6 +198,7 @@ const useMapPins = () => {
         arrivalLocation,
         departureLocation,
         stopoverLocation,
+        // stepLocations,
         formState,
         handleLongPress,
         handlePinColor,
@@ -195,6 +225,7 @@ const AddTripModal = () => {
         arrivalLocation,
         departureLocation,
         stopoverLocation,
+        // stepLocations,
         formState,
         handleLongPress,
         handlePinColor,
@@ -256,6 +287,7 @@ const AddTripModal = () => {
                             arrivalLocation={arrivalLocation}
                             departureLocation={departureLocation}
                             stopoverLocation={stopoverLocation}
+                            // stepLocations={stepLocations}
                             handleTripSteps={handleTripSteps}
                         />
                     )}
@@ -264,6 +296,7 @@ const AddTripModal = () => {
                         title={title}
                         type={type}
                         withWhom={withWhom}
+                        handleConfirm={handleConfirm}
                     />
                 </View>
             </Modal>
