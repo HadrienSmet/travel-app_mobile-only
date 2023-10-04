@@ -2,18 +2,37 @@ import { StyleSheet } from "react-native";
 import { COLORS, SHADES, SIZES, SHADOWS } from "../../../../../../constants";
 
 const styles = StyleSheet.create({
-    popupSecondTitle: {
-        fontSize: SIZES.medium,
-        color: COLORS.black,
-    },
     popupBasicDivision: {
         gap: 4,
     },
-    popuInputBox: {
+    popupButtonContainer: {
+        width: "50%",
+        marginHorizontal: "25%",
+        paddingVertical: 8,
+        backgroundColor: COLORS.primary,
+        borderRadius: 36,
+    },
+    popupButtonElement: {
+        color: COLORS.white,
+        fontWeight: "700",
+        letterSpacing: 1.1,
+        textAlign: "center",
+    },
+    popupContainer: {
+        backgroundColor: COLORS.white,
+        paddingVertical: 60,
+        paddingHorizontal: 40,
+        borderRadius: 8,
+        gap: 16,
+        width: "90%",
+        ...SHADOWS.medium,
+    },
+    popupInputBox: {
         borderWidth: 0,
         borderBottomWidth: 1,
         borderColor: SHADES.black07,
         borderRadius: 0,
+        paddingVertical: 6,
     },
     popupInputElement: {
         color: SHADES.black06,
@@ -29,13 +48,9 @@ const styles = StyleSheet.create({
         left: 0,
         backgroundColor: SHADES.black04,
     },
-    popupContainer: {
-        backgroundColor: COLORS.white,
-        paddingVertical: 60,
-        paddingHorizontal: 40,
-        borderRadius: 8,
-        gap: 16,
-        ...SHADOWS.medium,
+    popupSecondTitle: {
+        fontSize: SIZES.medium,
+        color: COLORS.black,
     },
 });
 

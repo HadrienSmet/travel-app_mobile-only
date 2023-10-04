@@ -3,6 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { SHADES } from "../../../../../../constants";
 import styles from "./tripStepsDivision.style";
 import MarkersDisplayer from "../markersDisplayer/MarkersDisplayer";
+import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
 
 const TripStepsDivision = ({
     isStepsAccordionOpen,
@@ -46,9 +47,9 @@ const TripStepsDivision = ({
                     >
                         <View style={styles.rowDisplay}>
                             <Text style={styles.stepTitle}>{step.type}</Text>
-                            <Text
-                                style={styles.fadeElement}
-                            >{`${step.date.day}/${step.date.month}/${step.date.year}`}</Text>
+                            <Text style={styles.fadeElement}>
+                                {timestampToDate(step.date)}
+                            </Text>
                         </View>
                         <Text
                             style={[
@@ -61,7 +62,7 @@ const TripStepsDivision = ({
                     </View>
                 ))}
             </View>
-            <MarkersDisplayer markersList={trip.steps} buttonText="journey" />
+            <MarkersDisplayer color={trip.color} markersList={trip.steps} />
         </View>
     );
 };

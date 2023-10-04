@@ -16,17 +16,12 @@ const useDetailsContainer = () => {
     };
 };
 
-const DetailsContainer = ({
-    isPopupVisible,
-    title,
-    type,
-    withWhom,
-    handleConfirm,
-}) => {
+const DetailsContainer = ({ isPopupVisible, handleConfirm }) => {
     const { areDetailsVisible, toggleDetails } = useDetailsContainer();
     const tripData = useSelector(
         (state) => state.previousTripReducer.previousTripData
     );
+    const { title, type, withWhom } = tripData;
 
     return (
         <>

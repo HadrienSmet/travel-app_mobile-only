@@ -36,6 +36,26 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         color: SHADES.black06,
     },
+    // markerCircle: {
+    //     width: 20,
+    //     height: 20,
+    //     borderRadius: 20,
+    //     backgroundColor: COLORS.white,
+    //     position: "absolute",
+    //     top: 6,
+    // },
+    // markerContainer: {
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    // },
+    // markerIcon: {
+    //     position: "absolute",
+    //     top: 10,
+    //     fontSize: 10,
+    // },
+    // markerPin: {
+    //     fontSize: 40,
+    // },
     modalButtonContainer: {
         backgroundColor: COLORS.primary,
         marginLeft: "40%",

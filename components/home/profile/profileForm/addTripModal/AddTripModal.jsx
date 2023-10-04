@@ -18,20 +18,20 @@ import PopupForm from "./popupForm/PopupForm";
 import StepForm from "./stepForm/StepForm";
 import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
 import DetailsContainer from "./detailsContainer/DetailsContainer";
+import MapPin from "../../../../common/mapPin/MapPin";
 
 const usePopupForm = () => {
-    const [isPopupVisible, setPopupVisible] = useState(false);
-    const [title, setTitle] = useState("");
-    const [type, setType] = useState(undefined);
-    const [withWhom, setWithWhom] = useState(undefined);
+    const [isPopupVisible, setPopupVisible] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
 
     const userData = useSelector((state) => state.userDataReducer.userData);
     const tripData = useSelector(
         (state) => state.previousTripReducer.previousTripData
     );
+    const { color, steps, title, type, withWhom } = tripData;
     const dispatch = useDispatch();
 
+    const closePopup = () => setPopupVisible(false);
     const handleOpen = () => setIsVisible(true);
     const handleClose = () => {
         dispatch(resetState());
@@ -39,15 +39,17 @@ const usePopupForm = () => {
     };
     const handleConfirm = () => {
         const data = {
+            color,
             title,
             type,
             withWhom,
-            steps: tripData.steps,
+            steps,
         };
         if (
-            data.title !== "" &&
-            data.withWhom !== undefined &&
-            data.type !== undefined
+            color !== undefined &&
+            title !== undefined &&
+            withWhom !== undefined &&
+            type !== undefined
         ) {
             axiosPushTrip(userData._id, data, userData.token)
                 .then(() => {
@@ -65,29 +67,13 @@ const usePopupForm = () => {
         }
     };
 
-    useEffect(() => {
-        const handlePopuDisplay = () => {
-            if (title === "" || type === undefined || withWhom === undefined) {
-                setPopupVisible(true);
-            } else {
-                setPopupVisible(false);
-            }
-        };
-        handlePopuDisplay();
-    }, [title, type, withWhom]);
-
     return {
         isPopupVisible,
         isVisible,
-        title,
-        type,
-        withWhom,
+        closePopup,
         handleOpen,
         handleClose,
         handleConfirm,
-        setTitle,
-        setType,
-        setWithWhom,
     };
 };
 
@@ -104,25 +90,6 @@ const useMapPins = () => {
         latitude: undefined,
         longitude: undefined,
     });
-    // const [stepLocations, setStepLocations] = useState([]);
-
-    // const handleStepLocation = (e, type) => {
-    //     const { longitude, latitude } = e.nativeEvent.coordinate;
-    //     const objData = {
-    //         type,
-    //         location: { longitude, latitude },
-    //     };
-    //     if (type === "arrival") {
-    //         setStepLocations((state) => [...state, [objData]]);
-    //     }
-    //     if (type === "stopover" || type === "departure") {
-    //         const currentState = [...stepLocations];
-    //         const currentPortion = currentState[currentState.length - 1];
-    //         const newPortion = [...currentPortion, objData];
-    //         currentState.splice(currentState.length - 1, 1, newPortion);
-    //         setStepLocations(currentState);
-    //     }
-    // };
 
     const tripData = useSelector(
         (state) => state.previousTripReducer.previousTripData
@@ -161,7 +128,6 @@ const useMapPins = () => {
     const handlePinState = (state) => setPinState(state);
 
     const handleLongPress = (e) => {
-        // handleStepLocation(e, pinState);
         switch (pinState) {
             case "arrival":
                 handleArrival(e);
@@ -177,8 +143,6 @@ const useMapPins = () => {
         }
     };
     const handleTripSteps = (data) => {
-        // console.log('data')
-        // console.log(data)
         const arrivalIndex = tripData.steps.findIndex(
             (el) => el.type === "arrival"
         );
@@ -198,7 +162,7 @@ const useMapPins = () => {
         arrivalLocation,
         departureLocation,
         stopoverLocation,
-        // stepLocations,
+        pinState,
         formState,
         handleLongPress,
         handlePinColor,
@@ -211,21 +175,16 @@ const AddTripModal = () => {
     const {
         isPopupVisible,
         isVisible,
-        title,
-        type,
-        withWhom,
+        closePopup,
         handleOpen,
         handleClose,
         handleConfirm,
-        setTitle,
-        setType,
-        setWithWhom,
     } = usePopupForm();
     const {
         arrivalLocation,
         departureLocation,
         stopoverLocation,
-        // stepLocations,
+        pinState,
         formState,
         handleLongPress,
         handlePinColor,
@@ -254,11 +213,11 @@ const AddTripModal = () => {
                     >
                         {previousTripData.steps.length !== 0 &&
                             previousTripData.steps.map((step, index) => (
-                                <Marker
+                                <MapPin
                                     key={`marker-${index}`}
-                                    coordinate={step.location}
-                                    pinColor={handlePinColor(step.type)}
-                                    onPress={() => setSelectedMarker(step)}
+                                    marker={step}
+                                    color={previousTripData.color}
+                                    setSelectedMarker={setSelectedMarker}
                                 />
                             ))}
                     </MapView>
@@ -270,32 +229,22 @@ const AddTripModal = () => {
                             <FontAwesome name="arrow-left" />
                         </TouchableOpacity>
                     </View>
-                    <TripButtonsDivision handlePinState={handlePinState} />
-                    {isPopupVisible && (
-                        <PopupForm
-                            title={title}
-                            type={type}
-                            withWhom={withWhom}
-                            setTitle={setTitle}
-                            setType={setType}
-                            setWithWhom={setWithWhom}
-                        />
-                    )}
+                    <TripButtonsDivision
+                        pinState={pinState}
+                        handlePinState={handlePinState}
+                    />
+                    {isPopupVisible && <PopupForm closePopup={closePopup} />}
                     {formState !== "" && (
                         <StepForm
                             formState={formState}
                             arrivalLocation={arrivalLocation}
                             departureLocation={departureLocation}
                             stopoverLocation={stopoverLocation}
-                            // stepLocations={stepLocations}
                             handleTripSteps={handleTripSteps}
                         />
                     )}
                     <DetailsContainer
                         isPopupVisible={isPopupVisible}
-                        title={title}
-                        type={type}
-                        withWhom={withWhom}
                         handleConfirm={handleConfirm}
                     />
                 </View>

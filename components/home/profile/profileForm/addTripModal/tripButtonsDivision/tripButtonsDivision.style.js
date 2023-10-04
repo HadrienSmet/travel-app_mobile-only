@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, SHADOWS } from "../../../../../../constants";
+import { COLORS, SHADES, SHADOWS } from "../../../../../../constants";
 
 const styles = StyleSheet.create({
     buttonContainer: {
@@ -18,9 +18,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
         gap: 8,
     },
-    arrivalColor: { color: COLORS.primary },
-    stopoverColor: { color: COLORS.secondary },
-    departureColor: { color: COLORS.tertiary },
+    defaultColor: { color: SHADES.black06 },
+    selectedColor: { color: COLORS.secondary },
 });
 
 export default styles;

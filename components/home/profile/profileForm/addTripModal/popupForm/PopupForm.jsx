@@ -1,8 +1,11 @@
-import React from "react";
-import { Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import styles from "./popuForm.style";
 import { travelerTypeArray } from "../../../../../../data/travelerTypeArray";
+import ColorDivision from "./colorDivision/ColorDivision";
+import { useDispatch, useSelector } from "react-redux";
+import { patchState } from "../../../../../../features/previousTripData.slice";
 
 const whithWhomArray = [
     "In couple",
@@ -12,14 +15,77 @@ const whithWhomArray = [
     "With my friends",
 ];
 
-const PopupForm = ({
-    title,
-    type,
-    withWhom,
-    setTitle,
-    setType,
-    setWithWhom,
-}) => {
+const usePopupForm = (closePopup) => {
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState("");
+    const [withWhom, setWithWhom] = useState("");
+    const [type, setType] = useState("");
+    const [color, setColor] = useState({
+        red: 0,
+        green: 0,
+        blue: 0,
+    });
+    const tripData = useSelector(
+        (state) => state.previousTripReducer.previousTripData
+    );
+    useEffect(() => {
+        console.log("from redux");
+        console.log(tripData);
+    }, [tripData]);
+    const handleRed = (e) =>
+        setColor((state) => ({
+            ...state,
+            red: Math.floor(e),
+        }));
+    const handleGreen = (e) =>
+        setColor((state) => ({
+            ...state,
+            green: Math.floor(e),
+        }));
+    const handleBlue = (e) =>
+        setColor((state) => ({
+            ...state,
+            blue: Math.floor(e),
+        }));
+    const handleConfirm = () => {
+        const data = {
+            title,
+            withWhom,
+            type,
+            color: `rgb(${color.red},${color.green},${color.blue})`,
+        };
+        dispatch(patchState(data));
+        closePopup();
+    };
+    return {
+        title,
+        type,
+        withWhom,
+        color,
+        handleConfirm,
+        handleBlue,
+        handleGreen,
+        handleRed,
+        setTitle,
+        setType,
+        setWithWhom,
+    };
+};
+
+const PopupForm = ({ closePopup }) => {
+    const {
+        title,
+        type,
+        withWhom,
+        color,
+        handleConfirm,
+        handleBlue,
+        handleGreen,
+        handleRed,
+        setTitle,
+        setType,
+        setWithWhom,
+    } = usePopupForm(closePopup);
     return (
         <View style={styles.popupLayout}>
             <View style={styles.popupContainer}>
@@ -74,6 +140,18 @@ const PopupForm = ({
                         }
                     />
                 </View>
+                <ColorDivision
+                    color={color}
+                    handleRed={handleRed}
+                    handleGreen={handleGreen}
+                    handleBlue={handleBlue}
+                />
+                <TouchableOpacity
+                    style={styles.popupButtonContainer}
+                    onPress={handleConfirm}
+                >
+                    <Text style={styles.popupButtonElement}>Confirm</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

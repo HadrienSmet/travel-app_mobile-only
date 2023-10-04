@@ -1,31 +1,17 @@
 import { useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import MapView, { Marker } from "react-native-maps";
-import { COLORS } from "../../../../../../constants";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
+import MapView from "react-native-maps";
 import styles from "./markersDisplayer.style";
+import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
+import MapPin from "../../../../../common/mapPin/MapPin";
 
-const MarkersDisplayer = ({ markersList, buttonText }) => {
+const MarkersDisplayer = ({ color, markersList }) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(undefined);
     const openMap = () => setIsMapOpen(true);
     const closeMap = () => setIsMapOpen(false);
     const removeDetails = () => setSelectedMarker(undefined);
-
-    const handlePinColor = (markerType) => {
-        switch (markerType) {
-            case "arrival":
-                return COLORS.primary;
-            case "stopover":
-                return COLORS.secondary;
-            case "departure":
-                return COLORS.tertiary;
-            case "advice":
-                return COLORS.advice;
-            case "warning":
-                return COLORS.warning;
-        }
-    };
 
     return (
         <>
@@ -45,11 +31,11 @@ const MarkersDisplayer = ({ markersList, buttonText }) => {
                     style={styles.mapContainer}
                 >
                     {markersList.map((marker, index) => (
-                        <Marker
+                        <MapPin
                             key={`marker-${index}`}
-                            coordinate={marker.location}
-                            pinColor={handlePinColor(marker.type)}
-                            onPress={() => setSelectedMarker(marker)}
+                            marker={marker}
+                            setSelectedMarker={setSelectedMarker}
+                            color={color}
                         />
                     ))}
                 </MapView>
@@ -70,13 +56,7 @@ const MarkersDisplayer = ({ markersList, buttonText }) => {
                                 {selectedMarker.type}
                             </Text>
                             <Text style={styles.mainContent}>
-                                {selectedMarker.date !== undefined
-                                    ? selectedMarker.date.day +
-                                      "/" +
-                                      selectedMarker.date.month +
-                                      "/" +
-                                      selectedMarker.date.year
-                                    : selectedMarker.about}
+                                {timestampToDate(selectedMarker.date)}
                             </Text>
                         </View>
                         <Text style={styles.detailsContent}>
@@ -90,7 +70,7 @@ const MarkersDisplayer = ({ markersList, buttonText }) => {
                 onPress={openMap}
             >
                 <Text style={styles.modalButtonContent}>
-                    My {buttonText} on a map
+                    My journey on a map
                 </Text>
             </TouchableOpacity>
         </>
