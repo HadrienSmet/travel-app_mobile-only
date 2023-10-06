@@ -8,19 +8,17 @@ import { useSelector } from "react-redux";
 
 const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
     const [initialRegion, setInitialRegion] = useState(undefined);
-    const previousTripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
 
     useEffect(() => {
-        if (previousTripData.steps.length !== 0) {
+        if (tripData.steps.length !== 0) {
             setInitialRegion({
-                ...previousTripData.steps[0].location,
+                ...tripData.steps[0].location,
                 latitudeDelta: 0.9,
                 longitudeDelta: 0.9,
             });
         }
-    }, [previousTripData.steps]);
+    }, [tripData.steps]);
 
     const handlePinColor = (markerType) => {
         switch (markerType) {
@@ -42,8 +40,8 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                         onLongPress={handleLongPress}
                         initialRegion={initialRegion}
                     >
-                        {previousTripData.steps.length !== 0 &&
-                            previousTripData.steps.map((step, index) => (
+                        {tripData.steps.length !== 0 &&
+                            tripData.steps.map((step, index) => (
                                 <Marker
                                     key={`marker-${index}`}
                                     coordinate={step.location}
@@ -51,15 +49,6 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                     onPress={() => setSelectedMarker(step)}
                                 />
                             ))}
-                        {/* {previousTripData.tips.length !== 0 &&
-                            previousTripData.tips.map((tips, index) => (
-                                <Marker
-                                    key={`marker-${index}`}
-                                    coordinate={tips.location}
-                                    pinColor={handlePinColor(tips.type)}
-                                    onPress={() => setSelectedMarker(tips)}
-                                />
-                            ))} */}
                     </MapView>
                     <View style={styles.mapIconsContainer}>
                         <TouchableOpacity
@@ -86,22 +75,6 @@ const MapContainer = ({ mapState, handleLongPress, handlePinState }) => {
                                 name="plane-departure"
                             />
                         </TouchableOpacity>
-                        {/* <TouchableOpacity
-                            onPress={() => handlePinState("advice")}
-                        >
-                            <FontAwesome
-                                style={styles.adviceColor}
-                                name="thumbs-up"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => handlePinState("warning")}
-                        >
-                            <FontAwesome
-                                style={styles.warningColor}
-                                name="thumbs-down"
-                            />
-                        </TouchableOpacity> */}
                     </View>
                 </>
             )}

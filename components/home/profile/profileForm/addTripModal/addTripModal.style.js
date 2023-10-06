@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         ...SHADOWS.medium,
     },
-    mapContainer: { height: "100%", width: "100%" },
     modalButtonContainer: {
         borderRadius: 60,
         paddingVertical: 12,

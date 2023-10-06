@@ -1,0 +1,22 @@
+{
+    "build": {
+        "production": {
+            "env": {
+                "API_URL": "@env.API_URL",
+                "GOOGLE_API_KEY": "@env.GOOGLE_API_KEY"
+            }
+        },
+        "test": {
+            "env": {
+                "API_URL": "@env.API_URL",
+                "GOOGLE_API_KEY": "@env.GOOGLE_API_KEY"
+            }
+        },
+        "development": {
+            "env": {
+                "API_URL": "@env.API_URL",
+                "GOOGLE_API_KEY": "@env.GOOGLE_API_KEY"
+            }
+        }
+    }
+}

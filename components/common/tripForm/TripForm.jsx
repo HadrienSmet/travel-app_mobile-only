@@ -11,7 +11,7 @@ import styles from "./tripForm.style";
 import { useState } from "react";
 import MapDivision from "./mapDivision/MapDivision";
 import { useDispatch, useSelector } from "react-redux";
-import { patchTripSteps } from "../../../features/previousTripData.slice";
+import { patchSteps } from "../../../features/tripData.slice";
 import { useEffect } from "react";
 
 const whithWhomArray = [
@@ -24,9 +24,7 @@ const whithWhomArray = [
 
 const TripForm = ({ trip, handleConfirm }) => {
     const dispatch = useDispatch();
-    const previousTripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
     const [tripTitle, setTripTitle] = useState(trip ? trip.title : "");
     const [tripType, setTripType] = useState(trip ? trip.type : undefined);
     const [tripWithWhom, setTripWithWhom] = useState(
@@ -38,13 +36,13 @@ const TripForm = ({ trip, handleConfirm }) => {
             title: tripTitle,
             type: tripType,
             withWhom: tripWithWhom,
-            steps: previousTripData.steps,
+            steps: tripData.steps,
         };
         handleConfirm(data);
     };
 
     useEffect(() => {
-        if (trip) dispatch(patchTripSteps(trip.steps));
+        if (trip) dispatch(patchSteps(trip.steps));
     }, []);
 
     return (

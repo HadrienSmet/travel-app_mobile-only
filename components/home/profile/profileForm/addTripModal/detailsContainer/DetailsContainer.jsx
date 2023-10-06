@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./detailsContainer.style";
 import { useSelector } from "react-redux";
 import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
+import styles from "./detailsContainer.style";
 
 const useDetailsContainer = () => {
     const [areDetailsVisible, setDetailsVisible] = useState(false);
@@ -18,9 +18,7 @@ const useDetailsContainer = () => {
 
 const DetailsContainer = ({ isPopupVisible, handleConfirm }) => {
     const { areDetailsVisible, toggleDetails } = useDetailsContainer();
-    const tripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
     const { title, type, withWhom } = tripData;
 
     return (

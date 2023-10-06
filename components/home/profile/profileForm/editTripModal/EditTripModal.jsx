@@ -5,7 +5,7 @@ import TripForm from "../../../../common/tripForm/TripForm";
 import styles from "./editTripModal.style";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserPreviousTrips } from "../../../../../features/userData.slice";
-import { resetState } from "../../../../../features/previousTripData.slice";
+import { resetTrip } from "../../../../../features/tripData.slice";
 import { axiosPatchTrips } from "../../../../../utils/axios/user";
 
 const EditTripModal = ({ trip }) => {
@@ -15,7 +15,7 @@ const EditTripModal = ({ trip }) => {
 
     const openModal = () => setIsOpen(true);
     const closeModal = () => {
-        dispatch(resetState());
+        dispatch(resetTrip());
         setIsOpen(false);
     };
     const handleConfirm = (prevTrip) => {

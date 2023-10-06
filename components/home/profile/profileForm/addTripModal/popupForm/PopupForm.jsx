@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import styles from "./popuForm.style";
+import { useDispatch, useSelector } from "react-redux";
+import { patchTrip } from "../../../../../../features/tripData.slice";
 import { travelerTypeArray } from "../../../../../../data/travelerTypeArray";
 import ColorDivision from "./colorDivision/ColorDivision";
-import { useDispatch, useSelector } from "react-redux";
-import { patchState } from "../../../../../../features/previousTripData.slice";
+import styles from "./popuForm.style";
 
 const whithWhomArray = [
     "In couple",
@@ -25,13 +25,7 @@ const usePopupForm = (closePopup) => {
         green: 0,
         blue: 0,
     });
-    const tripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
-    useEffect(() => {
-        console.log("from redux");
-        console.log(tripData);
-    }, [tripData]);
+
     const handleRed = (e) =>
         setColor((state) => ({
             ...state,
@@ -54,7 +48,7 @@ const usePopupForm = (closePopup) => {
             type,
             color: `rgb(${color.red},${color.green},${color.blue})`,
         };
-        dispatch(patchState(data));
+        dispatch(patchTrip(data));
         closePopup();
     };
     return {

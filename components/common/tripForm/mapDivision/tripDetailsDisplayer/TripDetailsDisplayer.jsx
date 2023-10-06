@@ -4,19 +4,13 @@ import TripListDisplayer from "./tripListDisplayer/TripListDisplayer";
 import { useSelector } from "react-redux";
 
 const TripDetailsDisplayer = ({ tripTitle }) => {
-    const previousTripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
     return (
         <View style={styles.componentContainer}>
             <TripListDisplayer
-                tripList={previousTripData.steps}
+                tripList={tripData.steps}
                 tripTitle={`All the steps of ${tripTitle}`}
             />
-            {/* <TripListDisplayer
-                tripList={previousTripData.tips}
-                tripTitle={`The tips I learned during ${tripTitle}`}
-            /> */}
         </View>
     );
 };

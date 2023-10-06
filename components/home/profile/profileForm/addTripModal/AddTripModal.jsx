@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setUserData } from "../../../../../features/userData.slice";
-import {
-    pushTripSteps,
-    resetState,
-} from "../../../../../features/previousTripData.slice";
+import { pushStep, resetTrip } from "../../../../../features/tripData.slice";
 import { axiosPushTrip } from "../../../../../utils/axios/user";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
@@ -19,22 +16,21 @@ import StepForm from "./stepForm/StepForm";
 import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
 import DetailsContainer from "./detailsContainer/DetailsContainer";
 import MapPin from "../../../../common/mapPin/MapPin";
+import MapContainer from "./mapContainer/MapContainer";
 
-const usePopupForm = () => {
+const useTripModal = () => {
     const [isPopupVisible, setPopupVisible] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
 
     const userData = useSelector((state) => state.userDataReducer.userData);
-    const tripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
     const { color, steps, title, type, withWhom } = tripData;
     const dispatch = useDispatch();
 
     const closePopup = () => setPopupVisible(false);
     const handleOpen = () => setIsVisible(true);
     const handleClose = () => {
-        dispatch(resetState());
+        dispatch(resetTrip());
         setIsVisible(false);
     };
     const handleConfirm = () => {
@@ -91,9 +87,7 @@ const useMapPins = () => {
         longitude: undefined,
     });
 
-    const tripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
     useEffect(() => {
         console.log(tripData);
     }, [tripData]);
@@ -115,16 +109,6 @@ const useMapPins = () => {
         setStopoverLocation((state) => [...state, { latitude, longitude }]);
         handleFormState("stopover");
     };
-    const handlePinColor = (markerType) => {
-        switch (markerType) {
-            case "arrival":
-                return COLORS.primary;
-            case "stopover":
-                return COLORS.secondary;
-            case "departure":
-                return COLORS.tertiary;
-        }
-    };
     const handlePinState = (state) => setPinState(state);
 
     const handleLongPress = (e) => {
@@ -143,16 +127,11 @@ const useMapPins = () => {
         }
     };
     const handleTripSteps = (data) => {
-        const arrivalIndex = tripData.steps.findIndex(
-            (el) => el.type === "arrival"
-        );
-        if (
-            arrivalIndex !== -1 &&
-            tripData.steps[arrivalIndex].date > data.date
-        ) {
-            alert("The date you gave is before your arrival");
+        const lastStep = tripData.steps[tripData.steps.length - 1];
+        if (tripData.steps.length > 0 && lastStep.date > data.date) {
+            alert("The date you gave is before the last event you defined");
         } else {
-            dispatch(pushTripSteps(data));
+            dispatch(pushStep(data));
             resetFormState();
             handlePinState("");
         }
@@ -165,7 +144,6 @@ const useMapPins = () => {
         pinState,
         formState,
         handleLongPress,
-        handlePinColor,
         handlePinState,
         handleTripSteps,
     };
@@ -179,7 +157,7 @@ const AddTripModal = () => {
         handleOpen,
         handleClose,
         handleConfirm,
-    } = usePopupForm();
+    } = useTripModal();
     const {
         arrivalLocation,
         departureLocation,
@@ -187,17 +165,10 @@ const AddTripModal = () => {
         pinState,
         formState,
         handleLongPress,
-        handlePinColor,
         handlePinState,
         handleTripSteps,
     } = useMapPins();
-    const previousTripData = useSelector(
-        (state) => state.previousTripReducer.previousTripData
-    );
-    const [selectedMarker, setSelectedMarker] = useState("");
-    useEffect(() => {
-        console.log(selectedMarker);
-    }, [selectedMarker]);
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
 
     return (
         <>
@@ -207,20 +178,7 @@ const AddTripModal = () => {
                 onRequestClose={() => handleClose()}
             >
                 <View>
-                    <MapView
-                        onLongPress={handleLongPress}
-                        style={styles.mapContainer}
-                    >
-                        {previousTripData.steps.length !== 0 &&
-                            previousTripData.steps.map((step, index) => (
-                                <MapPin
-                                    key={`marker-${index}`}
-                                    marker={step}
-                                    color={previousTripData.color}
-                                    setSelectedMarker={setSelectedMarker}
-                                />
-                            ))}
-                    </MapView>
+                    <MapContainer handleLongPress={handleLongPress} />
                     <View style={styles.backButtonDivision}>
                         <TouchableOpacity
                             onPress={handleClose}

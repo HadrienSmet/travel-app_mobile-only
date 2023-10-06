@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { Modal, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import MapView from "react-native-maps";
 import styles from "./markersDisplayer.style";
 import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
 import MapPin from "../../../../../common/mapPin/MapPin";
+
+const { width, height } = Dimensions.get("window");
+
+const aspectRatio = width / height;
+const latDelta = 0.04;
+const longDelta = latDelta * aspectRatio;
 
 const MarkersDisplayer = ({ color, markersList }) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
@@ -25,8 +31,8 @@ const MarkersDisplayer = ({ color, markersList }) => {
                 <MapView
                     initialRegion={{
                         ...markersList[0].location,
-                        latitudeDelta: 0.9,
-                        longitudeDelta: 0.9,
+                        latitudeDelta: latDelta,
+                        longitudeDelta: longDelta,
                     }}
                     style={styles.mapContainer}
                 >

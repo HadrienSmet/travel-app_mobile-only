@@ -7,7 +7,7 @@ import styles from "./listElement.style";
 import ElementButtons from "./elementButtons/ElementButtons";
 import ElementContent from "./elementContent/ElementContent";
 import { useDispatch } from "react-redux";
-import { removeStep } from "../../../../../../../features/previousTripData.slice";
+import { removeStep } from "../../../../../../../features/tripData.slice";
 
 const ListElement = ({ elem, index, tripList }) => {
     const dispatch = useDispatch();
