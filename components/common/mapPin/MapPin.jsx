@@ -19,7 +19,7 @@ const MapPin = ({ color, marker, setSelectedMarker }) => {
             coordinate={marker.location}
             onPress={() => setSelectedMarker(marker)}
         >
-            <View style={styles.mapPinContainer}>
+            <View style={[styles.mapPinContainer]}>
                 <FontAwesome
                     style={[styles.mapPin, { color: color }]}
                     name="map-marker"

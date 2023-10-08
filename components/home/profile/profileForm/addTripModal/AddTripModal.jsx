@@ -1,30 +1,21 @@
 import { TouchableOpacity, Text, Modal, View } from "react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { setUserData } from "../../../../../features/userData.slice";
 import { pushStep, resetTrip } from "../../../../../features/tripData.slice";
-import { axiosPushTrip } from "../../../../../utils/axios/user";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
 import styles from "./addTripModal.style";
-import MapView, { Marker } from "react-native-maps";
-import { COLORS } from "../../../../../constants";
 import PopupForm from "./popupForm/PopupForm";
 import StepForm from "./stepForm/StepForm";
 import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
 import DetailsContainer from "./detailsContainer/DetailsContainer";
-import MapPin from "../../../../common/mapPin/MapPin";
 import MapContainer from "./mapContainer/MapContainer";
+import BackButton from "./backButton/BackButton";
 
 const useTripModal = () => {
     const [isPopupVisible, setPopupVisible] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
-
-    const userData = useSelector((state) => state.userDataReducer.userData);
-    const tripData = useSelector((state) => state.tripDataReducer.tripData);
-    const { color, steps, title, type, withWhom } = tripData;
     const dispatch = useDispatch();
 
     const closePopup = () => setPopupVisible(false);
@@ -33,35 +24,6 @@ const useTripModal = () => {
         dispatch(resetTrip());
         setIsVisible(false);
     };
-    const handleConfirm = () => {
-        const data = {
-            color,
-            title,
-            type,
-            withWhom,
-            steps,
-        };
-        if (
-            color !== undefined &&
-            title !== undefined &&
-            withWhom !== undefined &&
-            type !== undefined
-        ) {
-            axiosPushTrip(userData._id, data, userData.token)
-                .then(() => {
-                    const dispatchData = {
-                        previousTrips: [...userData.previousTrips, data],
-                    };
-                    dispatch(setUserData(dispatchData));
-                    handleClose();
-                })
-                .catch((err) => alert(err));
-        } else {
-            alert(
-                "Need to define a title, a type and to share with whom you traveled with"
-            );
-        }
-    };
 
     return {
         isPopupVisible,
@@ -69,12 +31,13 @@ const useTripModal = () => {
         closePopup,
         handleOpen,
         handleClose,
-        handleConfirm,
     };
 };
 
 const useMapPins = () => {
     const dispatch = useDispatch();
+    const tripData = useSelector((state) => state.tripDataReducer.tripData);
+    const [areDetailsVisible, setDetailsVisible] = useState(false);
     const [formState, setFormState] = useState("");
     const [pinState, setPinState] = useState("");
     const [stopoverLocation, setStopoverLocation] = useState([]);
@@ -87,11 +50,8 @@ const useMapPins = () => {
         longitude: undefined,
     });
 
-    const tripData = useSelector((state) => state.tripDataReducer.tripData);
-    useEffect(() => {
-        console.log(tripData);
-    }, [tripData]);
-
+    const toggleDetails = () => setDetailsVisible((state) => !state);
+    const hideDetails = () => setDetailsVisible(false);
     const resetFormState = () => setFormState("");
     const handleFormState = (state) => setFormState(state);
     const handleArrival = (e) => {
@@ -112,6 +72,7 @@ const useMapPins = () => {
     const handlePinState = (state) => setPinState(state);
 
     const handleLongPress = (e) => {
+        hideDetails();
         switch (pinState) {
             case "arrival":
                 handleArrival(e);
@@ -138,6 +99,7 @@ const useMapPins = () => {
     };
 
     return {
+        areDetailsVisible,
         arrivalLocation,
         departureLocation,
         stopoverLocation,
@@ -146,19 +108,15 @@ const useMapPins = () => {
         handleLongPress,
         handlePinState,
         handleTripSteps,
+        toggleDetails,
     };
 };
 
 const AddTripModal = () => {
+    const { isPopupVisible, isVisible, closePopup, handleOpen, handleClose } =
+        useTripModal();
     const {
-        isPopupVisible,
-        isVisible,
-        closePopup,
-        handleOpen,
-        handleClose,
-        handleConfirm,
-    } = useTripModal();
-    const {
+        areDetailsVisible,
         arrivalLocation,
         departureLocation,
         stopoverLocation,
@@ -167,8 +125,8 @@ const AddTripModal = () => {
         handleLongPress,
         handlePinState,
         handleTripSteps,
+        toggleDetails,
     } = useMapPins();
-    const tripData = useSelector((state) => state.tripDataReducer.tripData);
 
     return (
         <>
@@ -179,14 +137,7 @@ const AddTripModal = () => {
             >
                 <View>
                     <MapContainer handleLongPress={handleLongPress} />
-                    <View style={styles.backButtonDivision}>
-                        <TouchableOpacity
-                            onPress={handleClose}
-                            style={styles.buttonContainer}
-                        >
-                            <FontAwesome name="arrow-left" />
-                        </TouchableOpacity>
-                    </View>
+                    <BackButton handleClose={handleClose} />
                     <TripButtonsDivision
                         pinState={pinState}
                         handlePinState={handlePinState}
@@ -202,8 +153,10 @@ const AddTripModal = () => {
                         />
                     )}
                     <DetailsContainer
+                        areDetailsVisible={areDetailsVisible}
                         isPopupVisible={isPopupVisible}
-                        handleConfirm={handleConfirm}
+                        handleClose={handleClose}
+                        toggleDetails={toggleDetails}
                     />
                 </View>
             </Modal>

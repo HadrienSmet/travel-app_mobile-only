@@ -5,6 +5,9 @@ import MapView from "react-native-maps";
 import styles from "./markersDisplayer.style";
 import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
 import MapPin from "../../../../../common/mapPin/MapPin";
+import MapViewDirections from "react-native-maps-directions";
+import { GOOGLE_API_KEY } from "@env";
+import { useDirections } from "../../../../../../hooks/useDirections";
 
 const { width, height } = Dimensions.get("window");
 
@@ -15,6 +18,8 @@ const longDelta = latDelta * aspectRatio;
 const MarkersDisplayer = ({ color, markersList }) => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(undefined);
+    const { origin, destination, waypoints } = useDirections(markersList);
+
     const openMap = () => setIsMapOpen(true);
     const closeMap = () => setIsMapOpen(false);
     const removeDetails = () => setSelectedMarker(undefined);
@@ -44,6 +49,14 @@ const MarkersDisplayer = ({ color, markersList }) => {
                             color={color}
                         />
                     ))}
+                    <MapViewDirections
+                        origin={origin}
+                        destination={destination}
+                        waypoints={waypoints}
+                        apikey={GOOGLE_API_KEY}
+                        strokeWidth={4}
+                        strokeColor={color}
+                    />
                 </MapView>
                 {selectedMarker !== undefined && (
                     <View style={styles.detailsContainer}>

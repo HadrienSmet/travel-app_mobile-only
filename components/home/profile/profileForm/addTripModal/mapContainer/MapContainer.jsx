@@ -1,46 +1,35 @@
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDirections } from "../../../../../../hooks/useDirections";
 import { GOOGLE_API_KEY } from "@env";
+
 import MapView from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import MapPin from "../../../../../common/mapPin/MapPin";
+
 import styles from "./mapContainer.style";
+import { useEffect, useState } from "react";
 
 const useMapContainer = () => {
     const tripData = useSelector((state) => state.tripDataReducer.tripData);
-    const [selectedMarker, setSelectedMarker] = useState("");
-    const [directions, setDirections] = useState([]);
+    const [directions, setDirections] = useState(undefined);
+    useEffect(() => {
+        if (tripData.steps.length > 1) {
+            const { origin, destination, waypoints } = useDirections(
+                tripData.steps
+            );
+            setDirections({ origin, destination, waypoints });
+        }
+    }, [tripData.steps]);
 
     useEffect(() => {
-        const handleDirections = () => {
-            if (tripData.steps.length > 1) {
-                const array = [];
-                for (let i = 0; i < tripData.steps.length - 1; i++) {
-                    const currentDirection = {
-                        origin: tripData.steps[i].location,
-                        destination: tripData.steps[i + 1].location,
-                    };
-                    array.push(currentDirection);
-                }
-                setDirections(array);
-            }
-        };
-        handleDirections();
-    }, [tripData.steps]);
-    useEffect(() => {
-        console.log("directions: ");
-        console.log(directions);
+        directions;
     }, [directions]);
 
-    return {
-        directions,
-        tripData,
-        setSelectedMarker,
-    };
+    return { directions, tripData };
 };
 
 const MapContainer = ({ handleLongPress }) => {
-    const { directions, tripData, setSelectedMarker } = useMapContainer();
+    const { directions, tripData } = useMapContainer();
 
     return (
         <MapView onLongPress={handleLongPress} style={styles.mapContainer}>
@@ -50,18 +39,19 @@ const MapContainer = ({ handleLongPress }) => {
                         key={`marker-${index}`}
                         marker={step}
                         color={tripData.color}
-                        setSelectedMarker={setSelectedMarker}
+                        setSelectedMarker={() => {}}
                     />
                 ))}
-            {directions.length !== 0 &&
-                directions.map((direction, index) => (
-                    <MapViewDirections
-                        key={`direction_${index}`}
-                        origin={direction.origin}
-                        destination={direction.destination}
-                        apikey={GOOGLE_API_KEY}
-                    />
-                ))}
+            {directions && (
+                <MapViewDirections
+                    origin={directions.origin}
+                    destination={directions.destination}
+                    waypoints={directions.waypoints}
+                    apikey={GOOGLE_API_KEY}
+                    strokeWidth={4}
+                    strokeColor={tripData.color}
+                />
+            )}
         </MapView>
     );
 };

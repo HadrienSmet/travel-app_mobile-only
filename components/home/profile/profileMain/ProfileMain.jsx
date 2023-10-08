@@ -3,6 +3,8 @@ import styles from "./profileMain.style";
 import { useSelector } from "react-redux";
 import PreviousTripCard from "./previousTripCard/PreviousTripCard";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { COLORS } from "../../../../constants";
+import TripsDisplayer from "./tripsDisplayer/TripsDisplayer";
 
 const ProfileMain = ({ handleEdit }) => {
     const userData = useSelector((state) => state.userDataReducer.userData);
@@ -32,32 +34,20 @@ const ProfileMain = ({ handleEdit }) => {
                     </Text>
                 </View>
             )}
-            {userData.previousTrips.length !== 0 && (
-                <View style={{ gap: 4 }}>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <Text>Previous trips</Text>
-                        <FontAwesome name="plane" />
-                    </View>
-                    {previousTrips
-                        .sort(
-                            (a, b) =>
-                                parseInt(b.steps[0].date.year) -
-                                parseInt(a.steps[0].date.year)
-                        )
-                        .map((trip, index) => (
-                            <PreviousTripCard
-                                key={`previous-trip-${index}`}
-                                trip={trip}
-                                index={index}
-                            />
-                        ))}
-                </View>
-            )}
+            {userData.previousTrips.length !== 0 && <TripsDisplayer />}
+            <TouchableOpacity
+                style={{
+                    flexDirection: "row",
+                    borderColor: COLORS.primary,
+                    borderWidth: 2,
+                    borderRadius: 40,
+                    paddingVertical: 8,
+                    width: "40%",
+                }}
+            >
+                <Text>My albums</Text>
+                <FontAwesome name="plane" />
+            </TouchableOpacity>
             <TouchableOpacity style={styles.buttonStyle} onPress={handleEdit}>
                 <Text style={styles.buttonTextStyle}>Edit your profile</Text>
             </TouchableOpacity>
