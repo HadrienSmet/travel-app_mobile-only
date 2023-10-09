@@ -11,7 +11,10 @@ const Layout = () => {
     return (
         <Provider store={store}>
             <Stack>
-                <Stack.Screen name="personals" />
+                <Stack.Screen
+                    name="personals"
+                    screenOptions={{ headerShown: false }}
+                />
             </Stack>
         </Provider>
     );

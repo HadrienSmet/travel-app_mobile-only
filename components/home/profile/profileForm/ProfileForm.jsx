@@ -128,7 +128,7 @@ const ProfileForm = ({ travelerType, onTravel, setIsEditing }) => {
                 }
                 handleEdit={handleUserDreamTrips}
             />
-            <PreviousTripsDivision />
+            {/* <PreviousTripsDivision /> */}
             <View style={styles.buttonsDivision}>
                 <View style={styles.buttonsContainer}>
                     <AddAlbumModal />

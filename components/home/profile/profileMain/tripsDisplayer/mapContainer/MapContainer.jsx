@@ -51,7 +51,9 @@ const MapContainer = ({ setSelectedMarker }) => {
                     <MapPin
                         key={`trip-${index}__marker-${i}`}
                         marker={step}
-                        setSelectedMarker={setSelectedMarker}
+                        setSelectedMarker={() =>
+                            setSelectedMarker({ trip, step })
+                        }
                         color={trip.color}
                     />
                 ))

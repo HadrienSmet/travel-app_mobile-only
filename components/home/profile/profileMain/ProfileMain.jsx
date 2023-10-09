@@ -1,8 +1,7 @@
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import styles from "./profileMain.style";
 import { useSelector } from "react-redux";
-import PreviousTripCard from "./previousTripCard/PreviousTripCard";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { COLORS } from "../../../../constants";
 import TripsDisplayer from "./tripsDisplayer/TripsDisplayer";
 
@@ -34,20 +33,42 @@ const ProfileMain = ({ handleEdit }) => {
                     </Text>
                 </View>
             )}
-            {userData.previousTrips.length !== 0 && <TripsDisplayer />}
-            <TouchableOpacity
+            <View
                 style={{
                     flexDirection: "row",
-                    borderColor: COLORS.primary,
-                    borderWidth: 2,
-                    borderRadius: 40,
-                    paddingVertical: 8,
-                    width: "40%",
+                    justifyContent: "space-between",
+                    width: "100%",
                 }}
             >
-                <Text>My albums</Text>
-                <FontAwesome name="plane" />
-            </TouchableOpacity>
+                {userData.previousTrips.length !== 0 && <TripsDisplayer />}
+                <TouchableOpacity
+                    style={{
+                        borderColor: COLORS.primary,
+                        borderRadius: 40,
+                        borderWidth: 2,
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 8,
+                        paddingVertical: 8,
+                        width: "48%",
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: COLORS.primary,
+                        }}
+                    >
+                        My albums
+                    </Text>
+                    <FontAwesome
+                        style={{
+                            color: COLORS.primary,
+                        }}
+                        name="images"
+                    />
+                </TouchableOpacity>
+            </View>
             <TouchableOpacity style={styles.buttonStyle} onPress={handleEdit}>
                 <Text style={styles.buttonTextStyle}>Edit your profile</Text>
             </TouchableOpacity>
