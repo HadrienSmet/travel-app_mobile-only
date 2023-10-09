@@ -9,6 +9,7 @@ import MapPin from "../../../../../common/mapPin/MapPin";
 import MapViewDirections from "react-native-maps-directions";
 
 import styles from "./mapContainer.style";
+import DraggableMapPin from "../../../../../common/draggableMapPin/DraggableMapPin";
 
 const { width, height } = Dimensions.get("window");
 
@@ -34,7 +35,7 @@ const useMapContainer = () => {
     return { previousTrips, tripsDirections };
 };
 
-const MapContainer = ({ setSelectedMarker }) => {
+const MapContainer = ({ isEditing, setSelectedMarker, setNewLocation }) => {
     const { previousTrips, tripsDirections } = useMapContainer();
 
     return (
@@ -46,18 +47,33 @@ const MapContainer = ({ setSelectedMarker }) => {
             }}
             style={styles.mapContainer}
         >
-            {previousTrips.map((trip, index) =>
-                trip.steps.map((step, i) => (
-                    <MapPin
-                        key={`trip-${index}__marker-${i}`}
-                        marker={step}
-                        setSelectedMarker={() =>
-                            setSelectedMarker({ trip, step })
-                        }
-                        color={trip.color}
-                    />
-                ))
-            )}
+            {!isEditing &&
+                previousTrips.map((trip, index) =>
+                    trip.steps.map((step, i) => (
+                        <MapPin
+                            key={`trip-${index}__marker-${i}`}
+                            marker={step}
+                            setSelectedMarker={() =>
+                                setSelectedMarker({ trip, step })
+                            }
+                            color={trip.color}
+                        />
+                    ))
+                )}
+            {isEditing &&
+                previousTrips.map((trip, index) =>
+                    trip.steps.map((step, i) => (
+                        <DraggableMapPin
+                            key={`trip-${index}__marker-${i}`}
+                            marker={step}
+                            setSelectedMarker={() =>
+                                setSelectedMarker({ trip, step })
+                            }
+                            setNewLocation={setNewLocation}
+                            color={trip.color}
+                        />
+                    ))
+                )}
             {tripsDirections.map((directions, index) => (
                 <MapViewDirections
                     key={`direction-${index}`}

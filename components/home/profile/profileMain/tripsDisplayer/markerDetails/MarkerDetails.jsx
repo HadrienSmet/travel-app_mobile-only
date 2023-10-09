@@ -6,16 +6,22 @@ import { axiosPatchTrips } from "../../../../../../utils/axios/user/axiosPatchTr
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./markerDetails.style";
 
-const useMarkerDetails = (selectedMarker) => {
+const useMarkerDetails = (selectedMarker, newLocation) => {
     const userData = useSelector((state) => state.userDataReducer.userData);
     const { _id, token } = userData;
     const { trip, step } = selectedMarker;
     const [newContent, setNewContent] = useState(step.content);
 
+    useEffect(() => {
+        console.log("from details");
+        console.log(newLocation);
+    }, [newLocation]);
+
     const handleUpdatedTrip = () => {
         const stepIndex = trip.steps.findIndex((curr) => curr._id === step._id);
         const newStep = { ...step };
         newStep.content = newContent;
+        newStep.location = newLocation;
         const updatedTrip = { ...trip };
         const newSteps = [...updatedTrip.steps];
         newSteps.splice(stepIndex, 1, newStep);
@@ -33,10 +39,17 @@ const useMarkerDetails = (selectedMarker) => {
     return { newContent, handleConfirm, setNewContent };
 };
 
-const MarkerDetails = ({ isEditing, selectedMarker, removeDetails }) => {
+const MarkerDetails = ({
+    isEditing,
+    newLocation,
+    selectedMarker,
+    removeDetails,
+}) => {
     const { step } = selectedMarker;
-    const { newContent, handleConfirm, setNewContent } =
-        useMarkerDetails(selectedMarker);
+    const { newContent, handleConfirm, setNewContent } = useMarkerDetails(
+        selectedMarker,
+        newLocation
+    );
     return (
         <View style={styles.markerDetails}>
             <View style={styles.detailsButtonRow}>

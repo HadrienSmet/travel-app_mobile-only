@@ -8,26 +8,34 @@ import MapContainer from "./mapContainer/MapContainer";
 const useTripsDisplayer = () => {
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [isEditing, setEditing] = useState(false);
+    const [newLocation, setNewLocation] = useState(undefined);
     const [selectedMarker, setSelectedMarker] = useState(undefined);
-
-    useEffect(() => {
-        console.log(selectedMarker), [selectedMarker];
-    });
 
     const openMap = () => setIsMapOpen(true);
     const closeMap = () => setIsMapOpen(false);
     const removeDetails = () => setSelectedMarker(undefined);
     const toggleEdit = () => setEditing((state) => !state);
 
+    useEffect(() => {
+        console.log(selectedMarker);
+        if (selectedMarker !== undefined)
+            setNewLocation(selectedMarker.step.location);
+    }, [selectedMarker]);
+    useEffect(() => {
+        console.log(newLocation);
+    }, [newLocation]);
+
     return {
         isEditing,
         isMapOpen,
+        newLocation,
         selectedMarker,
         openMap,
         closeMap,
         removeDetails,
-        toggleEdit,
+        setNewLocation,
         setSelectedMarker,
+        toggleEdit,
     };
 };
 
@@ -35,13 +43,18 @@ const TripsDisplayer = () => {
     const {
         isEditing,
         isMapOpen,
+        newLocation,
         selectedMarker,
         openMap,
         closeMap,
         removeDetails,
-        toggleEdit,
+        setNewLocation,
         setSelectedMarker,
+        toggleEdit,
     } = useTripsDisplayer();
+    useEffect(() => {
+        console.log(isEditing);
+    }, [isEditing]);
     return (
         <>
             <Modal visible={isMapOpen}>
@@ -59,10 +72,15 @@ const TripsDisplayer = () => {
                         <FontAwesome name="edit" />
                     </TouchableOpacity>
                 </View>
-                <MapContainer setSelectedMarker={setSelectedMarker} />
-                {selectedMarker !== undefined && (
+                <MapContainer
+                    isEditing={isEditing}
+                    setNewLocation={setNewLocation}
+                    setSelectedMarker={setSelectedMarker}
+                />
+                {selectedMarker !== undefined && newLocation !== undefined && (
                     <MarkerDetails
                         isEditing={isEditing}
+                        newLocation={newLocation}
                         selectedMarker={selectedMarker}
                         removeDetails={removeDetails}
                     />
