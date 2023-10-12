@@ -18,7 +18,6 @@ const useHome = () => {
     const userData = useSelector((state) => state.userDataReducer.userData);
 
     useEffect(() => {
-        console.log(location);
         if (location !== undefined && location.coords) {
             const coordinatesObj = {
                 coordinates: {
@@ -27,11 +26,12 @@ const useHome = () => {
                 },
             };
             axiosPatchUser(userData._id, coordinatesObj, userData.token)
-                .then((res) => console.log(res.data))
+                .then(() => {
+                    coordinatesObj.coordinates.latitudeDelta = 2;
+                    coordinatesObj.coordinates.longitudeDelta = 2;
+                    dispatch(setUserCoordinates(coordinatesObj));
+                })
                 .catch((err) => alert(err));
-            coordinatesObj.coordinates.latitudeDelta = 2;
-            coordinatesObj.coordinates.longitudeDelta = 2;
-            dispatch(setUserCoordinates(coordinatesObj));
         }
     }, [location]);
 

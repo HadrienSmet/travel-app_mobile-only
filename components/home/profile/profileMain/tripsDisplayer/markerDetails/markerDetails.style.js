@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     detailsButtonRow: { alignItems: "flex-end", marginBottom: 12 },
     markerDetails: {
         position: "absolute",
+        gap: 12,
         padding: 24,
         paddingTop: 12,
         backgroundColor: COLORS.white,
@@ -15,6 +16,8 @@ const styles = StyleSheet.create({
     detailsContent: {
         paddingHorizontal: 12,
         color: SHADES.black06,
+        textAlign: "center",
+        width: "100%",
     },
     detailsHeader: {
         flexDirection: "row",

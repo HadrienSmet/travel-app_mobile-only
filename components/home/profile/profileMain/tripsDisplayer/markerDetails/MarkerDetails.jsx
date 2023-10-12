@@ -5,17 +5,13 @@ import { timestampToDate } from "../../../../../../utils/functions/timestampToDa
 import { axiosPatchTrips } from "../../../../../../utils/axios/user/axiosPatchTrips";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./markerDetails.style";
+import { COLORS } from "../../../../../../constants";
 
 const useMarkerDetails = (selectedMarker, newLocation) => {
     const userData = useSelector((state) => state.userDataReducer.userData);
     const { _id, token } = userData;
     const { trip, step } = selectedMarker;
     const [newContent, setNewContent] = useState(step.content);
-
-    useEffect(() => {
-        console.log("from details");
-        console.log(newLocation);
-    }, [newLocation]);
 
     const handleUpdatedTrip = () => {
         const stepIndex = trip.steps.findIndex((curr) => curr._id === step._id);
@@ -71,8 +67,20 @@ const MarkerDetails = ({
                 <Text style={styles.detailsContent}>{step.content}</Text>
             )}
             {isEditing && (
-                <TouchableOpacity onPress={handleConfirm}>
-                    <Text>Confirm</Text>
+                <TouchableOpacity
+                    style={{
+                        width: "50%",
+                        marginHorizontal: "25%",
+                        paddingVertical: 8,
+                        borderRadius: 40,
+                        borderWidth: 2,
+                        borderColor: COLORS.primary,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                    onPress={handleConfirm}
+                >
+                    <Text style={{ color: COLORS.primary }}>Confirm</Text>
                 </TouchableOpacity>
             )}
         </View>

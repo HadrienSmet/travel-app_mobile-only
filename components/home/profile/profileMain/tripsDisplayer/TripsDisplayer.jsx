@@ -4,8 +4,11 @@ import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import styles from "./tripsDisplayer.style";
 import MarkerDetails from "./markerDetails/MarkerDetails";
 import MapContainer from "./mapContainer/MapContainer";
+import { useDispatch } from "react-redux";
+import { putPreviousTrip } from "../../../../../features/userData.slice";
 
 const useTripsDisplayer = () => {
+    const dispatch = useDispatch();
     const [isMapOpen, setIsMapOpen] = useState(false);
     const [isEditing, setEditing] = useState(false);
     const [newLocation, setNewLocation] = useState(undefined);
@@ -17,12 +20,24 @@ const useTripsDisplayer = () => {
     const toggleEdit = () => setEditing((state) => !state);
 
     useEffect(() => {
-        console.log(selectedMarker);
         if (selectedMarker !== undefined)
             setNewLocation(selectedMarker.step.location);
     }, [selectedMarker]);
     useEffect(() => {
-        console.log(newLocation);
+        const patchLocation = () => {
+            const { trip, step } = selectedMarker;
+            const stepIndex = trip.steps.findIndex(
+                (curr) => curr._id === step.id
+            );
+            const newStep = { ...step };
+            newStep.location = newLocation;
+            const updatedTrip = { ...trip };
+            const newSteps = [...updatedTrip.steps];
+            newSteps.splice(stepIndex, 1, newStep);
+            updatedTrip.steps = newSteps;
+            dispatch(putPreviousTrip(updatedTrip));
+        };
+        if (newLocation) patchLocation();
     }, [newLocation]);
 
     return {
@@ -52,9 +67,6 @@ const TripsDisplayer = () => {
         setSelectedMarker,
         toggleEdit,
     } = useTripsDisplayer();
-    useEffect(() => {
-        console.log(isEditing);
-    }, [isEditing]);
     return (
         <>
             <Modal visible={isMapOpen}>

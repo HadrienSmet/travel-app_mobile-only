@@ -24,12 +24,17 @@ const useMapContainer = () => {
     const [tripsDirections, setTripsDirections] = useState([]);
 
     useEffect(() => {
-        for (let i = 0; i < previousTrips.length; i++) {
-            const { steps, color } = previousTrips[i];
-            const { origin, destination, waypoints } = useDirections(steps);
-            const data = { origin, destination, waypoints, color };
-            setTripsDirections((state) => [...state, data]);
-        }
+        const hadnleDirections = () => {
+            let directionsArray = [];
+            for (let i = 0; i < previousTrips.length; i++) {
+                const { steps, color } = previousTrips[i];
+                const { origin, destination, waypoints } = useDirections(steps);
+                const data = { origin, destination, waypoints, color };
+                directionsArray.push(data);
+            }
+            setTripsDirections(directionsArray);
+        };
+        hadnleDirections();
     }, [previousTrips]);
 
     return { previousTrips, tripsDirections };

@@ -7,7 +7,6 @@ import TripsDisplayer from "./tripsDisplayer/TripsDisplayer";
 
 const ProfileMain = ({ handleEdit }) => {
     const userData = useSelector((state) => state.userDataReducer.userData);
-    const previousTrips = [...userData.previousTrips];
 
     return (
         <ScrollView contentContainerStyle={styles.mainContainer}>

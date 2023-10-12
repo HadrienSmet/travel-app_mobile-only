@@ -25,6 +25,7 @@ const DraggableMapPin = ({
         <Marker
             coordinate={marker.location}
             onPress={() => setSelectedMarker(marker)}
+            onDragStart={() => setSelectedMarker(marker)}
             onDragEnd={handleDragEnd}
             draggable
         >

@@ -6,6 +6,14 @@ export const userDataSlice = createSlice({
         userData: null,
     },
     reducers: {
+        putPreviousTrip: (state, { payload }) => {
+            const data = [...state.userData.previousTrips];
+            const tripIndex = data.findIndex(
+                (trip) => trip._id === payload._id
+            );
+            data.splice(tripIndex, 1, payload);
+            state.userData.previousTrips = data;
+        },
         setUserData: (state, { payload }) => {
             if (state.userData === null) {
                 state.userData = payload;
@@ -29,6 +37,7 @@ export const userDataSlice = createSlice({
 });
 
 export const {
+    putPreviousTrip,
     setUserData,
     setUserCoordinates,
     setUserPreviousTrips,
