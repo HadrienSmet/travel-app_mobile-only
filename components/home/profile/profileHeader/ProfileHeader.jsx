@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, Image, TouchableOpacity, Modal } from "react-native";
+import { Text, View, Image, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as ImagePicker from "expo-image-picker";

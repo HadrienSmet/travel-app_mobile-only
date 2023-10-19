@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { View } from "react-native";
-import styles from "./detailsContainer.style";
 import DetailsHeader from "./detailsHeader/DetailsHeader";
 import DetailsContent from "./detailsContent/DetailsContent";
+import styles from "./detailsContainer.style";
 
 const DetailsContainer = ({
     areDetailsVisible,

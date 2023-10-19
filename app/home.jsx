@@ -1,39 +1,41 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
-import { COLORS } from "../constants";
+import { useSelector } from "react-redux";
+import { useKeyboardStatus, useUserLocation } from "../hooks";
+
 import AppFooter from "../components/common/appFooter/AppFooter";
 import AppHeader from "../components/common/appHeader/AppHeader";
 import HomeMain from "../components/home/homeMain/HomeMain";
-import { useKeyboardStatus } from "../hooks/useKeyboardStatus";
-import { useUserLocation } from "../hooks/useUserLocation";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserCoordinates } from "../features/userData.slice";
-import { axiosPatchUser } from "../utils/axios/user";
+import { COLORS } from "../constants";
+// import { setUserCoordinates } from "../features/userData.slice";
+// import { axiosPatchUser } from "../utils/axios/user";
 
 const useHome = () => {
     const [homeState, setHomeState] = useState("matcher");
+    useUserLocation();
     const keyboardStatus = useKeyboardStatus();
-    const location = useUserLocation();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const userData = useSelector((state) => state.userDataReducer.userData);
 
+    // useEffect(() => {
+    //     if (latitude && longitude) {
+    //         const coordinatesObj = { coordinates: { latitude, longitude } };
+    //         console.log("coordinatesObj");
+    //         console.log(coordinatesObj);
+    //         axiosPatchUser(userData._id, coordinatesObj, userData.token)
+    //             .then(() => {
+    //                 coordinatesObj.coordinates.latitudeDelta = 2;
+    //                 coordinatesObj.coordinates.longitudeDelta = 2;
+    //                 dispatch(setUserCoordinates(coordinatesObj));
+    //             })
+    //             .catch((err) => alert(err));
+    //     }
+    // }, [latitude, longitude]);
+
     useEffect(() => {
-        if (location !== undefined && location.coords) {
-            const coordinatesObj = {
-                coordinates: {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                },
-            };
-            axiosPatchUser(userData._id, coordinatesObj, userData.token)
-                .then(() => {
-                    coordinatesObj.coordinates.latitudeDelta = 2;
-                    coordinatesObj.coordinates.longitudeDelta = 2;
-                    dispatch(setUserCoordinates(coordinatesObj));
-                })
-                .catch((err) => alert(err));
-        }
-    }, [location]);
+        console.log("from home");
+        console.log(userData);
+    }, [userData]);
 
     return {
         homeState,

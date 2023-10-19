@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { timestampToDate } from "../../../../../../../utils/functions/timestampToDate";
+import { timestampToDate } from "../../../../../../../utils/functions";
 import styles from "./stepContainer.style";
 
 const StepContainer = ({ step }) => {

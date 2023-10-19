@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     ScrollView,
     Text,
@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch, useSelector } from "react-redux";
-import { useKeyboardStatus } from "../../../../hooks/useKeyboardStatus";
+import { useKeyboardStatus } from "../../../../hooks";
 import styles from "./formsContainer.style";
 import { axiosPostTips } from "../../../../utils/axios/tips";
 import {

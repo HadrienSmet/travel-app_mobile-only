@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useLanguagesArray } from "../../../../hooks/useLanguagesArray";
-import { useCountryArray } from "../../../../hooks/useCountryArray";
+import { useLanguagesArray, useCountryArray } from "../../../../hooks";
 import { axiosPatchUser } from "../../../../utils/axios/user";
 import { setUserData } from "../../../../features/userData.slice";
 

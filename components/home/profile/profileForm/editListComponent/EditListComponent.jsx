@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./editListComponent.style";
 import { COLORS, SHADES } from "../../../../../constants";
+import styles from "./editListComponent.style";
 
 const EditListComponent = ({
     componentTitle,

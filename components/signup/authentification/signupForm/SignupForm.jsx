@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-
-import styles from "./signupForm.style";
-import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-
+import { useRouter } from "expo-router";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../../features/userData.slice";
-import { useRouter } from "expo-router";
 import { axiosCheckMail } from "../../../../utils/axios/user";
+
+import { View, TouchableOpacity, Text } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import ConnexionInput from "../../../connexion/connexionInput/ConnexionInput";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
+import styles from "./signupForm.style";
 
 const useSignupEmail = () => {
     const [email, setEmail] = useState("");

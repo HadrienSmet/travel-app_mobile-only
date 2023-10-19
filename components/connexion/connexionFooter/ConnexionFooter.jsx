@@ -1,9 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
-
-import styles from "./connexionFooter.style";
 import { useRouter } from "expo-router";
+
 import { COLORS } from "../../../constants";
+import styles from "./connexionFooter.style";
 
 const ConnexionFooter = ({ firstWord, link }) => {
     const router = useRouter();

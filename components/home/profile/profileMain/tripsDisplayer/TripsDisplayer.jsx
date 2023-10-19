@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
-import styles from "./tripsDisplayer.style";
 import MarkerDetails from "./markerDetails/MarkerDetails";
 import MapContainer from "./mapContainer/MapContainer";
-import { useDispatch } from "react-redux";
 import { putPreviousTrip } from "../../../../../features/userData.slice";
+import styles from "./tripsDisplayer.style";
 
 const useTripsDisplayer = () => {
     const dispatch = useDispatch();

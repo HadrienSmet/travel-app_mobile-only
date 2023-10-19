@@ -2,8 +2,8 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosPushTrip } from "../../../../../../../utils/axios/user";
 import { setUserData } from "../../../../../../../features/userData.slice";
-import styles from "./detailsContent.style";
 import StepContainer from "../stepContainer/StepContainer";
+import styles from "./detailsContent.style";
 
 const useDetailsContent = (handleClose) => {
     const dispatch = useDispatch();

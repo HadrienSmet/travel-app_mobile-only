@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import TripForm from "../../../../common/tripForm/TripForm";
-import styles from "./editTripModal.style";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserPreviousTrips } from "../../../../../features/userData.slice";
 import { resetTrip } from "../../../../../features/tripData.slice";
 import { axiosPatchTrips } from "../../../../../utils/axios/user";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import TripForm from "../../../../common/tripForm/TripForm";
+import styles from "./editTripModal.style";
 
 const EditTripModal = ({ trip }) => {
     const userData = useSelector((state) => state.userDataReducer.userData);

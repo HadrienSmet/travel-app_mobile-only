@@ -1,7 +1,7 @@
 import { TextInput } from "react-native";
-import styles from "./connexionInput.style";
 import { useEffect, useState } from "react";
-import { COLORS, SHADES } from "../../../constants";
+import { COLORS } from "../../../constants";
+import styles from "./connexionInput.style";
 
 const ConnexionInput = ({
     numberOfLines,

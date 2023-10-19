@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import LoginLayout from "../components/login/loginLayout/LoginLayout";
 import {
     useFonts,
@@ -7,7 +8,6 @@ import {
 } from "@expo-google-fonts/inter";
 import { Cookie_400Regular } from "@expo-google-fonts/cookie";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback } from "react";
 
 SplashScreen.preventAutoHideAsync();
 

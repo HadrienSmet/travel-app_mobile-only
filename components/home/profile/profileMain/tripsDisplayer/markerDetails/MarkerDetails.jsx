@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
-import { axiosPatchTrips } from "../../../../../../utils/axios/user/axiosPatchTrips";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./markerDetails.style";
+import { timestampToDate } from "../../../../../../utils/functions";
+import { axiosPatchTrips } from "../../../../../../utils/axios/user";
 import { COLORS } from "../../../../../../constants";
+import styles from "./markerDetails.style";
 
 const useMarkerDetails = (selectedMarker, newLocation) => {
     const userData = useSelector((state) => state.userDataReducer.userData);

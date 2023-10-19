@@ -1,9 +1,8 @@
-import { View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./appFooter.style";
-import { COLORS, SHADES } from "../../../constants";
 import { useEffect, useState } from "react";
+import { View, TouchableOpacity } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { COLORS, SHADES } from "../../../constants";
+import styles from "./appFooter.style";
 
 const defaultStyle = { color: SHADES.black04 };
 const selectedStyle = { color: COLORS.secondary };

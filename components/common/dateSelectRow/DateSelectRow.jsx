@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 
-import { dateToTimestamp } from "../../../utils/functions/dateToTimestamp";
-import { useDateData } from "../../../hooks/useDateData";
-import { monthArray } from "../../../data/numberOfDaysArray";
+import { dateToTimestamp } from "../../../utils/functions";
+import { useDateData } from "../../../hooks";
+import { monthArray } from "../../../data";
 
 import { COLORS, SHADES } from "../../../constants";
 import styles from "./dateSelectRow.style";

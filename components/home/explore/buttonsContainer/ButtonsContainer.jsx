@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome5";
-import { TouchableOpacity, View } from "react-native";
-import styles from "./buttonsContainer.style";
+import { useState } from "react";
+import { View } from "react-native";
 import AddingButtons from "./addingButtons/AddingButtons";
 import FilteringButtons from "./filteringButtons/FilteringButtons";
 import LearningButtons from "./learningButtons/LearningButtons";
+import styles from "./buttonsContainer.style";
 
 const ButtonsContainer = ({
     isLookingSomething,

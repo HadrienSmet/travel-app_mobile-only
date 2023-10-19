@@ -1,8 +1,8 @@
 import { SafeAreaView } from "react-native";
+import { useKeyboardStatus } from "../hooks";
 import ConnexionHeader from "../components/connexion/connexionHeader/ConnexionHeader";
 import ConnexionFooter from "../components/connexion/connexionFooter/ConnexionFooter";
 import ProfilePictureMain from "../components/signup/profilePicture/profilePictureMain/ProfilePictureMain";
-import { useKeyboardStatus } from "../hooks/useKeyboardStatus";
 
 const profilePicture = () => {
     const keyboardStatus = useKeyboardStatus();

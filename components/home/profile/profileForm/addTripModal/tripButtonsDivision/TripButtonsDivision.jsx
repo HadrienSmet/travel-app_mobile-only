@@ -1,4 +1,3 @@
-import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import styles from "./tripButtonsDivision.style";

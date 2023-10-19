@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDirections } from "../../../../../../hooks/useDirections";
+import { useDirections } from "../../../../../../hooks";
 import { GOOGLE_API_KEY } from "@env";
 
 import MapView from "react-native-maps";
@@ -7,7 +8,6 @@ import MapViewDirections from "react-native-maps-directions";
 import MapPin from "../../../../../common/mapPin/MapPin";
 
 import styles from "./mapContainer.style";
-import { useEffect, useState } from "react";
 
 const useMapContainer = () => {
     const tripData = useSelector((state) => state.tripDataReducer.tripData);

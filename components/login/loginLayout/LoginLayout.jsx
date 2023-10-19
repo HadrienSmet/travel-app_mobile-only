@@ -5,7 +5,7 @@ import { COLORS } from "../../../constants";
 import ConnexionFooter from "../../connexion/connexionFooter/ConnexionFooter";
 import ConnexionHeader from "../../connexion/connexionHeader/ConnexionHeader";
 import LoginMain from "../loginMain/LoginMain";
-import { useKeyboardStatus } from "../../../hooks/useKeyboardStatus";
+import { useKeyboardStatus } from "../../../hooks";
 
 const LoginLayout = () => {
     const keyboardStatus = useKeyboardStatus();

@@ -5,9 +5,9 @@ import { useRouter } from "expo-router";
 import { axiosSignIn } from "../../../utils/axios/user";
 
 import ConnexionInput from "../../connexion/connexionInput/ConnexionInput";
-import styles from "./loginForm.style";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../features/userData.slice";
+import styles from "./loginForm.style";
 
 const LoginForm = () => {
     const router = useRouter();

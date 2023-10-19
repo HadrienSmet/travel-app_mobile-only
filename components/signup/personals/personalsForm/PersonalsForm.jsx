@@ -6,7 +6,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../../features/userData.slice";
 
-import { useCountryArray } from "../../../../hooks/useCountryArray";
+import { useCountryArray } from "../../../../hooks";
 import ConnexionInputContainer from "../../../connexion/connexionInputContainer/ConnexionInputContainer";
 
 import { COLORS, SHADES, nationalitiesArray } from "../../../../constants";

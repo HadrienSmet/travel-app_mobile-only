@@ -1,9 +1,9 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MarkersDisplayer from "../markersDisplayer/MarkersDisplayer";
+import { timestampToDate } from "../../../../../../utils/functions";
 import { SHADES } from "../../../../../../constants";
 import styles from "./tripStepsDivision.style";
-import MarkersDisplayer from "../markersDisplayer/MarkersDisplayer";
-import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
 
 const TripStepsDivision = ({
     isStepsAccordionOpen,

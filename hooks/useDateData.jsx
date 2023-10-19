@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { monthArray } from "../data/numberOfDaysArray";
+import { monthArray } from "../data";
 
 export const useDateData = (dateContext) => {
     const fillDayData = () => {

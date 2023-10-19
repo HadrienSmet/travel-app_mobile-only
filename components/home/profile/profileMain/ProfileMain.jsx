@@ -1,9 +1,9 @@
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
-import styles from "./profileMain.style";
 import { useSelector } from "react-redux";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
-import { COLORS } from "../../../../constants";
 import TripsDisplayer from "./tripsDisplayer/TripsDisplayer";
+import { COLORS } from "../../../../constants";
+import styles from "./profileMain.style";
 
 const ProfileMain = ({ handleEdit }) => {
     const userData = useSelector((state) => state.userDataReducer.userData);

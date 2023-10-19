@@ -1,4 +1,3 @@
-import React from "react";
 import { Image, View, ScrollView, Text } from "react-native";
 import PersonalsForm from "../personalsForm/PersonalsForm";
 import styles from "./personalsMain.style";

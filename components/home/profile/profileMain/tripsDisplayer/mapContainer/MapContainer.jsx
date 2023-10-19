@@ -2,14 +2,14 @@ import { GOOGLE_API_KEY } from "@env";
 import { useSelector } from "react-redux";
 import { Dimensions } from "react-native";
 import { useEffect, useState } from "react";
-import { useDirections } from "../../../../../../hooks/useDirections";
+import { useDirections } from "../../../../../../hooks";
 
 import MapView from "react-native-maps";
+import DraggableMapPin from "../../../../../common/draggableMapPin/DraggableMapPin";
 import MapPin from "../../../../../common/mapPin/MapPin";
 import MapViewDirections from "react-native-maps-directions";
 
 import styles from "./mapContainer.style";
-import DraggableMapPin from "../../../../../common/draggableMapPin/DraggableMapPin";
 
 const { width, height } = Dimensions.get("window");
 

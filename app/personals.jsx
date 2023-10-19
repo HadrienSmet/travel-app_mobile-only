@@ -3,7 +3,7 @@ import ConnexionHeader from "../components/connexion/connexionHeader/ConnexionHe
 import ConnexionFooter from "../components/connexion/connexionFooter/ConnexionFooter";
 import { COLORS } from "../constants";
 import PersonalsMain from "../components/signup/personals/personalsMain/PersonalsMain";
-import { useKeyboardStatus } from "../hooks/useKeyboardStatus";
+import { useKeyboardStatus } from "../hooks";
 
 const authentification = () => {
     const keyboardStatus = useKeyboardStatus();

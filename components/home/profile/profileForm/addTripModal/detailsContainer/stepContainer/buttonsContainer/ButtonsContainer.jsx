@@ -1,7 +1,7 @@
 import { TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./buttonsContainer.style";
 import { COLORS } from "../../../../../../../../constants";
+import styles from "./buttonsContainer.style";
 
 const ButtonsContainer = ({ isEditing, setEditing }) => {
     return (

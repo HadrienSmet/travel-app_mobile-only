@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./detailsHeader.style";
-import { useSelector } from "react-redux";
 
 const DetailsHeader = ({ areDetailsVisible, toggleDetails }) => {
     const tripData = useSelector((state) => state.tripDataReducer.tripData);

@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { ScrollView } from "react-native";
 import { useSelector } from "react-redux";
+import { ageCalculator } from "../../../utils/functions";
+
 import ProfileHeader from "./profileHeader/ProfileHeader";
 import ProfileMain from "./profileMain/ProfileMain";
-import { useEffect, useState } from "react";
 import ProfileForm from "./profileForm/ProfileForm";
-import { ageCalculator } from "../../../utils/functions/ageCalculator";
 
 const Profile = () => {
     const userData = useSelector((state) => state.userDataReducer.userData);

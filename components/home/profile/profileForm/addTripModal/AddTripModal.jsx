@@ -5,13 +5,13 @@ import { pushStep, resetTrip } from "../../../../../features/tripData.slice";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 
-import styles from "./addTripModal.style";
 import PopupForm from "./popupForm/PopupForm";
 import StepForm from "./stepForm/StepForm";
 import TripButtonsDivision from "./tripButtonsDivision/TripButtonsDivision";
 import DetailsContainer from "./detailsContainer/DetailsContainer";
 import MapContainer from "./mapContainer/MapContainer";
 import BackButton from "./backButton/BackButton";
+import styles from "./addTripModal.style";
 
 const useTripModal = () => {
     const [isPopupVisible, setPopupVisible] = useState(true);

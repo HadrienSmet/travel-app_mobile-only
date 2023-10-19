@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import styles from "./addAlbumModal.style";
-import { useEffect, useState } from "react";
 import ModalHeader from "./modalHeader/ModalHeader";
 import ModalForm from "./modalForm/ModalForm";
+import styles from "./addAlbumModal.style";
 
 const useAddAlbumModal = () => {
     const [urlArray, setUrlArray] = useState([]);

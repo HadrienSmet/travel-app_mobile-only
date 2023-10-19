@@ -1,7 +1,6 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import styles from "./userHeader.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const UserHeader = ({ username }) => {
     return (

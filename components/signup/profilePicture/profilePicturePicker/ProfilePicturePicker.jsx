@@ -44,8 +44,7 @@ const ProfilePicturePicker = () => {
                 .then((res) => {
                     // axiosPutCoverPicture(res, formData)
                     //     .then((res) => {
-                    // dispatch(setUserData(res.data));
-                    dispatch(setUserData(res.data));
+                    dispatch(setUserData(res.data._doc));
                     router.push("/home");
                     // })
                     // .catch((err) => console.log(err));

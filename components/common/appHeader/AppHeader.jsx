@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 import { View } from "react-native";
 
-import styles from "./appHeader.style";
 import TravelAppSvg from "../travelappSvg/TravelappSvg";
 import RightButtons from "./rightButtons/RightButtons";
+import styles from "./appHeader.style";
 
 const AppHeader = () => {
     return (

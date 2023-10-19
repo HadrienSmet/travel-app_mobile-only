@@ -6,8 +6,8 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import styles from "./stepForm.style";
 import DateSelectRow from "../../../../../common/dateSelectRow/DateSelectRow";
+import styles from "./stepForm.style";
 
 const useStepForm = () => {
     const [content, setContent] = useState("");

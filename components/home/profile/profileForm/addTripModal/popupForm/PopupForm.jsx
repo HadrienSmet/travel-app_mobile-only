@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { useDispatch, useSelector } from "react-redux";
 import { patchTrip } from "../../../../../../features/tripData.slice";
-import { travelerTypeArray } from "../../../../../../data/travelerTypeArray";
+import { travelerTypeArray } from "../../../../../../data";
 import ColorDivision from "./colorDivision/ColorDivision";
 import styles from "./popuForm.style";
 

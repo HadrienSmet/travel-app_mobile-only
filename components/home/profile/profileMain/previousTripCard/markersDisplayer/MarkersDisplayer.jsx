@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { GOOGLE_API_KEY } from "@env";
+import { useDirections } from "../../../../../../hooks";
+import { timestampToDate } from "../../../../../../utils/functions";
+
 import { Dimensions, Modal, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
-import MapView from "react-native-maps";
-import styles from "./markersDisplayer.style";
-import { timestampToDate } from "../../../../../../utils/functions/timestampToDate";
-import MapPin from "../../../../../common/mapPin/MapPin";
 import MapViewDirections from "react-native-maps-directions";
-import { GOOGLE_API_KEY } from "@env";
-import { useDirections } from "../../../../../../hooks/useDirections";
+import MapView from "react-native-maps";
+import MapPin from "../../../../../common/mapPin/MapPin";
+import styles from "./markersDisplayer.style";
 
 const { width, height } = Dimensions.get("window");
 
