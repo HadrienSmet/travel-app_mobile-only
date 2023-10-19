@@ -1,41 +1,59 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native";
-import { useSelector } from "react-redux";
-import { useKeyboardStatus, useUserLocation } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { useKeyboardStatus } from "../hooks";
 
 import AppFooter from "../components/common/appFooter/AppFooter";
 import AppHeader from "../components/common/appHeader/AppHeader";
 import HomeMain from "../components/home/homeMain/HomeMain";
 import { COLORS } from "../constants";
-// import { setUserCoordinates } from "../features/userData.slice";
-// import { axiosPatchUser } from "../utils/axios/user";
+import { setUserCoordinates } from "../features/userData.slice";
+import { axiosPatchUser } from "../utils/axios/user";
+import * as Location from "expo-location";
 
 const useHome = () => {
     const [homeState, setHomeState] = useState("matcher");
-    useUserLocation();
+    const [isNewLocation, setIsNewLocation] = useState(false);
+    const [location, setLocation] = useState(null);
     const keyboardStatus = useKeyboardStatus();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const userData = useSelector((state) => state.userDataReducer.userData);
 
-    // useEffect(() => {
-    //     if (latitude && longitude) {
-    //         const coordinatesObj = { coordinates: { latitude, longitude } };
-    //         console.log("coordinatesObj");
-    //         console.log(coordinatesObj);
-    //         axiosPatchUser(userData._id, coordinatesObj, userData.token)
-    //             .then(() => {
-    //                 coordinatesObj.coordinates.latitudeDelta = 2;
-    //                 coordinatesObj.coordinates.longitudeDelta = 2;
-    //                 dispatch(setUserCoordinates(coordinatesObj));
-    //             })
-    //             .catch((err) => alert(err));
-    //     }
-    // }, [latitude, longitude]);
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                setErrorMsg("Permission to access location was denied");
+                return;
+            }
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location.coords);
+        })();
+    }, []);
 
     useEffect(() => {
-        console.log("from home");
-        console.log(userData);
-    }, [userData]);
+        if (
+            location &&
+            location.latitude &&
+            location.longitude &&
+            !isNewLocation
+        ) {
+            const coordsObj = {
+                coordinates: {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                },
+            };
+            axiosPatchUser(userData._id, coordsObj, userData.token)
+                .then(() => {
+                    coordsObj.coordinates.latitudeDelta = 2;
+                    coordsObj.coordinates.longitudeDelta = 2;
+                    dispatch(setUserCoordinates(coordsObj.coordinates));
+                    setIsNewLocation(true);
+                })
+                .catch((err) => alert(err));
+        }
+    }, [location, isNewLocation]);
 
     return {
         homeState,

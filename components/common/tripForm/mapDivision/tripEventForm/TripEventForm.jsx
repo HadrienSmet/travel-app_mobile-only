@@ -1,5 +1,5 @@
 import { Text, TextInput, View, TouchableOpacity } from "react-native";
-import DatePickerRow from "../../../datePickerRow/DatePickerRow";
+// import DatePickerRow from "../../../datePickerRow/DatePickerRow";
 import { useState } from "react";
 import styles from "./tripEventForm.style";
 import DateSelectRow from "../../../dateSelectRow/DateSelectRow";

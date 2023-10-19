@@ -7,7 +7,7 @@ export const axiosPatchUser = async (userId, data, token) => {
         method: "patch",
         data: data,
         headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             authorization: `bearer ${token}`,
         },
     });

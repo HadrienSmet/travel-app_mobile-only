@@ -1,44 +1,44 @@
 {
-  "expo": {
-    "ios": {
-      "config": {
-        "usesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "package": "com.hadricompany.travelapp",
-      "versionCode": 1,
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.FOREGROUND_SERVICE"
-      ]
-    },
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
-    },
-    "name": "travel-app_mobile-only",
-    "slug": "travel-app_mobile-only",
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+    "expo": {
+        "ios": {
+            "config": {
+                "usesNonExemptEncryption": false
+            }
+        },
+        "android": {
+            "package": "com.hadricompany.travelapp",
+            "versionCode": 1,
+            "permissions": [
+                "android.permission.RECORD_AUDIO",
+                "android.permission.ACCESS_COARSE_LOCATION",
+                "android.permission.ACCESS_FINE_LOCATION",
+                "android.permission.FOREGROUND_SERVICE"
+            ]
+        },
+        "scheme": "acme",
+        "web": {
+            "bundler": "metro"
+        },
+        "name": "travel-app_mobile-only",
+        "slug": "travel-app_mobile-only",
+        "plugins": [
+            [
+                "expo-image-picker",
+                {
+                    "photosPermission": "The app accesses your photos to let you share them with your friends."
+                }
+            ],
+            [
+                "expo-location",
+                {
+                    "locationAlwaysAndWhenInUsePermission": "Allow travel-app_mobile-only to use your location."
+                }
+            ]
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "d27c2d33-cf8b-4ed6-a55c-afe989bd0ffb"
+            }
         }
-      ],
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "Allow TravelApp to use your location."
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "d27c2d33-cf8b-4ed6-a55c-afe989bd0ffb"
-      }
     }
-  }
 }

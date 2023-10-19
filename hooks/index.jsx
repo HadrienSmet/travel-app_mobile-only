@@ -5,7 +5,6 @@ import { useDirections } from "./useDirections";
 import { useKeyboardStatus } from "./useKeyboardStatus";
 import { useLanguagesArray } from "./useLanguagesArray";
 import { useTripDuration } from "./useTripDuration";
-import { useUserLocation } from "./useUserLocation";
 
 export {
     useAgeArray,
@@ -15,5 +14,4 @@ export {
     useKeyboardStatus,
     useLanguagesArray,
     useTripDuration,
-    useUserLocation,
 };
