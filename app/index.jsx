@@ -8,6 +8,7 @@ import {
 } from "@expo-google-fonts/inter";
 import { Cookie_400Regular } from "@expo-google-fonts/cookie";
 import * as SplashScreen from "expo-splash-screen";
+import RankLayout from "../components/RankLayout";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +26,8 @@ const Index = () => {
 
     if (!fontsLoaded) return null;
 
-    return <LoginLayout onLayout={onLayoutRootView} />;
+    // return <LoginLayout onLayout={onLayoutRootView} />;
+    return <RankLayout />;
 };
 
 export default Index;
